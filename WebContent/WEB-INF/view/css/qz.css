@@ -1,0 +1,224 @@
+/*
+    Created on : May 28, 2014, 10:09:02 AM
+    Author     : xiangfei
+*/
+/*base-css*/
+.btn {
+   background: #192D67;
+   padding: 5px;
+   text-align: center;
+   display: inline-block;
+   color: white;
+}
+
+select {
+   border: 1px solid #DDDDDD;
+   height: 24px;
+   line-height: 20px;
+   outline: 0 none;
+}
+
+input {
+   border: 1px solid #DDDDDD;
+   height: 24px;
+   line-height: 20px;
+   outline: 0 none;
+   padding: 0 5px;
+}
+
+textarea {
+   border: 1px solid #DDDDDD;
+   line-height: 20px;
+   outline: 0 none;
+   padding: 0 10px;
+}
+
+a {
+   text-decoration: none;
+}
+
+.fn-clear {
+
+}
+
+.fn-clear:after {
+   clear: both;
+   content: " ";
+   display: block;
+   font-size: 0;
+   height: 0;
+   visibility: hidden;
+}
+
+/*-------top-------*/
+.easyui-layout .qz-top {
+   padding: 0px 15px;
+   background: #E0ECFF;
+   color: white;
+   font-weight: bold;
+   font-size: 16px;
+   overflow: hidden;
+}
+.qz-top .exit {
+   float: right;
+   cursor: pointer;
+   color: #fff;
+}
+
+.qz-top .exit:hover {
+   color: #474747;
+}
+
+#qz_menu{
+   width:100px;
+   float: right;
+   margin-left:-5px;
+   font-size: 13.5px;
+   margin-right: 5px;
+   z-index: 9999;
+   text-align: center;
+}
+#qz_menu li{
+   list-style: none;
+   padding: 3px 0 0 0;
+}
+#qz_menu li:hover{
+   background:#fff;
+}
+#qz_menu li:hover .qz_set{
+   color: #093
+}
+#qz_menu li .qz_set{
+   display: block;
+   padding: 10px;
+   color: #fff;
+   text-decoration: none;
+}
+#setMenu{
+   position: fixed;
+   top:30px;
+   right: 48px;
+   width: 150px;
+   background: #fff;
+   border:1px solid #5FB702;
+   border-top: none;
+   text-align: center;
+   font-size: 12px;
+}
+#setMenu a{
+   display: block;
+   height: 25px;
+   padding:5px; 
+   line-height: 25px;
+   color: #093
+}
+#setMenu a:hover{
+   background: #e7fde8;
+   color: #333;
+   /*   border-top: 1px #93c660 dashed;
+      border-bottom: 1px #93c660 dashed;*/
+}
+
+#exit{
+   float:right;
+   font-size: 13.5px;
+   margin-top: 13px
+}
+#exit a{
+   color: #fff
+}
+#exit a:hover{
+   color: #000;
+}
+/*------left--------*/
+.qz-left {
+   width: 200px;
+}
+
+.qz-left .garden {
+   display: block;
+   background: #E4EDE1;
+   font-size: 15px;
+   margin-bottom: 1px;
+   cursor: pointer;
+   padding: 5px 0;
+   text-decoration: none;
+}
+
+.qz-left .garden.selected {
+   background: #5fb702;
+   color: #000000;
+}
+
+.qz-left .garden .name {
+   display: inline-block;
+   margin-left: 10px;
+   color: #000000;
+}
+
+.qz-left .garden .enter {
+   float: right;
+   display: inline-block;
+   color: #000000;
+   font-size: 12px;
+   line-height: 25px;
+   margin-right: 10px;
+}
+#gerdenList:hover{
+   background: #7AB3CF;
+}
+/*------qz-profile------*/
+
+.qz-profile {
+   padding: 20px;
+}
+
+.qz-profile .row {
+   padding: 10px;
+}
+
+.qz-profile .row label {
+   font-weight: bold;
+}
+
+/*-------qz-user--------*/
+.qz-user {
+   padding: 20px;
+}
+
+/*----------qz-content----------*/
+.qz-content {
+   padding: 20px;
+}
+
+/*-----------qz-publish----------*/
+.qz-publish {
+   padding: 20px;
+}
+/*---------qz_psw-----------*/
+.qz_psw_left{
+   text-align: right;
+}
+#qz_psw_form input{
+   border-radius:5px;
+   width: 250px;
+}
+#qz_psw_form input:hover{
+   background:#eee;
+}
+/*------------user----------------*/
+#tb_user_info th{
+   text-align:right;
+   /*width:150px;*/
+   /*background:#eee;*/
+}
+#tb_user_info td{
+   width:250px;
+}
+#tb_user_info input{
+   border-radius: 5px;
+}
+#tb_user_info{
+   margin:10px auto;
+   width:600px;
+}

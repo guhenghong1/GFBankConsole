@@ -1,0 +1,242 @@
+/*
+ * Copyright (c) 2014. 广州互动生活网络科技有限公司.All Rights Reserved.
+ */
+
+/** 广告管理模块样式**/
+/*-------ad--------*/
+.ad {
+    padding: 2px;
+}
+
+/*base-css*/
+.btn {
+    background: #5FB702;
+    padding: 5px;
+    line-height: 15px;
+    text-align: center;
+    display: inline-block;
+    color: white;
+}
+
+select {
+    border: 1px solid #DDDDDD;
+    height: 24px;
+    line-height: 20px;
+    outline: 0 none;
+}
+
+input {
+    border: 1px solid #DDDDDD;
+    height: 24px;
+    line-height: 20px;
+    outline: 0 none;
+    padding: 0 5px;
+}
+
+textarea {
+    border: 1px solid #DDDDDD;
+    line-height: 20px;
+    outline: 0 none;
+    padding: 0 10px;
+    font-size: 14px;
+    height: 80px;
+    width: 180px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.red {
+    color: red;
+}
+
+.width100 {
+    width: 100px;
+}
+
+.desc-title {
+    width: 920px;
+    height: 50px;
+}
+
+.desc-title .title {
+    display: inline-block;
+}
+
+#fm {
+    margin: 0;
+    padding: 10px;
+}
+
+.ftitle {
+    font-size: 14px;
+    font-weight: bold;
+    padding: 5px 0;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.fitem {
+    margin-bottom: 5px;
+}
+
+.uninput, label {
+    margin-top: 2px;
+    vertical-align: top;
+}
+
+.fitem label {
+    display: inline-block;
+    width: 80px;
+    text-align: right;
+}
+
+.sub-menu {
+    border-bottom: 2px solid #093;
+}
+
+.sub-menu .sub-item {
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #474747;
+    display: inline-block;
+    padding: 5px;
+}
+
+.menu-panels {
+    margin-top: 20px;
+}
+
+.menu-panels .menu-panel {
+    display: none;
+}
+
+/*-------ad client --------*/
+.ad-client .add-client {
+    margin: 5px 0px;
+}
+
+.ad-client .add-client-panel {
+    display: none;
+}
+
+.add-client-content {
+    margin: 20px;
+}
+
+.add-client-content .content-item {
+    display: block;
+    margin: 5px;
+}
+
+.content-item .item-left {
+    display: inline-block;
+    width: 80px;
+    text-align: right;
+}
+
+.content-item .item-right {
+    display: inline-block;
+    width: 350px;
+}
+
+.location-desc {
+    width: 1150px;
+}
+
+.location {
+    width: 920px;
+    height: 1200px;
+    display: inline-block;
+}
+
+.preview-config {
+    display: inline-block;
+    width: 200px;
+    vertical-align: top;
+    margin-top: 50px;
+}
+
+.preview-config .title {
+    height: 30px;
+    text-align: center;
+}
+
+.preview-config .preview-date-slider {
+    height: 300px;
+    margin: 20px;
+    padding-left: 60px;
+    text-align: center;
+}
+
+.desc-content {
+    width: 900px;
+    height: 1200px;
+    background: #E4EDE1;
+    padding: 0 10px;
+}
+
+.content {
+    display: inline-block;
+    width: 720px;
+    background: #ffffff;
+    vertical-align: top;
+    border: 1px solid #DDDDDD;
+}
+
+.content .gardenInfo .garden-info {
+    height: 50px;
+}
+
+.content .gardenInfo .garden-img .bg {
+    float: left;
+}
+
+.content .gardenInfo .garden-img .photo {
+    float: right;
+}
+
+.desc-content .sidebar {
+    display: inline-block;
+    width: 150px;
+    float: right;
+}
+
+.desc-content .sidebar img {
+    opacity: .75;
+}
+
+.R1 {
+    background: #e4ede1 url(/images/R1.png) no-repeat;
+}
+
+.R2 {
+    background: #e4ede1 url(/images/R2.png) no-repeat;
+}
+
+.R3 {
+    background: #e4ede1 url(/images/R3.png) no-repeat;
+}
+
+.R4 {
+    background: #e4ede1 url(/images/R4.png) no-repeat;
+}
+
+.R5 {
+    background: #e4ede1 url(/images/R5.png) no-repeat;
+}
+
+.R6 {
+    background: #e4ede1 url(/images/R6.png) no-repeat;
+}
+
+.sidebar .ad-location {
+    margin-bottom: 7px;
+}
+
+.publish-ad {
+    text-align: center;
+    height: 30px;
+}

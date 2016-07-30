@@ -1,0 +1,36 @@
+12:42:54.544 [main] DEBUG org.apache.ibatis.logging.LogFactory - Logging initialized using 'class org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+12:42:54.794 [MLog-Init-Reporter] INFO  com.mchange.v2.log.MLog - MLog clients using slf4j logging.
+12:42:54.860 [MLog-Init-Reporter] DEBUG com.mchange.v2.log.MLog - Reading VM config for path list /com/mchange/v2/log/default-mchange-log.properties, /mchange-commons.properties, /c3p0.properties, hocon:/reference,/application,/c3p0,/, /mchange-log.properties, /
+12:42:54.860 [MLog-Init-Reporter] DEBUG com.mchange.v2.log.MLog - The configuration file for resource identifier '/mchange-commons.properties' could not be found. Skipping.
+12:42:54.861 [MLog-Init-Reporter] DEBUG com.mchange.v2.log.MLog - The configuration file for resource identifier '/c3p0.properties' could not be found. Skipping.
+12:42:54.861 [MLog-Init-Reporter] DEBUG com.mchange.v2.log.MLog - The configuration file for resource identifier 'hocon:/reference,/application,/c3p0,/' could not be found. Skipping.
+12:42:54.861 [MLog-Init-Reporter] DEBUG com.mchange.v2.log.MLog - The configuration file for resource identifier '/mchange-log.properties' could not be found. Skipping.
+12:42:54.866 [main] DEBUG com.mchange.v2.cfg.MConfig - The configuration file for resource identifier '/mchange-commons.properties' could not be found. Skipping.
+12:42:54.867 [main] DEBUG com.mchange.v2.cfg.MConfig - The configuration file for resource identifier '/mchange-log.properties' could not be found. Skipping.
+12:42:54.867 [main] DEBUG com.mchange.v2.cfg.MConfig - The configuration file for resource identifier 'hocon:/reference,/application,/c3p0,/' could not be found. Skipping.
+12:42:54.867 [main] DEBUG com.mchange.v2.cfg.MConfig - The configuration file for resource identifier '/c3p0.properties' could not be found. Skipping.
+12:42:55.777 [main] INFO  com.mchange.v2.c3p0.C3P0Registry - Initializing c3p0-0.9.5.2 [built 08-December-2015 22:06:04 -0800; debug? true; trace: 10]
+12:42:55.857 [main] DEBUG c.m.v.c.m.DynamicPooledDataSourceManagerMBean - MBean: com.mchange.v2.c3p0:type=PooledDataSource,identityToken=1b60hsb9h1l5bxpe1do1rq4|4e452646,name=1b60hsb9h1l5bxpe1do1rq4|4e452646 registered.
+12:42:55.925 [main] DEBUG c.m.v.c.m.DynamicPooledDataSourceManagerMBean - MBean: com.mchange.v2.c3p0:type=PooledDataSource,identityToken=1b60hsb9h1l5bxpe1do1rq4|4e452646,name=1b60hsb9h1l5bxpe1do1rq4|4e452646 unregistered, in order to be reregistered after update.
+12:42:55.926 [main] DEBUG c.m.v.c.m.DynamicPooledDataSourceManagerMBean - MBean: com.mchange.v2.c3p0:type=PooledDataSource,identityToken=1b60hsb9h1l5bxpe1do1rq4|4e452646,name=1b60hsb9h1l5bxpe1do1rq4|4e452646 registered.
+12:42:57.043 [main] DEBUG org.mybatis.spring.SqlSessionFactoryBean - Parsed configuration file: 'class path resource [mybatis/mybatis-config.xml]'
+12:42:57.116 [main] DEBUG org.mybatis.spring.SqlSessionFactoryBean - Parsed mapper file: 'file [E:\Workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp3\wtpwebapps\WaterWorks\WEB-INF\classes\com\water\works\mapping\userMapper.xml]'
+13:35:14.423 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] DEBUG c.m.v2.c3p0.management.ActiveManagementCoordinator - MBean: com.mchange.v2.c3p0:type=PooledDataSource,identityToken=1b60hsb9h1l5bxpe1do1rq4|4e452646,name=1b60hsb9h1l5bxpe1do1rq4|4e452646 unregistered.
+13:35:14.424 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] DEBUG c.m.v2.c3p0.management.ActiveManagementCoordinator - C3P0Registry mbean unregistered.
+13:35:19.399 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] DEBUG org.apache.ibatis.logging.LogFactory - Logging initialized using 'class org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+13:35:19.633 [MLog-Init-Reporter] INFO  com.mchange.v2.log.MLog - MLog clients using slf4j logging.
+13:35:19.743 [MLog-Init-Reporter] DEBUG com.mchange.v2.log.MLog - Reading VM config for path list /com/mchange/v2/log/default-mchange-log.properties, /mchange-commons.properties, /c3p0.properties, hocon:/reference,/application,/c3p0,/, /mchange-log.properties, /
+13:35:19.744 [MLog-Init-Reporter] DEBUG com.mchange.v2.log.MLog - The configuration file for resource identifier '/mchange-commons.properties' could not be found. Skipping.
+13:35:19.744 [MLog-Init-Reporter] DEBUG com.mchange.v2.log.MLog - The configuration file for resource identifier '/c3p0.properties' could not be found. Skipping.
+13:35:19.744 [MLog-Init-Reporter] DEBUG com.mchange.v2.log.MLog - The configuration file for resource identifier 'hocon:/reference,/application,/c3p0,/' could not be found. Skipping.
+13:35:19.744 [MLog-Init-Reporter] DEBUG com.mchange.v2.log.MLog - The configuration file for resource identifier '/mchange-log.properties' could not be found. Skipping.
+13:35:19.747 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] DEBUG com.mchange.v2.cfg.MConfig - The configuration file for resource identifier '/mchange-commons.properties' could not be found. Skipping.
+13:35:19.747 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] DEBUG com.mchange.v2.cfg.MConfig - The configuration file for resource identifier '/mchange-log.properties' could not be found. Skipping.
+13:35:19.748 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] DEBUG com.mchange.v2.cfg.MConfig - The configuration file for resource identifier 'hocon:/reference,/application,/c3p0,/' could not be found. Skipping.
+13:35:19.748 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] DEBUG com.mchange.v2.cfg.MConfig - The configuration file for resource identifier '/c3p0.properties' could not be found. Skipping.
+13:35:20.393 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] INFO  com.mchange.v2.c3p0.C3P0Registry - Initializing c3p0-0.9.5.2 [built 08-December-2015 22:06:04 -0800; debug? true; trace: 10]
+13:35:20.622 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] DEBUG c.m.v.c.m.DynamicPooledDataSourceManagerMBean - MBean: com.mchange.v2.c3p0:type=PooledDataSource,identityToken=1b60hsb9h1l77ccd1lq1wxk|5ec4b942,name=1b60hsb9h1l77ccd1lq1wxk|5ec4b942 registered.
+13:35:20.697 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] DEBUG c.m.v.c.m.DynamicPooledDataSourceManagerMBean - MBean: com.mchange.v2.c3p0:type=PooledDataSource,identityToken=1b60hsb9h1l77ccd1lq1wxk|5ec4b942,name=1b60hsb9h1l77ccd1lq1wxk|5ec4b942 unregistered, in order to be reregistered after update.
+13:35:20.697 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] DEBUG c.m.v.c.m.DynamicPooledDataSourceManagerMBean - MBean: com.mchange.v2.c3p0:type=PooledDataSource,identityToken=1b60hsb9h1l77ccd1lq1wxk|5ec4b942,name=1b60hsb9h1l77ccd1lq1wxk|5ec4b942 registered.
+13:35:21.171 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] DEBUG org.mybatis.spring.SqlSessionFactoryBean - Parsed configuration file: 'class path resource [mybatis/mybatis-config.xml]'
+13:35:21.282 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] DEBUG org.mybatis.spring.SqlSessionFactoryBean - Parsed mapper file: 'file [E:\Workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp3\wtpwebapps\WaterWorks\WEB-INF\classes\com\water\works\mapping\userMapper.xml]'

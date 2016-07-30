@@ -1,0 +1,188 @@
+.btn {
+    background: #5fb702;
+    padding: 5px;
+    text-align: center;
+    display: inline-block;
+    color: white
+}
+
+select {
+    border: 1px solid #ddd;
+    height: 24px;
+    line-height: 20px;
+    outline: 0 none
+}
+
+input {
+    border: 1px solid #ddd;
+    height: 24px;
+    line-height: 20px;
+    outline: 0 none;
+    padding: 0 5px
+}
+
+textarea {
+    border: 1px solid #ddd;
+    line-height: 20px;
+    outline: 0 none;
+    padding: 0 10px
+}
+
+a {
+    text-decoration: none
+}
+
+.fn-clear:after {
+    clear: both;
+    content: " ";
+    display: block;
+    font-size: 0;
+    height: 0;
+    visibility: hidden
+}
+
+.easyui-layout .qz-top {
+    padding: 0 15px;
+    background: #5fb702;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    overflow: hidden;
+    z-index: 9999
+}
+
+.qz-top .exit {
+    float: right;
+    cursor: pointer;
+    color: #fff
+}
+
+.qz-top .exit:hover {
+    color: #474747
+}
+
+#qz_menu {
+    width: 75px;
+    float: right;
+    margin-left: -5px;
+    font-size: 12px;
+    margin-right: 5px
+}
+
+#qz_menu li {
+    list-style: none
+}
+
+#qz_menu li:hover {
+    background: #fff
+}
+
+#qz_menu li:hover a {
+    color: #5fb702
+}
+
+#qz_menu li a {
+    display: block;
+    padding: 10px;
+    color: #fff;
+    text-decoration: none
+}
+
+#exit {
+    float: right;
+    font-size: 12px;
+    margin-top: 10px
+}
+
+#exit a {
+    color: #fff
+}
+
+#exit a:hover {
+    color: #000
+}
+
+.qz-left {
+    width: 200px
+}
+
+.qz-left .garden {
+    display: block;
+    background: #e4ede1;
+    font-size: 15px;
+    margin-bottom: 1px;
+    cursor: pointer;
+    padding: 5px 0;
+    text-decoration: none
+}
+
+.qz-left .garden.selected {
+    background: #7ab3cf;
+    color: #000
+}
+
+.qz-left .garden .name {
+    display: inline-block;
+    margin-left: 10px;
+    color: #000
+}
+
+.qz-left .garden .enter {
+    float: right;
+    display: inline-block;
+    color: #000;
+    font-size: 12px;
+    margin-right: 10px
+}
+
+.qz-profile {
+    padding: 20px
+}
+
+.qz-profile .row {
+    padding: 10px
+}
+
+.qz-profile .row label {
+    font-weight: bold
+}
+
+.qz-user {
+    padding: 20px
+}
+
+.qz-content {
+    padding: 20px
+}
+
+.qz-publish {
+    padding: 20px
+}
+
+#qz_psw_cont {
+    width: 500px;
+    margin: 0 auto;
+    overflow: hidden
+}
+
+.qz_psw_tb-cls tr {
+    margin-top: 10px;
+    overflow: hidden
+}
+
+.qz_psw_left {
+    text-align: right
+}
+
+.label_nopass {
+    color: red
+}
+
+.label_pass {
+    color: #5fb702
+}
+
+.label_sty {
+    font: 9px;
+    color: #666
+}

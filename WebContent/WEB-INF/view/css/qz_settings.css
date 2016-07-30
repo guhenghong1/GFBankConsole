@@ -1,0 +1,110 @@
+/* 
+    Created on : 2014-7-8, 10:48:36
+    Author     : mdn
+*/
+.header{
+   height:50px;
+   min-width:1100px;
+   position:relative;
+   z-index:1000;
+   width:100%;
+   /*position:fixed;*/
+}
+.header .bg{
+   position:absolute;
+   left:0;
+   top:0;
+   width:100%;
+   height:100%;
+   background:#5fb702;
+   opacity:0.7;
+   filter:alpha(opacity=70);
+}
+.header a{
+   font-size:14px;
+   text-decoration:none;
+}
+.header .logo{
+   text-indent:-5000px;
+   position:absolute;
+   left:20px;
+   top:0;
+   width:280px;
+   height:50px;
+   background:url(/proxy/www/images/logo.png);}
+.header .logo a{
+   display:block;
+   width:309px;
+   height:50px;
+}
+#qz_resetPsw{
+   width:1000px;
+   height: 180px;
+   margin: 0 auto;
+}
+#qz_resetPsw_top{
+   height:50px;
+   line-height: 50px;
+   font-size: 20px;
+   /*   font-family: '黑体';*/
+   color:#5FB702;
+}
+#qz_resetPsw_center{
+   border:1px #ddd solid;
+   background: #fff;
+   border-radius: 10px;
+}
+.qz_resetPsw_table{
+   margin:20px 0 0 70px;
+}
+.qz_resetPsw_table tr{
+   height: 50px;
+}
+.qz_resetPsw_table input{
+   width:200px;
+   height:25px;
+   border-radius: 5px;
+   border:1px solid #ddd
+}
+.tb_l{
+   width:70px;
+   font-size: 14px;
+   text-align:right;
+   padding-right:10px; 
+}
+.label_pass{
+   color:#777;
+   font-size: 11px;
+}
+.label_nopass{
+   padding-left:15px;
+   color:red;
+   font-size: 11px;
+}
+#resetPsw_btn{
+   width:70px;
+   height:25px;
+   background:#5FB702;
+   border:none;
+   color:#fff;
+}
+#qz_resetPsw_tip{
+   margin:0px 0 10PX 70px;
+   font-size: 12px;
+   color:#777;
+}
+.copy_right a {
+   margin-right: 20px;
+}
+.copy_right a,.copy_right {
+   overflow: hidden;
+   margin-top: 20px;
+   text-align: center;
+   font-size: 14px;
+   color: #474747;
+   text-shadow: 1px 1px 3px #ddd;
+}
+.error{
+   font-size:12px;
+   color: red;
+}
