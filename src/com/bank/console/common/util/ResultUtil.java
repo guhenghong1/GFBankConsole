@@ -1,8 +1,10 @@
-package com.water.works.common.util;
+package com.bank.console.common.util;
+
+import net.sf.json.JSONObject;
 
 public class ResultUtil {
 	private int code;
-	private String message;
+	private String msg;
 	private Object obj;
 	
 	public int getCode() {
@@ -11,11 +13,11 @@ public class ResultUtil {
 	public void setCode(int code) {
 		this.code = code;
 	}
-	public String getMessage() {
-		return message;
+	public String getMsg() {
+		return msg;
 	}
-	public void setMessage(String message) {
-		this.message = message;
+	public void setMsg(String msg) {
+		this.msg = msg;
 	}
 	public Object getObj() {
 		return obj;

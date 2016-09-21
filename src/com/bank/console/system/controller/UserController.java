@@ -1,77 +1,103 @@
-package com.water.works.user.controller;
+package com.bank.console.system.controller;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.water.works.common.util.Constant;
-import com.water.works.common.util.Pager;
-import com.water.works.common.util.ResultUtil;
-import com.water.works.user.model.User;
-import com.water.works.user.service.UserService;
+import com.bank.console.common.Constant;
+import com.bank.console.common.PageCalc;
+import com.bank.console.common.Pager;
+import com.bank.console.common.interceptor.Permission;
+import com.bank.console.common.util.MD5Util;
+import com.bank.console.common.util.ResultUtil;
+import com.bank.console.system.form.UserForm;
+import com.bank.console.system.model.User;
+import com.bank.console.system.service.UserService;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 @Controller
-@RequestMapping("user")
+@RequestMapping("/user")
 public class UserController {
 	@Autowired
 	private UserService userService;
+	
+	private static final String INIT_PWD = "888888";	//初始化密码
 
-	@RequestMapping("/login")
-	public String login(@RequestParam("name") String name, @RequestParam("pass") String pass, Model model) {
-		// User user = userService.findUser();
-		model.addAttribute("name", name);
-		model.addAttribute("pass", pass);
-		return "main";
-	}
-
+	@Permission
 	@RequestMapping("/init")
 	public String init() {
 		return "user/user";
 	}
 
+	/**
+	 * 查询用户列表
+	 * @param userId
+	 * @param realName
+	 * @param deptId
+	 * @param phone
+	 * @param mobile
+	 * @param pageNum
+	 * @param pageSize
+	 * @return
+	 */
+	@Permission
 	@RequestMapping("/getUserList")
 	@ResponseBody
-	public String getUserList() {
-		List<User> userList = userService.getUserList();
+	public String getUserList(@RequestParam("userId") String userId,
+			@RequestParam("realName") String realName, 			
+			@RequestParam("deptId") String deptId,
+			@RequestParam("phone") String phone,
+			@RequestParam("mobile") String mobile,
+			@RequestParam(value="pageNum", defaultValue="1") String pageNum,
+			@RequestParam(value="pageSize", defaultValue="10") String pageSize) {
+		UserForm form = new UserForm();
+		form.setUserId(userId);
+		form.setDeptId(deptId);
+		form.setRealName(realName);
+		form.setPhone(phone);
+		form.setMobile(mobile);
+		
+		int total = userService.getUserSum(form);
+		PageCalc calc = new PageCalc(total);
+		form.setStartRow(calc.getStart(Integer.parseInt(pageNum)));
+		form.setEndRow(calc.getEnd(Integer.parseInt(pageNum)));
+		
+		List<User> userList = userService.getUserList(form);
 		JSONArray jsonArr = new JSONArray();
 		jsonArr = JSONArray.fromObject(userList);
-
+		
 		Pager pager = new Pager();
-		pager.setTotal(20);
+		pager.setTotal(total);
 		pager.setRows(jsonArr);
-		JSONObject json = new JSONObject();
-		json.put("total", 20);
-		json.put("rows", jsonArr);
 		return JSONObject.fromObject(pager).toString();
 	}
 	
 	@RequestMapping("/getUserInfo")
 	@ResponseBody
 	public String getUserInfo(@RequestParam("userId") String userId) {
-		User user = userService.getUserInfo(Integer.parseInt(userId));
+		User user = userService.getUserInfo(userId);
 		return JSONObject.fromObject(user).toString();
 	}
 
+	@Permission
 	@RequestMapping("/updateUser")
 	@ResponseBody
-	public String updateUser(@RequestParam("userId") String userId, @RequestParam("userName") String userName,
-			@RequestParam("realName") String realName, @RequestParam("role") int role,
-			@RequestParam("customer") String customer, @RequestParam("mobile") String mobile,
+	public String updateUser(@RequestParam("userId") String userId, @RequestParam("phone") String phone,
+			@RequestParam("realName") String realName, @RequestParam("roleId") String roleId,
+			@RequestParam("deptId") String deptId, @RequestParam("mobile") String mobile,
 			@RequestParam("email") String email) {
 		User user = new User();
-		user.setUserId(Integer.parseInt(userId));
-		user.setUserName(userName);
+		user.setUserId(userId);
 		user.setRealName(realName);
-		user.setRole(role);
-		user.setCustomer(customer);
+		user.setRoleId(roleId);
+		user.setDeptId(deptId);
+		user.setPhone(phone);;
 		user.setMobile(mobile);
 		user.setEmail(email);
 		
@@ -80,42 +106,47 @@ public class UserController {
 		int code = res >=1? Constant.SUCCESS_CODE: Constant.ERROR_CODE;
 		ResultUtil result = new ResultUtil();
 		result.setCode(code);
-		result.setMessage(Constant.SUCCESS_MSG);
+		result.setMsg(Constant.SUCCESS_MSG);
 		return JSONObject.fromObject(result).toString();
 	}
 	
+	@Permission
 	@RequestMapping("/deleteUser")
 	@ResponseBody
 	public String deleteUser(@RequestParam("userId") String userId) {
-		int res = userService.deleteUser(Integer.parseInt(userId));
+		int res = userService.deleteUser(userId);
 		
 		int code = res >=1? Constant.SUCCESS_CODE: Constant.ERROR_CODE;
 		ResultUtil result = new ResultUtil();
 		result.setCode(code);
-		result.setMessage(Constant.SUCCESS_MSG);
+		result.setMsg(Constant.SUCCESS_MSG);
 		return JSONObject.fromObject(result).toString();
 	}
 	
+	@Permission
 	@RequestMapping("/addUser")
 	@ResponseBody
-	public String addUser(@RequestParam("userName") String userName,
-			@RequestParam("realName") String realName, @RequestParam("role") int role,
-			@RequestParam("customer") String customer, @RequestParam("mobile") String mobile,
+	public String addUser(@RequestParam("userId") String userId,
+			@RequestParam("realName") String realName, @RequestParam("roleId") String roleId,
+			@RequestParam("phone") String customer, @RequestParam("mobile") String mobile,
+			@RequestParam("deptId") String deptId,
 			@RequestParam("email") String email) {
 		User user = new User();
-		user.setUserName(userName);
 		user.setRealName(realName);
-		user.setRole(role);
-		user.setCustomer(customer);
+		user.setRoleId(roleId);
+		user.setDeptId(deptId);
 		user.setMobile(mobile);
 		user.setEmail(email);
+		user.setPass(MD5Util.getMD5Code(INIT_PWD));
 		
 		int res = userService.addUser(user);
 		
 		int code = res >=1? Constant.SUCCESS_CODE: Constant.ERROR_CODE;
 		ResultUtil result = new ResultUtil();
 		result.setCode(code);
-		result.setMessage(Constant.SUCCESS_MSG);
+		result.setMsg(Constant.SUCCESS_MSG);
 		return JSONObject.fromObject(result).toString();
 	}
+	
+	
 }

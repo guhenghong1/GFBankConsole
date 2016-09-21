@@ -3,10 +3,16 @@
 <%@page import="java.util.HashMap" %>
 <%@page import="java.util.Map" %>
 <%
+	String path = request.getContextPath();
+	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	pageContext.setAttribute("basePath", basePath);
+	
+	String userId = (String)session.getAttribute("sessionUserId");
+	pageContext.setAttribute("userId", userId);
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-      <title>远程抄表云服务平台</title>
+      <title>BankConsole平台</title>
       <head>
          <style type="text/css">
             body {
@@ -80,7 +86,7 @@
 
             .login span {
                position: absolute;
-               left: 50px;
+               left: 0px;
             }
 
             .login input {
@@ -142,7 +148,23 @@
          <script src="jquery-easyui-1.3.2/jquery.easyui.min.js" type="text/javascript"></script>
          <script src="jquery-easyui-1.3.2/locale/easyui-lang-zh_CN.js" type="text/javascript"></script>
          <script type="text/javascript">
+         	$(function() {
+         		$.ajax({
+         			type:"post",
+         			data: {
+         				"userId":"${userId}"
+         			},
+         			url: "${basePath}/main/signOut.do",
+         			data: function(data) {
+         				
+         			}
+         		}); 
+         	});
+         </script>
+         <script type="text/javascript">
             $(function() {
+            	$("#password").val("");
+            	
                $("#form").keypress(function(e) {
                   var keycode = e.which || e.keyCode;
                   if (keycode == 13 || keycode == 10) {
@@ -157,17 +179,18 @@
                   } else {
                      $.ajax({
                         type: "post",
-                        url: "/proxy/api/agent/login",
+                        url: "${basePath}/main/login.do",
                         data: {
-                           name: $("#name").val(),
-                           password: $("#password").val()
+                           userId: $("#name").val(),
+                           pass: $("#password").val()
                         },
                         success: function(json) {
-                           console.log(json);
-                           if (json.code == 10010) {
-                              window.location.href = "main.jsp";
+                           json = JSON.parse(json);
+                           console.log(json.code);
+                           if (json.code == 1) {
+                              window.location.href = "${basePath}/main/index.do";
                            } else {
-                              alert(json.msg);
+                        	   $(".err_msg").html(json.msg)
                            }
                         }
                      })
@@ -179,8 +202,8 @@
       <body>
          <div class="lgin fn-clear">
             <div class="title">
-               <h2>远程抄表云服务平台</h2>
-               <h1>远程抄表云服务平台</h1>
+               <h2>BankConsole平台</h2>
+               <h1>BankConsole平台</h1>
             </div>
             <div class="login bg" >
                <!--错误信息提示-->
@@ -190,6 +213,7 @@
                      <input type="text" id="name" placeholder="请输入登录账号"/>
                      <input type="password" id="password" placeholder="请输入登录密码"/>
                      <div class="btn">
+                     	<span class="err_msg" style="color:red"></span>
                         <a class="btn_login" id="login" href="javascript:;">登录</a>
                      </div>
                   </div>

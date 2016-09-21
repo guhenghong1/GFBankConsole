@@ -1,4 +1,4 @@
-package com.water.works.common.util;
+package com.bank.console.common;
 
 import net.sf.json.JSONArray;
 
@@ -7,6 +7,8 @@ public class Pager {
 	private int pageSize;
 	private int total;
 	private int totalPage;
+	private int startRow;
+	private int endRow;
 	private JSONArray rows;
 	
 	public int getPageNum() {
@@ -39,5 +41,16 @@ public class Pager {
 	public void setRows(JSONArray rows) {
 		this.rows = rows;
 	}
-	
+	public int getStartRow() {
+		return startRow;
+	}
+	public void setStartRow(int startRow) {
+		this.startRow = startRow;
+	}
+	public int getEndRow() {
+		return endRow;
+	}
+	public void setEndRow(int endRow) {
+		this.endRow = endRow;
+	}
 }

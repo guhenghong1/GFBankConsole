@@ -1,4 +1,4 @@
-package com.water.works.report.controller;
+package com.bank.console.report.controller;
 
 import java.io.IOException;
 
@@ -9,8 +9,8 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.water.works.common.util.report.JFreeChartReportUtil;
-import com.water.works.common.util.report.Report;
+import com.bank.console.common.util.report.JFreeChartReportUtil;
+import com.bank.console.common.util.report.Report;
 
 @Controller
 @RequestMapping("/report")

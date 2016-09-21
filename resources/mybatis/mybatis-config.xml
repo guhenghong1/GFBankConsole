@@ -6,6 +6,13 @@
         <setting name="logImpl" value="LOG4J"/>  
     </settings>  
 	<typeAliases>
-		<typeAlias type="com.water.works.user.model.User" alias="User"/>
+		<typeAlias type="com.bank.console.system.model.User" alias="User"/>
+		<typeAlias type="com.bank.console.system.vo.UserVO" alias="UserVO"/>
+		<typeAlias type="com.bank.console.file.model.RecFile" alias="RecFile"/>
+		<typeAlias type="com.bank.console.file.vo.RecFileVO" alias="RecFileVO"/>
+		<typeAlias type="com.bank.console.file.form.RecFileForm" alias="RecFileForm"/>
+		<typeAlias type="com.bank.console.file.model.SendFile" alias="SendFile"/>
+		<typeAlias type="com.bank.console.dept.vo.DeptVO" alias="DeptVO"/>
+		<typeAlias type="com.bank.console.dept.model.Dept" alias="Dept"/>
 	</typeAliases>
 </configuration>

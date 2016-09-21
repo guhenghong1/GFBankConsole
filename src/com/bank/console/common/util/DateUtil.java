@@ -1,4 +1,4 @@
-package com.water.works.common.util;
+package com.bank.console.common.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

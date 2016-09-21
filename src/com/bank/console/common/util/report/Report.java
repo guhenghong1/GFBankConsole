@@ -1,4 +1,4 @@
-package com.water.works.common.util.report;
+package com.bank.console.common.util.report;
 
 public class Report {
 	private String filename;

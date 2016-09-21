@@ -91,7 +91,7 @@ a {
 #qz_menu li .qz_set{
    display: block;
    padding: 10px;
-   color: #fff;
+   color: #0E0A0A;
    text-decoration: none;
 }
 #setMenu{
@@ -100,7 +100,7 @@ a {
    right: 48px;
    width: 150px;
    background: #fff;
-   border:1px solid #5FB702;
+   border:1px solid #0E0A0A;
    border-top: none;
    text-align: center;
    font-size: 12px;
@@ -110,7 +110,7 @@ a {
    height: 25px;
    padding:5px; 
    line-height: 25px;
-   color: #093
+   color: #0E0A0A
 }
 #setMenu a:hover{
    background: #e7fde8;

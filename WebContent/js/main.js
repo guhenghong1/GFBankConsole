@@ -47,19 +47,20 @@ var Main = {
    
 };
 
-function openTab(title) {
+//打开tab菜单框
+function openTab(title, url) {
 	if($("#w_tabs").tabs('exists',title)) {
-		$("#tt").tabs("select",title);    
+		$("#w_tabs").tabs("select",title);    
 	} else {
 		$('#w_tabs').tabs('add',{
 		    title:title,
 		    content:'',
-		    width: 680,
-	        height: 500,
+		    width: 1000,
+	        height: 1000,
 	        modal: true,
 	        closable:true,
 	        resizable:true,
-		    href:"../user/init.do"
+		    href:url
 		});
 	}
 }

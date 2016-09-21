@@ -14,7 +14,7 @@
 	<!-- 注解 支持 -->
 	<context:annotation-config />
 	<!-- 扫描全包注解 -->
-	<context:component-scan base-package="com.water.works" />
+	<context:component-scan base-package="com.bank.console" />
 
 	<!-- 读取properties配置文件 -->
 	<bean id="propertyConfigurer"
@@ -57,12 +57,12 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml" />
-		<property name="mapperLocations" value="classpath:com/water/works/mapping/*.xml"></property>
+		<property name="mapperLocations" value="classpath:com/bank/console/mapping/*.xml"></property>
 	</bean>
 
 	<!-- 映射扫描装配，多个包用逗号分割 -->
 	 <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">  
-        <property name="basePackage" value="com.water.works.mapper" />  
+        <property name="basePackage" value="com.bank.console" />  
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>  
     </bean>  
 	

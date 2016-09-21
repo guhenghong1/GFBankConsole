@@ -1,0 +1,28 @@
+{"response_code":"001",
+ "response_msg":"success",
+  "response_data": [
+    {
+     "code":{
+     	"codeMap":{
+     		"001":"1",
+     		"002":"1",
+     		"003":"0"
+     	}
+     },
+      "firstName": "Brett", 
+      "lastName": "McLaughlin"
+    }, 
+    {
+    "code":{
+     	"codeMap":{
+     		"001":"1",
+     		"002":"1",
+     		"003":"0"
+     	},
+     	"codeName":"aaaa"
+     },
+      "firstName": "Jason", 
+      "lastName": "Hunter"
+    }
+  ]
+  }

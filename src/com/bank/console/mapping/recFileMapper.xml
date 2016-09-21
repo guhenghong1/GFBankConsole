@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bank.console.mapper.RecFileMapper">
+	<!-- 新增用户 -->
+ 	<insert id="addFile"  parameterType="RecFileForm">
+	   insert into tb_recevice_file(
+	   		fileId,
+	   		fileNo,
+	   		fileTitle,
+	   		deptId,
+	   		keyWords,
+	   		secretLevel,
+	   		emgLevel,
+	   		state,
+	   		attachment,
+	   		createDate,
+	   		updateDate
+	   ) values(
+	   	 	#{fileId, jdbcType=VARCHAR},
+	   	 	#{fileNo, jdbcType=VARCHAR},
+	   	 	#{fileTitle, jdbcType=VARCHAR},
+	   	 	#{deptId, jdbcType=VARCHAR},
+	   	 	#{keyWords, jdbcType=VARCHAR},
+	   	 	#{secretLevel, jdbcType=VARCHAR},
+	   	 	#{emgLevel, jdbcType=VARCHAR},
+	   	 	#{state, jdbcType=VARCHAR},
+	   	 	#{attachment, jdbcType=VARCHAR},
+	   	 	now(),
+	   	 	now()
+	   )
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="updateFile" parameterType="RecFileForm">
+		update tb_recevice_file 
+			<set>
+				<if test="fileNo != null and fileNo != ''">
+				 	fileNo = #{fileNo, jdbcType=VARCHAR},
+				 </if>
+				 <if test="fileTitle != null and fileTitle != ''">
+				 	fileTitle = #{fileTitle, jdbcType=VARCHAR},
+				 </if>
+				 <if test="deptId != null and deptId != ''">
+				 	deptId = #{deptId, jdbcType=VARCHAR},
+				 </if>
+				 <if test="keyWords != null and keyWords != ''">
+				 	keyWords = #{keyWords, jdbcType=VARCHAR},
+				 </if>
+				 <if test="secretLevel != null and secretLevel != ''">
+				 	secretLevel = #{secretLevel, jdbcType=VARCHAR},
+				 </if>
+				  <if test="emgLevel != null and emgLevel != ''">
+				  	emgLevel = #{emgLevel, jdbcType=VARCHAR},
+				  </if>
+				 <if test="state != null and state != ''">
+				 	state = #{state, jdbcType=VARCHAR},
+				 </if>
+				 <if test="attachment != null and attachment != ''">
+				 	attachment = #{attachment, jdbcType=VARCHAR},
+				 </if>
+				 updateDate = now()
+				where fileId = #{fileId, jdbcType=VARCHAR}
+			</set> 
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="deleteFile">
+		delete from tb_recevice_file where fileId = #{fileId, jdbcType=VARCHAR}
+	</delete>
+	
+	<!-- 查询数量 -->
+ 	<select id="getFileSum" resultType="INTEGER">
+	    SELECT
+	      COUNT(1) AS sum
+	    FROM
+	      tb_recevice_file
+	    <where>
+	    	<if test="keyWords != null and keyWords != ''">
+				 keyWords like '%${keyWords}%'
+			</if>
+			<if test="fileTitle != null and fileTitle != ''">
+				and fileTitle = #{fileTitle, jdbcType=VARCHAR}
+			</if>
+			<if test="fileNo != null and fileNo != ''">
+				and fileNo = #{fileNo, jdbcType=VARCHAR}
+			</if>
+			<if test="secretLevel != null and secretLevel != ''">
+				and secretLevel = #{secretLevel, jdbcType=VARCHAR}
+			</if>
+			<if test="emgLevel != null and emgLevel != ''">
+				and emgLevel = #{emgLevel, jdbcType=VARCHAR}
+			</if>
+			<if test="state != null and state != ''">
+				and state = #{state, jdbcType=VARCHAR}
+			</if>
+			<if test="fileId != null and fileId != ''">
+				and fileId = #{fileId, jdbcType=VARCHAR}
+			</if>
+	    </where>
+	</select>
+	
+	<sql id="columns">
+              fileId,
+		      deptId,
+		      fileNo,
+		      fileTitle,
+		      keyWords,
+		      state,
+		      secretLevel,
+		      emgLevel,
+		      attachment,
+		      DATE_FORMAT(createDate,'%Y-%m-%d %H:%i')   AS createDateStr
+	</sql>
+	
+	<!-- 查询 -->
+ 	<select id="getFileList" resultType="RecFileVO">
+		 	SELECT   
+		    	<include refid="columns"/>
+		    FROM
+		      tb_recevice_file
+		    <where>
+		    	<if test="keyWords != null and keyWords != ''">
+					 keyWords like '%${keyWords}%'
+				</if>
+				<if test="fileTitle != null and fileTitle != ''">
+					and fileTitle = #{fileTitle, jdbcType=VARCHAR}
+				</if>
+				<if test="fileNo != null and fileNo != ''">
+					and fileNo = #{fileNo, jdbcType=VARCHAR}
+				</if>
+				<if test="secretLevel != null and secretLevel != ''">
+					and secretLevel = #{secretLevel, jdbcType=VARCHAR}
+				</if>
+				<if test="emgLevel != null and emgLevel != ''">
+					and emgLevel = #{emgLevel, jdbcType=VARCHAR}
+				</if>
+				<if test="state != null and state != ''">
+					and state = #{state, jdbcType=VARCHAR}
+				</if>
+				<if test="fileId != null and fileId != ''">
+					and fileId = #{fileId, jdbcType=VARCHAR}
+				</if>
+		    </where>
+		    order by fileId
+			limit #{startRow}, #{endRow}
+	</select>
+	
+	<!--查询文件信息 -->
+ 	<select id="getFileInfo" resultType="RecFile">
+	    SELECT
+	       <include refid="columns"/>
+	    FROM
+	      tb_recevice_file
+	    where fileId = #{fileId, jdbcType=VARCHAR}
+	</select>
+	
+</mapper>

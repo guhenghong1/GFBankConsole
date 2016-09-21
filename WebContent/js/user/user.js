@@ -1,9 +1,11 @@
 var User = {
-   op: {
-      gardenId: 2162743004636,
-      jiaId: "",
-      userName: ""
-   },
+	params : {
+		userId:"",
+		realName:"",
+		deptId:"",
+		mobile:"",
+		phone:""
+	},
    init: function() {
       this.initDg();
    },
@@ -13,27 +15,22 @@ var User = {
     */
    initDg: function() {
       var _this = this;
-      $('#qz_users').datagrid({
+      $('#tb_users').datagrid({
          fitColumns: true,
          pagination: true,
          singleSelect: true,
          pageSize: 10,
-         width: 600,
-		 height: 340,
+         width: 1000,
+		 height: 350,
 		 rownumbers:"true",
+		 queryParams:_this.params,
          url: '../user/getUserList.do',
          columns: [[
-               {field: 'userId', title: '用户名', hidden: true},
-               {field: 'userName', title: '用户名', width: 100},
+               {field: 'userId', title: '用户工号', width: 100},
                {field: 'realName', title: '真实姓名', width: 100},
-               {field: 'role', title: '角色', width: 100, formatter: function(value, row, index) {
-                     if (row.role == 1) {
-                        return "普通用户";
-                     } else if(row.role == 2){
-                        return "管理员";
-                     }
-               }},
-               {field: 'customer', title: '客户', width: 100},
+               {field: 'roleName', title: '角色', width: 100},
+               {field: 'deptName', title: '部门', width: 100},
+               {field: 'phone', title: '电话', width: 100},
                {field: 'mobile', title: '手机号', width: 100},
                {field: 'email', title: '电子邮件', width: 120}
             ]],
@@ -96,7 +93,7 @@ var User = {
     */
    auditPassed: function() {
       var _this = this;
-      var row = $("#qz_users").datagrid("getSelected");
+      var row = $("#tb_users").datagrid("getSelected");
       if (row == null) {
          $.messager.alert('提示信息', "请选择用户");
       } else {
@@ -114,7 +111,7 @@ var User = {
    	var _this = this;
    	$("#add").css("display", "none");
    	$("#update").css("display", "");
-   	var row = $("#qz_users").datagrid("getSelected");
+   	var row = $("#tb_users").datagrid("getSelected");
    	var userId = row.userId;
    	var role = row.role;
    	if(role == 2) {
@@ -171,7 +168,7 @@ var User = {
 				}
 				
 				$("#w").window("close");
-				$("#qz_users").datagrid("reload");
+				$("#tb_users").datagrid("reload");
 			}
 		}); 	
    },
@@ -179,7 +176,7 @@ var User = {
    //新增用户弹窗
    add: function() {
    		var _this = this;
-   		$("#qz_users").datagrid("unselectAll");
+   		$("#tb_users").datagrid("unselectAll");
    		$("#add").css("display", "");
    		$("#update").css("display", "none");
    		$("#w").window("open");
@@ -216,15 +213,15 @@ var User = {
 				}
 				
 				$("#w").window("close");
-				$("#qz_users").datagrid("reload");
+				$("#tb_users").datagrid("reload");
 			}
 		}); 	
    },
    
    //删除用户  
-   delete:function() {
+   deleteUser : function() {
    		var _this = this;
-   		var row = $("#qz_users").datagrid("getSelected");
+   		var row = $("#tb_users").datagrid("getSelected");
    		var userId = row.userId;
    		$("#w").window("close");
    		var role = row.role;
@@ -243,11 +240,22 @@ var User = {
 				} else {
 					_this.showMsg("删除失败");
 				}
-				$("#qz_users").datagrid("reload");
+				$("#tb_users").datagrid("reload");
    			}
    		});
    }
 }
+
+//查询
+var queryUser = function() {
+        $('#tb_users').datagrid('load', {  
+        	userId: $("#quserId").val(),  
+        	realName: $("#qrealName").val(),  
+            deptId: $('#qdeptId').combotree('getValue'),
+            phone: $("#qphone").val(),  
+            mobile: $("#qmobile").val()  
+        });  
+} 
 
 $(function() {
 	User.init();

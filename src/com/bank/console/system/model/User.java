@@ -1,25 +1,30 @@
-package com.water.works.user.model;
+package com.bank.console.system.model;
+
+import java.util.List;
 
 public class User {
-	private int userId;
-	private String userName;
-	private String realName;
-	private int role;
-	private String customer;
-	private String mobile;
-	private String email;
-	
-	public int getUserId() {
+	private String userId;		//用户工号
+	private String pass;			//密码
+	private String realName;	//用户真实姓名
+	private String deptId;		//部门编号
+	private String deptName;		//部门
+	private String roleId;		//角色id
+	private String roleName;		//角色
+	private String phone;		//座机号码
+	private String mobile;		//手机号码
+	private String email;		//邮箱
+	public String getUserId() {
 		return userId;
 	}
-	public void setUserId(int userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public String getUserName() {
-		return userName;
+	
+	public String getPass() {
+		return pass;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setPass(String pass) {
+		this.pass = pass;
 	}
 	public String getRealName() {
 		return realName;
@@ -27,17 +32,17 @@ public class User {
 	public void setRealName(String realName) {
 		this.realName = realName;
 	}
-	public int getRole() {
-		return role;
+	public String getDeptId() {
+		return deptId;
 	}
-	public void setRole(int role) {
-		this.role = role;
+	public void setDeptId(String deptId) {
+		this.deptId = deptId;
 	}
-	public String getCustomer() {
-		return customer;
+	public String getPhone() {
+		return phone;
 	}
-	public void setCustomer(String customer) {
-		this.customer = customer;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 	public String getMobile() {
 		return mobile;
@@ -50,5 +55,23 @@ public class User {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public String getRoleId() {
+		return roleId;
+	}
+	public void setRoleId(String roleId) {
+		this.roleId = roleId;
+	}
+	public String getDeptName() {
+		return deptName;
+	}
+	public void setDeptName(String deptName) {
+		this.deptName = deptName;
+	}
+	public String getRoleName() {
+		return roleName;
+	}
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
 	}
 }
