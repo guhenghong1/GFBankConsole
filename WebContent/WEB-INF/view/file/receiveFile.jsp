@@ -42,34 +42,37 @@
 		<form id="recFileForm" method="post" action="${basePath}/recFile/addFile.do" enctype="multipart/form-data">  
 			<table>
 				<tr>
-					<td><label>来文编号：<span style="color: red">*</span></label></td>
-					<td><input id="fileId" name="fileId" type="text" value=""></input>
+					<td><label>来文编号：<font style="color: red">*</font></label></td>
+					<td><input id="fileId" class="required" name="fileId" type="text" value=""></input>
+					<span id = "fileIdmsg" class="msg"></span>
 					</td>
 				</tr>
 				<tr>
-					<td><label>来文时间：</label><span style="color: red">*</span></td>
+					<td><label>来文时间：<font style="color: red">*</font></label></td>
 					<td> 
-						<input class="easyui-datetimebox" name = "createDate"
+						<input class="easyui-datetimebox required" name = "createDate"
 						data-options="required:false,showSeconds:false,formatter:fmt" label="Select DateTime:" labelPosition="top" style="width:181px">
+						<span id = "createDatemsg" class="msg"></span>
 					</td>
 				</tr>
 				<tr>
-					<td><label>来文单位：<span style="color: red">*</span></label></td>
+					<td><label>来文单位：<font style="color: red">*</font></label></td>
 					<td>
-						<input id="deptId" name="deptId" class="easyui-combotree" data-options="url:'../dept/getDeptTree.do',method:'get',label:'Select Nodes:',labelPosition:'top',multiple:false" style="width:181px">
+						<input id="deptId1" name="deptId" class="easyui-combotree required" data-options="url:'../dept/getDeptTree.do',method:'get',label:'Select Nodes:',labelPosition:'top',multiple:false" style="width:181px">
+						<span id = "deptIdmsg" class="msg"></span>
 					</td>
 				</tr>
 				<tr>
-					<td><label>来文字号：<span style="color: red">*</span></label></td>
-					<td><input id="fileNo" name="fileNo" type="text" value=""></input></td>
+					<td><label>来文字号：<font style="color: red">*</font></label></td>
+					<td><input id="fileNo" name="fileNo" class="required" type="text" value=""></input><span id = "fileNomsg" class="msg"></span></td>
 				</tr>
 				<tr>
 					<td><label>发文标题：</label></td>
-					<td><input id="fileTitle" name="fileTitle" type="text" value=""></input></td>
+					<td><input id="fileTitle" name="fileTitle" type="text" value=""></input><span id = "fileTitlemsg" class="msg"></span></td>
 				</tr>
 				<tr>
-					<td><label>来文文关键词：<span style="color: red">*</span></label></td>
-					<td><input id="keyWords" name= "keyWords" type="text" value=""></input></td>
+					<td><label>来文文关键词：<font style="color: red">*</font></label></td>
+					<td><input id="keyWords" name= "keyWords" class="required" type="text" value=""></input><span id = "keyWordsmsg" class="msg"></span></td>
 				</tr>
 				<tr>
 					<td><label>状态：</label></td>

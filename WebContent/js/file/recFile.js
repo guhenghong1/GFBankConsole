@@ -152,6 +152,10 @@ var RecFile = {
 
 // 添加文件
 var addFile = function() {
+	var isNull = Common.verify();
+	if(!isNull) {
+		return false;
+	}
     $('#recFileForm').form('submit',{
     	 onSubmit:function(){
              return $(this).form('enableValidation').form('validate');
@@ -207,4 +211,5 @@ var clearForm = function(d) {
 
 $(function() {
 	RecFile.init();
+	Common.verifyBlur();
 });
