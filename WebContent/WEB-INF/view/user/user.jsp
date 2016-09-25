@@ -42,7 +42,7 @@
     </div> 
     
     <table id="tb_users" rownumbers="true"></table> 
-    <div id="w" class="easyui-window" title="用户详情" data-options="modal:true,closed:true,iconCls:'icon-save'" style="width:800px;height:600px;padding:10px;">
+    <div id="w" class="easyui-window" title="用户详情" data-options="modal:true,closed:true,cache:false,iconCls:'icon-save'" style="width:800px;height:600px;padding:10px;">
         <form id="userForm" method="post" action="${basePath}/user/addUser.do" enctype="multipart/form-data">
         <h2>一、个人基本信息</h2>
         <table class="userInfo">
@@ -214,7 +214,7 @@
         <a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#w').window('close')">取消</a>
     	</div>
     </div>
-    <div id="mw" class="easyui-window" title="用户详情" data-options="modal:true,closed:true,iconCls:'icon-save'" style="width:800px;height:600px;padding:10px;">
+    <div id="mw" class="easyui-window" title="用户详情" data-options="modal:true,closed:true,cache:false,iconCls:'icon-save'" style="width:800px;height:600px;padding:10px;">
         <form id="muserForm" method="post" action="${basePath}/user/updateUser.do" enctype="multipart/form-data">
         <h2>一、个人基本信息</h2>
         <table class="userInfo">
@@ -347,7 +347,7 @@
 	        	<th>毕业学校或工作单位</th>
 	        	<th>备注</th>
 	        </tr>
-    <!--     	<tr class="mschools">
+  <!--        	<tr class="mschools" style="display:none">
         		<td><input class="time"  type="text" value=""></input></td>
         		<td><input class="schoolName"  type="text" value=""></input></td>
         		<td><input class="remark"  type="text" value=""></input></td>
@@ -364,12 +364,12 @@
 	        	<th>所在单位</th>
 	        	<th>备注</th>
 	        </tr>
-     <!--    	<tr class="mhomes">
+     <!--     	<tr class="mhomes" style="display:none">
         		<td><input class="appellation"  type="text" value=""></input></td>
         		<td><input class="name"  type="text" value=""></input></td>
         		<td><input class="deptName"  type="text" value=""></input></td>
         		<td><input class="remark"  type="text" value=""></input></td>
-        	</tr> -->
+        	</tr>  -->
         	<tr>
         		<td><input id="mhomeList"  name= "homeList" type="text" value="" style="display:none"></input></td>
         	</tr>

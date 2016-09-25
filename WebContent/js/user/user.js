@@ -112,6 +112,10 @@ var User = {
    	$("#add").css("display", "none");
    	$("#update").css("display", "");
    	var row = $("#tb_users").datagrid("getSelected");
+	if(!row) {
+		Common.showMsg("请选择一条记录！");
+		return false;
+	}
    	var userId = row.userId;
    	var role = row.role;
    	if(role == 2) {
@@ -153,6 +157,11 @@ var User = {
 			$('#mentryDate').datebox('setValue', "'"+user.entryDateStr+"'");
 			
 			//个人简历
+			var mschoolsTr = $(".muserSchool .mschools");
+			if(!!mschoolsTr) {
+				$(mschoolsTr).remove();
+			}
+			
 			var schoolList = user.schoolList;
 			var schoolTemp = "<tr class='mschools'>"
 					+"<td><input class='mtime'  type='text' value='{time}'></input></td>"
@@ -162,6 +171,7 @@ var User = {
 			var shTrDiv = "";
 			
 			if(schoolList.length == 0) {
+//				$("#mschools").css("display", "block");
 				schoolTemp = schoolTemp.replace("{time}", "");
 				schoolTemp = schoolTemp.replace("{schoolName}", "");
 				schoolTemp = schoolTemp.replace("{remark}", "");
@@ -170,8 +180,9 @@ var User = {
 			}
 			
 			$.each(schoolList, function(i, obj) {
-				console.log("obj=  "+obj);
+				console.log("obj=  "+JSON.stringify(obj));
 				var time = obj.time;
+				console.log("time=  "+time);
 				if(!time) {
 					time = "";
 				}
@@ -191,7 +202,12 @@ var User = {
 			});
 			
 			$(".muserSchool").append(shTrDiv);
+			
 			//家庭关系
+			var mschoolsTr = $(".muserHome .mhomes");
+			if(!!mschoolsTr) {
+				$(mschoolsTr).remove();
+			}
 			var homeList = user.homeList;
 			
 			var homeTemp = "<tr class='mhomes'>"
@@ -203,16 +219,17 @@ var User = {
 			var hTrDiv = "";
 			
 			if(homeList.length == 0) {
-				homeTemp = schoolTemp.replace("{appellation}", "");
-				homeTemp = schoolTemp.replace("{name}", "");
-				homeTemp = schoolTemp.replace("{deptName}", "");
-				homeTemp = schoolTemp.replace("{remark}", "");
+//				$("#mhomes").css("display", "block");
+				homeTemp = homeTemp.replace("{appellation}", "");
+				homeTemp = homeTemp.replace("{name}", "");
+				homeTemp = homeTemp.replace("{deptName}", "");
+				homeTemp = homeTemp.replace("{remark}", "");
 				
 				hTrDiv += homeTemp;
 			}
 			
 			$.each(homeList, function(i, obj) {
-				console.log("obj=  "+obj);
+//				console.log("obj=  "+obj);
 				var appellation = obj.appellation;
 				if(!appellation) {
 					appellation = "";
@@ -229,19 +246,20 @@ var User = {
 				if(!remark) {
 					remark = "";
 				}
-				homeTemp = schoolTemp.replace("{appellation}", appellation);
-				homeTemp = schoolTemp.replace("{name}", name);
-				homeTemp = schoolTemp.replace("{deptName}", deptName);
-				homeTemp = schoolTemp.replace("{remark}", remark);
+				homeTemp = homeTemp.replace("{appellation}", appellation);
+				homeTemp = homeTemp.replace("{name}", name);
+				homeTemp = homeTemp.replace("{deptName}", deptName);
+				homeTemp = homeTemp.replace("{remark}", remark);
 				
 				hTrDiv += homeTemp;
 			});
 			
+			console.log("hTrDiv==  "+hTrDiv);
 			$(".muserHome").append(hTrDiv);
 			
 		}
 	});
-   	$("#mw").window("open");
+   	$("#mw").window('refresh').window("open");
    },
    
    //修改用户
@@ -254,9 +272,9 @@ var User = {
 				  remark:""
 		  };
 //		  console.log($(e).find("td input"))
-		  var inputs = $(e).find("td input");
-		  $(inputs).each(function(j, el){
-			  var classAttr = $(el).attr("class");
+		  var tds = $(e).find("td");
+		  $(tds).each(function(j, el){
+			  var classAttr = $(el).find("input").attr("class");
 			  if( $(el).val()) {
 				  if(classAttr == 'mtime') {
 					  school.time = $(el).val();
@@ -283,10 +301,10 @@ var User = {
 				   remark:""
 		   };
 //		  console.log($(e).find("td input"))
-		   var inputs = $(e).find("td input");
-		   $(inputs).each(function(j, el){
-			   console.log($(el));
-			   var classAttr = $(el).attr("class");
+		   var tds = $(e).find("td");
+		   $(tds).each(function(j, el){
+//			   console.log($(el));
+			   var classAttr = $(el).find("input").attr("class");
 			   if($(el).val()) {
 				   if(classAttr == 'mappellation') {
 					   home.appellation = $(el).val();
@@ -326,7 +344,13 @@ var User = {
    		$("#tb_users").datagrid("unselectAll");
    		$("#add").css("display", "");
    		$("#update").css("display", "none");
-   		$("#w").window("open");
+   		$(':input','#userform') 
+   		.not(':button, :submit, :reset, :hidden') 
+   		.val('') 
+   		.removeAttr('checked') 
+   		.removeAttr('selected');
+//   		$('#userform')[0].reset();
+   		$("#w").window('refresh').window("open");
    },
    
    //新增用户
