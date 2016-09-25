@@ -10,6 +10,7 @@ public class RecFileForm extends BaseForm{
 	private String fileId;		//文件编号
 	private String fileNo;		//文件字号
 	private Date createDate; 	//创建时间
+	private String createDateStr; 	//创建时间
 	private String deptId;		//部门id
 	private String deptName;	//部门
 	private String fileTitle;	//文件标题
@@ -17,7 +18,7 @@ public class RecFileForm extends BaseForm{
 	private String secretLevel;	//保密级别
 	private String emgLevel;	//紧急级别
 	private String attachment;	//附件
-	private String state;		//状态
+	private String status;		//状态
 	
 	private MultipartFile  fileItem;		//上传文件
 	
@@ -81,11 +82,17 @@ public class RecFileForm extends BaseForm{
 	public void setAttachment(String attachment) {
 		this.attachment = attachment;
 	}
-	public String getState() {
-		return state;
+	public String getStatus() {
+		return status;
 	}
-	public void setState(String state) {
-		this.state = state;
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public String getCreateDateStr() {
+		return createDateStr;
+	}
+	public void setCreateDateStr(String createDateStr) {
+		this.createDateStr = createDateStr;
 	}
 	public MultipartFile getFileItem() {
 		return fileItem;

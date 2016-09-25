@@ -1,21 +1,26 @@
-package com.bank.console.file.model;
+package com.bank.console.file.form;
 
 import java.util.Date;
 
-public class RecFile {
-	private String fileId;	//文件编号
-	private String fileNo;	//文件字号
-	private Date createDate; //创建时间
-	private String createDateStr; //创建时间
-	private String deptId;	//部门id
+import org.springframework.web.multipart.MultipartFile;
+
+import com.bank.console.system.model.BaseForm;
+
+public class SendFileForm extends BaseForm{
+	private String fileId;		//文件编号
+	private String fileNo;		//文件字号
+	private Date createDate; 	//创建时间
+	private String createDateStr; 	//创建时间
+	private String deptId;		//部门id
 	private String deptName;	//部门
 	private String fileTitle;	//文件标题
 	private String keyWords; 	//关键词
 	private String secretLevel;	//保密级别
 	private String emgLevel;	//紧急级别
 	private String attachment;	//附件
-	private String status;	//状态
-	private String updateDate;	//修改时间
+	private String status;		//状态
+	
+	private MultipartFile  fileItem;		//上传文件
 	
 	public String getFileId() {
 		return fileId;
@@ -34,13 +39,6 @@ public class RecFile {
 	}
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
-	}
-	
-	public String getCreateDateStr() {
-		return createDateStr;
-	}
-	public void setCreateDateStr(String createDateStr) {
-		this.createDateStr = createDateStr;
 	}
 	public String getDeptId() {
 		return deptId;
@@ -90,10 +88,16 @@ public class RecFile {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public String getUpdateDate() {
-		return updateDate;
+	public String getCreateDateStr() {
+		return createDateStr;
 	}
-	public void setUpdateDate(String updateDate) {
-		this.updateDate = updateDate;
+	public void setCreateDateStr(String createDateStr) {
+		this.createDateStr = createDateStr;
+	}
+	public MultipartFile getFileItem() {
+		return fileItem;
+	}
+	public void setFileItem(MultipartFile fileItem) {
+		this.fileItem = fileItem;
 	}
 }

@@ -32,11 +32,11 @@ var RecFile = {
 	               {field: 'fileNo', title: '来文字号', align:'center', width: 200},
 	               {field: 'fileTitle', title: '发文标题', align:'center', width: 200},
 	               {field: 'keyWords', title: '来文文关键词', width: 100},
-	               {field: 'state', title: '状态', align:'center', width: 100},
+	               {field: 'status', title: '状态', align:'center', width: 100},
 	               {field: 'secretLevel', title: '来文保密级别', align:'center', width: 100},
 	               {field: 'emgLevel', title: '来文紧急级别', align:'center', width: 100},
-	               {field: 'createDateStr', title: '来文时间', align:'center', width: 120},	
-	               {field: 'attachment', title: '操作', align:'center', width: 300},
+	               {field: 'updateDateStr', title: '修改时间', align:'center', width: 120},	
+//	               {field: 'attachment', title: '操作', align:'center', width: 300},
 	            ]],
 	         onClickRow: function(index, rowData) {
 	         },
@@ -59,7 +59,11 @@ var RecFile = {
 	},
 
 	// 编辑弹窗
-	edit : function() {
+	edit : function(m) {
+		if(m != 1) { //详情
+			$(".update").css("display", "none");
+			$(".cancle").css("display", "none");
+		}
 		var _this = this;
 		var row = $("#recFile").datagrid("getSelected");
 //		console.log(row);
@@ -82,7 +86,7 @@ var RecFile = {
 					$("#mfileNo").val(file.fileNo);
 					$("#mfileTitle").val(file.fileTitle);
 					$("#mkeyWords").val(file.keyWords);
-					$("#mstate").val(file.state);
+					$("#mstatus").val(file.status);
 					$("#msecretLevel").val(file.secretLevel);
 					$("#memgLevel").val(file.emgLevel);
 					$("#mattachment").val(file.attachment);
@@ -152,15 +156,15 @@ var RecFile = {
 
 // 添加文件
 var addFile = function() {
-	var isNull = Common.verify();
-	if(!isNull) {
-		return false;
-	}
+//	var isNull = Common.verify("recFileForm");
+//	console.log("isNull   "+isNull);
+//	if(isNull) {
+//		return false;
+//	}
     $('#recFileForm').form('submit',{
-    	 onSubmit:function(){
-             return $(this).form('enableValidation').form('validate');
-         },
     	   success:function(data){
+    		   alert("111")
+    		   console.log(data);
     		    data = JSON.parse(data);
     		    if(data.code == 1) {
     		    	Common.showMsg("添加成功");
@@ -180,7 +184,7 @@ var updateFile = function() {
 			data = JSON.parse(data);
 			if(data.code == 1) {
 				Common.showMsg("修改成功");
-				$("#rfw").window("close");
+				$("#mrfw").window("close");
 				$("#recFile").datagrid("reload");
 			} else {
 				Common.showMsg("修改失败");
@@ -211,5 +215,5 @@ var clearForm = function(d) {
 
 $(function() {
 	RecFile.init();
-	Common.verifyBlur();
+	
 });

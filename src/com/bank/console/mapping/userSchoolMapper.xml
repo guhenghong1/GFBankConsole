@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bank.console.mapper.UserSchoolMapper">
+	
+	<!-- 删除 -->
+	<delete id="deleteUserSchool">
+		delete from tb_user_school where userId = #{userId, jdbcType=VARCHAR}
+	</delete>
+	
+	<sql id="columns">
+             userId,
+             schoolName,
+             time,
+             remark
+	</sql>
+	<!-- 查询 -->
+ 	<select id="getUserSchoolList" resultType="UserSchool">
+		 	SELECT   
+		    	<include refid="columns"/>
+		    FROM
+		      tb_user_school 
+		    <where>
+				<if test="userId != null and userId != ''">
+					and userId = #{userId, jdbcType=VARCHAR}
+				</if>
+		    </where>
+		    order by time
+	</select>
+	
+	<!-- 新增用户个人简历（毕业学校信息） -->
+ 	<insert id="addUserSchool"  parameterType="UserSchool">
+	   insert into tb_user_school(
+	   		userId,
+	   		schoolName,
+	   		time,
+	   		remark
+	   ) values(
+	   	 	#{userId, jdbcType=VARCHAR},
+	   	 	#{schoolName, jdbcType=VARCHAR},
+	   	 	#{time, jdbcType=INTEGER},
+	   	 	#{remark, jdbcType=VARCHAR}
+	   )
+	</insert>
+	
+</mapper>

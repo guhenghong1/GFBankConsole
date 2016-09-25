@@ -20,7 +20,8 @@
 	<script type="text/javascript" src="${basePath}/js/file/recFile.js?u=${times}"></script>
 	<div class="recFile" style="padding: 20px">
 		<div id="tb" style="height: auto">
-			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="RecFile.edit()">编辑</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'',plain:true" onclick="RecFile.edit(0)">详情</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="RecFile.edit(1)">编辑</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="RecFile.add()">新增</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="RecFile.deleteOp()">删除</a>
 			<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-print',plain:true" onclick="RecFile.download()">打印</a>
@@ -47,18 +48,18 @@
 					<span id = "fileIdmsg" class="msg"></span>
 					</td>
 				</tr>
-				<tr>
+ 				<tr>
 					<td><label>来文时间：<font style="color: red">*</font></label></td>
 					<td> 
-						<input class="easyui-datetimebox required" name = "createDate"
-						data-options="required:false,showSeconds:false,formatter:fmt" label="Select DateTime:" labelPosition="top" style="width:181px">
+						<input class="easyui-datetimebox" name = "createDateStr"
+						data-options="required:false,showSeconds:true,formatter:fmt,parser:pas" label="Select DateTime:" labelPosition="top" style="width:181px">
 						<span id = "createDatemsg" class="msg"></span>
 					</td>
 				</tr>
 				<tr>
 					<td><label>来文单位：<font style="color: red">*</font></label></td>
 					<td>
-						<input id="deptId1" name="deptId" class="easyui-combotree required" data-options="url:'../dept/getDeptTree.do',method:'get',label:'Select Nodes:',labelPosition:'top',multiple:false" style="width:181px">
+						<input id="deptId" name="deptId" class="easyui-combotree" data-options="url:'../dept/getDeptTree.do',method:'get',label:'Select Nodes:',labelPosition:'top',multiple:false" style="width:181px">
 						<span id = "deptIdmsg" class="msg"></span>
 					</td>
 				</tr>
@@ -76,7 +77,7 @@
 				</tr>
 				<tr>
 					<td><label>状态：</label></td>
-					<td><select id="state" name="state">
+					<td><select id="status" name="status">
 					  <option value ="1">已阅</option>
 					  <option value ="1">董事长处理中</option>
 					  <option value ="2">已处理</option>
@@ -96,7 +97,7 @@
 					  <option value ="2">紧急</option>
 					</select></td>
 				</tr>
-				<tr>
+ 				<tr>
 					<td><label>附件：</label></td>
 					<td>
 						<input id="attachment" type="file" name="fileItem" style="width:181px">
@@ -145,7 +146,7 @@
 				</tr>
 				<tr>
 					<td><label>状态：</label></td>
-					<td><select id="mstate" name="state">
+					<td><select id="mstatus" name="status">
 					  <option value ="1">已阅</option>
 					  <option value ="1">董事长处理中</option>
 					  <option value ="2">已处理</option>
@@ -173,8 +174,8 @@
 				</tr>
 			</table>
 			<div style="margin: 20px 0;">
-				<a href="javascript:void(0)" class="easyui-linkbutton" id="add" onclick="updateFile()">保存</a>
-				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm(1)">取消</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton update" id="add" onclick="updateFile()">保存</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton cancle" onclick="clearForm(1)">取消</a>
 			</div>
 		</form>
 		</div>

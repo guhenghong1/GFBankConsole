@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bank.console.mapper.UserMapper">
 	<!-- 新增用户 -->
- 	<insert id="addUser"  parameterType="User">
+ 	<insert id="addUser"  parameterType="UserForm">
 	   insert into tb_user(
 	   		userId,
 	   		realName,
@@ -11,7 +11,29 @@
 	   		phone,
 	   		mobile,
 	   		email,
-	   		pass
+	   		pass,
+	   		birthday,
+	   		sex,
+	   		position,
+	   		positionSalary,
+	   		levelSalary,
+	   		performanceSalary,
+	   		status,
+	   		interest,
+	   		entryDate,
+	   		nativePlace,
+	   		nation,
+	   		politicsStatus,
+	   		certId,
+	   		school,
+	   		eduLevel,
+	   		homeAddress,
+	   		major,
+	   		remark,
+	   		certFront,
+	   		certBack,
+	   		createDate,
+	   		updateDate		
 	   ) values(
 	   	 	#{userId, jdbcType=VARCHAR},
 	   	 	#{realName, jdbcType=VARCHAR},
@@ -19,13 +41,35 @@
 	   	 	#{deptId, jdbcType=VARCHAR},
 	   	 	#{phone, jdbcType=VARCHAR},
 	   	 	#{mobile, jdbcType=VARCHAR},
-	   	 	#{email, jdbcType=VARCHAR}
-	   	 	#{pass, jdbcType=VARCHAR}
+	   	 	#{email, jdbcType=VARCHAR},
+	   	 	#{pass, jdbcType=VARCHAR},
+	   	 	#{birthday, jdbcType=DATE},
+	   	 	#{sex, jdbcType=INTEGER},
+	   	 	#{position, jdbcType=VARCHAR},
+	   	 	#{positionSalary, jdbcType=VARCHAR},
+	   	 	#{levelSalary, jdbcType=VARCHAR},
+	   	 	#{performanceSalary, jdbcType=VARCHAR},
+	   	 	#{status, jdbcType=VARCHAR},
+	   	 	#{interest, jdbcType=VARCHAR},
+	   	 	#{entryDate, jdbcType=DATE},
+	   	 	#{nativePlace, jdbcType=VARCHAR},
+	   	 	#{nation, jdbcType=VARCHAR},
+	   	 	#{politicsStatus, jdbcType=VARCHAR},
+	   	 	#{certId, jdbcType=VARCHAR},
+	   	 	#{school, jdbcType=VARCHAR},
+	   	 	#{eduLevel, jdbcType=VARCHAR},
+	   	 	#{homeAddress, jdbcType=VARCHAR},
+	   	 	#{major, jdbcType=VARCHAR},
+	   	 	#{remark, jdbcType=VARCHAR},
+	   	 	#{certFront, jdbcType=VARCHAR},
+	   	 	#{certBack, jdbcType=VARCHAR},
+	   	 	NOW(),
+	   	 	NOW()
 	   )
 	</insert>
 	
 	<!-- 修改 -->
-	<update id="updateUser" parameterType="User">
+	<update id="updateUser" parameterType="UserForm">
 		update tb_user 
 			<set>
 				<if test="realName != null and realName != ''">
@@ -44,11 +88,75 @@
 				 	mobile = #{mobile, jdbcType=VARCHAR},
 				 </if>
 				  <if test="email != null and email != ''">
-				  	email = #{email, jdbcType=VARCHAR}
+				  	email = #{email, jdbcType=VARCHAR},
 				  </if>
 				 <if test="pass != null and pass != ''">
-				 	pass = #{pass, jdbcType=VARCHAR}
+				 	pass = #{pass, jdbcType=VARCHAR},
 				 </if>
+				 <if test="birthday != null and birthday != ''">
+				 	birthday = #{birthday, jdbcType=DATE},
+				 </if>
+				 <if test="sex != null and sex != ''">
+				 	sex = #{sex, jdbcType=VARCHAR},
+				 </if>
+				 <if test="position != null and position != ''">
+				 	position = #{position, jdbcType=VARCHAR},
+				 </if>
+				 <if test="positionSalary != null and positionSalary != ''">
+				 	positionSalary = #{positionSalary, jdbcType=VARCHAR},
+				 </if>
+				 <if test="levelSalary != null and levelSalary != ''">
+				 	levelSalary = #{levelSalary, jdbcType=VARCHAR},
+				 </if>
+				 <if test="performanceSalary != null and performanceSalary != ''">
+				 	performanceSalary = #{performanceSalary, jdbcType=VARCHAR},
+				 </if>
+				 <if test="status != null and status != ''">
+				 	status = #{status, jdbcType=VARCHAR},
+				 </if>
+				 <if test="interest != null and interest != ''">
+				 	interest = #{interest, jdbcType=VARCHAR},
+				 </if>
+				 <if test="entryDate != null and entryDate != ''">
+				 	entryDate = #{entryDate, jdbcType=DATE},
+				 </if>
+				 <if test="nativePlace != null and nativePlace != ''">
+				 	nativePlace = #{nativePlace, jdbcType=VARCHAR},
+				 </if>
+				 <if test="nation != null and nation != ''">
+				 	nation = #{nation, jdbcType=VARCHAR},
+				 </if>
+				 <if test="politicsStatus != null and politicsStatus != ''">
+				 	politicsStatus = #{politicsStatus, jdbcType=VARCHAR},
+				 </if>
+				 <if test="certId != null and certId != ''">
+				 	certId = #{certId, jdbcType=VARCHAR},
+				 </if>
+				 <if test="school != null and school != ''">
+				 	school = #{school, jdbcType=VARCHAR},
+				 </if>
+				 <if test="eduLevel != null and eduLevel != ''">
+				 	eduLevel = #{eduLevel, jdbcType=VARCHAR},
+				 </if>
+				 <if test="homeAddress != null and homeAddress != ''">
+				 	homeAddress = #{homeAddress, jdbcType=VARCHAR},
+				 </if>
+				 <if test="major != null and major != ''">
+				 	major = #{major, jdbcType=VARCHAR},
+				 </if>
+				 <if test="remark != null and remark != ''">
+				 	remark = #{remark, jdbcType=VARCHAR},
+				 </if>
+				 <if test="certFront != null and certFront != ''">
+				 	certFront = #{certFront, jdbcType=VARCHAR},
+				 </if>
+				 <if test="certBack != null and certBack != ''">
+				 	certBack = #{certBack, jdbcType=VARCHAR},
+				 </if>
+				 <if test="infoPdf != null and infoPdf != ''">
+				 	infoPdf = #{infoPdf, jdbcType=VARCHAR},
+				 </if>
+				 updateDate = NOW()
 				where userId = #{userId, jdbcType=VARCHAR}
 			</set> 
 	</update>
@@ -87,19 +195,44 @@
 	<sql id="columns">
               u.userId,
               u.realName,
+              u.pass,
 		      u.phone,
 		      u.mobile,
 		      u.email,
+		      u.birthday,
+		      DATE_FORMAT(u.birthday,'%Y-%m-%d %H:%i')   AS birthdayStr,
+		      u.createDate,
 		      DATE_FORMAT(u.createDate,'%Y-%m-%d %H:%i')   AS createDateStr,
+		      u.updateDate,
 		      DATE_FORMAT(u.updateDate,'%Y-%m-%d %H:%i')   AS updateDateStr,
-		      d.deptId,
-		      d.deptName,
-		      r.roleId,
-		      r.roleName
+		      u.position,
+		      u.positionSalary,
+		      u.levelSalary,
+		      u.performanceSalary,
+		      u.status,
+		      u.interest,
+		      u.entryDate,
+		      DATE_FORMAT(u.entryDate,'%Y-%m-%d %H:%i')   AS entryDateStr,
+		      u.nativePlace,
+		      u.nation,
+		      u.politicsStatus,
+		      u.certId,
+		      u.school,
+		      u.eduLevel,
+		      u.homeAddress,
+		      u.major,
+		      u.certFront,
+		      u.certBack,
+		      u.infoPdf,
+		      u.remark
 	</sql>
 	<!-- 查询 -->
  	<select id="getUserList" resultType="UserVO">
-		 	SELECT   
+		 	SELECT
+		 	 	d.deptId,
+		      	d.deptName,
+		      	r.roleId,
+		      	r.roleName,   
 		    	<include refid="columns"/>
 		    FROM
 		      tb_user u, tb_dept d, tb_role r
@@ -121,26 +254,26 @@
 					and u.deptId = #{deptId, jdbcType=VARCHAR}
 				</if>
 		    </where>
-		    order by u.userId
+		    order by u.createDate desc
 			limit #{startRow}, #{endRow}
 	</select>
 	
 	<!--查询用户-->
  	<select id="findUser" resultType="User">
 	    SELECT
-	      *
+	      <include refid="columns"/>
 	    FROM
-	      tb_user
-	    where userId = #{userId, jdbcType=VARCHAR}
+	      tb_user u
+	    where u.userId = #{userId, jdbcType=VARCHAR}
 	</select>
 	
 	<!--查询用户信息 -->
- 	<select id="getUserInfo" resultType="User">
+ 	<select id="getUserInfo" resultType="UserVO">
 	    SELECT
-	      *
+	      <include refid="columns"/>
 	    FROM
-	      tb_user
-	    where userId = #{userId, jdbcType=VARCHAR}
+	      tb_user u
+	    where u.userId = #{userId, jdbcType=VARCHAR}
 	</select>
 	
 </mapper>

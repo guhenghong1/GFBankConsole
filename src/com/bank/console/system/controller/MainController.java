@@ -13,6 +13,7 @@ import com.bank.console.common.Constant;
 import com.bank.console.common.interceptor.Permission;
 import com.bank.console.common.util.MD5Util;
 import com.bank.console.common.util.ResultUtil;
+import com.bank.console.system.form.UserForm;
 import com.bank.console.system.model.User;
 import com.bank.console.system.service.UserService;
 
@@ -83,11 +84,11 @@ public class MainController {
 			return JSONObject.fromObject(result).toString();
 		}
 		
-		User user1 = new User();
-		user1.setUserId(userId);
-		user1.setPass(MD5Util.getMD5Code(newPwd));
+		UserForm userForm = new UserForm();
+		userForm.setUserId(userId);
+		userForm.setPass(MD5Util.getMD5Code(newPwd));
 		
-		int res = userService.updateUser(user1);
+		int res = userService.updateUser(userForm);
 		
 		int code = res >=1? Constant.SUCCESS_CODE: Constant.ERROR_CODE;
 		result.setCode(code);

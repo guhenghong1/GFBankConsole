@@ -14,7 +14,8 @@ public class RecFileVO {
 	private String secretLevel;	//保密级别
 	private String emgLevel;	//紧急级别
 	private String attachment;	//附件
-	private String state;	//状态
+	private String status;	//状态
+	private String updateDateStr; //修改时间
 	
 	public String getFileId() {
 		return fileId;
@@ -83,10 +84,16 @@ public class RecFileVO {
 	public void setAttachment(String attachment) {
 		this.attachment = attachment;
 	}
-	public String getState() {
-		return state;
+	public String getStatus() {
+		return status;
 	}
-	public void setState(String state) {
-		this.state = state;
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public String getUpdateDateStr() {
+		return updateDateStr;
+	}
+	public void setUpdateDateStr(String updateDateStr) {
+		this.updateDateStr = updateDateStr;
 	}
 }

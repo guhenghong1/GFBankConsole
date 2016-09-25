@@ -20,7 +20,7 @@ public interface RecFileMapper {
 	int deleteFile(String fileId);
 	
 	//获取文件详情
-	RecFile getFileInfo(String fileId);
+	RecFileVO getFileInfo(String fileId);
 	
 	//查询列表
 	List<RecFileVO> getFileList(RecFileForm file);

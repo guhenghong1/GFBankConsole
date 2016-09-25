@@ -7,11 +7,19 @@
     </settings>  
 	<typeAliases>
 		<typeAlias type="com.bank.console.system.model.User" alias="User"/>
+		<typeAlias type="com.bank.console.system.model.UserSchool" alias="UserSchool"/>
+		<typeAlias type="com.bank.console.system.model.UserHome" alias="UserHome"/>
+		<typeAlias type="com.bank.console.system.form.UserForm" alias="UserForm"/>
 		<typeAlias type="com.bank.console.system.vo.UserVO" alias="UserVO"/>
+		
 		<typeAlias type="com.bank.console.file.model.RecFile" alias="RecFile"/>
 		<typeAlias type="com.bank.console.file.vo.RecFileVO" alias="RecFileVO"/>
 		<typeAlias type="com.bank.console.file.form.RecFileForm" alias="RecFileForm"/>
+		
+		<typeAlias type="com.bank.console.file.vo.SendFileVO" alias="SendFileVO"/>
+		<typeAlias type="com.bank.console.file.form.SendFileForm" alias="SendFileForm"/>
 		<typeAlias type="com.bank.console.file.model.SendFile" alias="SendFile"/>
+		
 		<typeAlias type="com.bank.console.dept.vo.DeptVO" alias="DeptVO"/>
 		<typeAlias type="com.bank.console.dept.model.Dept" alias="Dept"/>
 	</typeAliases>

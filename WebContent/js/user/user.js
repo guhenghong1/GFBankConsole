@@ -124,53 +124,200 @@ var User = {
 		data:{"userId":userId},
 		success: function(data) {
 			var user = JSON.parse(data);
-			$("#userId").val(user.userId);
-			$("#userName").val(user.userName);
-			$("#realName").val(user.realName);
-			$("#role").val(user.role);
-			$("#customer").val(user.customer);
-			$("#mobile").val(user.mobile);
-			$("#email").val(user.email);
+			$("#muserId").val(user.userId);
+			$("#mrealName").val(user.realName);
+			$("#mroleId").val(user.roleId);
+			$('#mdeptId').combotree('setValue', user.deptId);
+			$("#mmobile").val(user.mobile);
+			$("#mphone").val(user.phone);
+			$("#memail").val(user.email);
+			$("#msex").val(user.sex);
+			$("#mnativePlace").val(user.nativePlace);
+			$("#mposition").val(user.position);
+			$("#mpositionSalary").val(user.positionSalary);
+			$("#mlevelSalary").val(user.levelSalary);
+			$("#mperformanceSalary").val(user.performanceSalary);
+			$("#mstatus").val(user.status);
+			$("#minterest").val(user.interest);
+			$("#mnation").val(user.nation);
+			$("#mnation").val(user.nation);
+			$("#mpoliticsStatus").val(user.politicsStatus);
+			$("#mcertId").val(user.certId);
+			$("#mschool").val(user.school);
+			$("#meduLevel").val(user.eduLevel);
+			$("#mhomeAddress").val(user.homeAddress);
+			$("#mmajor").val(user.major);
+			$("#mremark").val(user.remark);
+			
+			$('#mbirthday').datebox('setValue', "'"+user.birthdayStr+"'");
+			$('#mentryDate').datebox('setValue', "'"+user.entryDateStr+"'");
+			
+			//个人简历
+			var schoolList = user.schoolList;
+			var schoolTemp = "<tr class='mschools'>"
+					+"<td><input class='mtime'  type='text' value='{time}'></input></td>"
+					+"<td><input class='mschoolName'  type='text' value='{schoolName}'></input></td>"
+					+"<td><input class='mremark'  type='text' value='{remark}'></input></td>"
+					+"</tr>";
+			var shTrDiv = "";
+			
+			if(schoolList.length == 0) {
+				schoolTemp = schoolTemp.replace("{time}", "");
+				schoolTemp = schoolTemp.replace("{schoolName}", "");
+				schoolTemp = schoolTemp.replace("{remark}", "");
+				
+				shTrDiv += schoolTemp;
+			}
+			
+			$.each(schoolList, function(i, obj) {
+				console.log("obj=  "+obj);
+				var time = obj.time;
+				if(!time) {
+					time = "";
+				}
+				var schoolName = obj.schoolName;
+				if(!schoolName) {
+					schoolName = "";
+				}
+				var remark = obj.remark;
+				if(!remark) {
+					remark = "";
+				}
+				schoolTemp = schoolTemp.replace("{time}", time);
+				schoolTemp = schoolTemp.replace("{schoolName}", schoolName);
+				schoolTemp = schoolTemp.replace("{remark}", remark);
+				
+				shTrDiv += schoolTemp;
+			});
+			
+			$(".muserSchool").append(shTrDiv);
+			//家庭关系
+			var homeList = user.homeList;
+			
+			var homeTemp = "<tr class='mhomes'>"
+				+"<td><input class='mappellation'  type='text' value='{appellation}'></input></td>"
+				+"<td><input class='mname'  type='text' value='{name}'></input></td>"
+				+"<td><input class='mdeptName'  type='text' value='{deptName}'></input></td>"
+				+"<td><input class='mremark'  type='text' value='{remark}'></input></td>"
+				+"</tr>";
+			var hTrDiv = "";
+			
+			if(homeList.length == 0) {
+				homeTemp = schoolTemp.replace("{appellation}", "");
+				homeTemp = schoolTemp.replace("{name}", "");
+				homeTemp = schoolTemp.replace("{deptName}", "");
+				homeTemp = schoolTemp.replace("{remark}", "");
+				
+				hTrDiv += homeTemp;
+			}
+			
+			$.each(homeList, function(i, obj) {
+				console.log("obj=  "+obj);
+				var appellation = obj.appellation;
+				if(!appellation) {
+					appellation = "";
+				}
+				var name = obj.name;
+				if(!name) {
+					name = "";
+				}
+				var deptName = obj.deptName;
+				if(!deptName) {
+					deptName = "";
+				}
+				var remark = obj.remark;
+				if(!remark) {
+					remark = "";
+				}
+				homeTemp = schoolTemp.replace("{appellation}", appellation);
+				homeTemp = schoolTemp.replace("{name}", name);
+				homeTemp = schoolTemp.replace("{deptName}", deptName);
+				homeTemp = schoolTemp.replace("{remark}", remark);
+				
+				hTrDiv += homeTemp;
+			});
+			
+			$(".muserHome").append(hTrDiv);
+			
 		}
 	});
-   	$("#w").window("open");
+   	$("#mw").window("open");
    },
    
    //修改用户
-   update: function() {
-   		var _this = this;
-		var userId = $("#userId").val();
-		var userName = $("#userName").val();
-		var realName = $("#realName").val();
-		var role = $("#role").val();
-		var customer = $("#customer").val();
-		var mobile = $("#mobile").val();
-		var email = $("#email").val();
-		var params = {
-			"userId" : userId,
-			"userName" : userName,
-			"realName" : realName,
-			"role" : role,
-			"customer" : customer,
-			"mobile" : mobile,
-			"email" : email
-		};
-		$.ajax({
-			url: "../user/updateUser.do",
-			data: params,
-			type:"post",
-			success: function(data) {
-				var result = JSON.parse(data);
-				if(result.code == 1) {
-					_this.showMsg("修改成功");
+   updateUser: function() {
+	   var schoolList = [];
+	   $(".muserSchool .mschools").each(function(i, e){
+		  var school = {
+				  time:"",
+				  schoolName:"",
+				  remark:""
+		  };
+//		  console.log($(e).find("td input"))
+		  var inputs = $(e).find("td input");
+		  $(inputs).each(function(j, el){
+			  var classAttr = $(el).attr("class");
+			  if( $(el).val()) {
+				  if(classAttr == 'mtime') {
+					  school.time = $(el).val();
+				  }
+				  if(classAttr == 'mschoolName') {
+					  school.schoolName = $(el).val();
+				  }
+				  if(classAttr == 'mremark') {
+					  school.remark = $(el).val();
+				  }
+			  }
+		  });
+		  schoolList.push(school);
+	   });
+	   $("#mschoolList").val(JSON.stringify(schoolList));
+//	   console.log("val=  "+JSON.stringify(schoolList))
+	   
+	   var homeList = [];
+	   $(".muserHome .mhomes").each(function(i, e){
+		   var home = {
+				   appellation:"",
+				   name:"",
+				   deptName:"",
+				   remark:""
+		   };
+//		  console.log($(e).find("td input"))
+		   var inputs = $(e).find("td input");
+		   $(inputs).each(function(j, el){
+			   console.log($(el));
+			   var classAttr = $(el).attr("class");
+			   if($(el).val()) {
+				   if(classAttr == 'mappellation') {
+					   home.appellation = $(el).val();
+				   }
+				   if(classAttr == 'mname') {
+					   home.name = $(el).val();
+				   }
+				   if(classAttr == 'mdeptName') {
+					   home.deptName = $(el).val();
+				   }
+				   if(classAttr == 'mremark') {
+					   home.remark = $(el).val();
+				   }
+			   }
+		   });
+		   homeList.push(home);
+	   });
+	   $("#mhomeList").val(JSON.stringify(homeList));
+	   
+		$('#muserForm').form('submit',{
+			success:function(data){
+				data = JSON.parse(data);
+				if(data.code == 1) {
+					Common.showMsg("修改成功");
+					$("#mw").window("close");
+					$("#tb_users").datagrid("reload");
 				} else {
-					_this.showMsg("修改失败");
+					Common.showMsg("修改失败");
 				}
-				
-				$("#w").window("close");
-				$("#tb_users").datagrid("reload");
 			}
-		}); 	
+		});
    },
    
    //新增用户弹窗
@@ -184,38 +331,87 @@ var User = {
    
    //新增用户
    addUser: function() {
-   		var _this = this;
-   		var userId = $("#userId").val();
-		var userName = $("#userName").val();
-		var realName = $("#realName").val();
-		var role = $("#role").val();
-		var customer = $("#customer").val();
-		var mobile = $("#mobile").val();
-		var email = $("#email").val();
-		var params = {
-			"userName" : userName,
-			"realName" : realName,
-			"role" : role,
-			"customer" : customer,
-			"mobile" : mobile,
-			"email" : email
-		};
-		$.ajax({
-			url: "../user/addUser.do",
-			data: params,
-			type:"post",
-			success: function(data) {
-				var result = JSON.parse(data);
-				if(result.code == 1) {
-					_this.showMsg("添加成功");
-				} else {
-					_this.showMsg("添加失败");
-				}
-				
-				$("#w").window("close");
-				$("#tb_users").datagrid("reload");
-			}
-		}); 	
+//	   var isNull = Common.verify("userForm");
+//		console.log("isNull   "+isNull);
+//		if(isNull) {
+//			return false;
+//		}
+	   var schoolList = [];
+	   var _schools = $("");
+	   $(".schools").each(function(i, e){
+		   console.log("i=  "+i+"  e=  "+$(e).html());
+		  var school = {
+				  time:"",
+				  schoolName:"",
+				  remark:""
+		  };
+//		  console.log($(e).find("td input"))
+		  var tds = $(e).find("td");
+		  $(tds).each(function(j, el){
+			  /*console.log("j=  "+j+"  el=  "+$(el));*/
+			  var classAttr = $(el).find("input").attr("class");
+			  if( $(el).val()) {
+				  if(classAttr == 'time') {
+					  school.time = $(el).val();
+				  }
+				  if(classAttr == 'schoolName') {
+					  school.schoolName = $(el).val();
+				  }
+				  if(classAttr == 'remark') {
+					  school.remark = $(el).val();
+				  }
+			  }
+		  });
+		  schoolList.push(school);
+	   });
+	   $("#schoolList").val(JSON.stringify(schoolList));
+	   console.log("val=  "+JSON.stringify(schoolList))
+	   
+	   var homeList = [];
+	   $(".userHome .homes").each(function(i, e){
+		   var home = {
+				   appellation:"",
+				   name:"",
+				   deptName:"",
+				   remark:""
+		   };
+//		  console.log($(e).find("td input"))
+		   var tds = $(e).find("td");
+		   $(tds).each(function(j, el){
+			   console.log($(el));
+			   var classAttr = $(el).attr("class");
+			   if($(el).val()) {
+				   if(classAttr == 'appellation') {
+					   home.appellation = $(el).val();
+				   }
+				   if(classAttr == 'name') {
+					   home.name = $(el).val();
+				   }
+				   if(classAttr == 'deptName') {
+					   home.deptName = $(el).val();
+				   }
+				   if(classAttr == 'remark') {
+					   home.remark = $(el).val();
+				   }
+			   }
+		   });
+		   homeList.push(home);
+	   });
+	   $("#homeList").val(JSON.stringify(homeList));
+//	   console.log("val=  "+JSON.stringify(homeList))
+	   
+	    $('#userForm').form('submit',{
+	    	   success:function(data){
+	    		    data = JSON.parse(data);
+	    		    if(data.code == 1) {
+	    		    	Common.showMsg("添加成功");
+	    		    	$("#w").window("close");
+	    				$("#tb_users").datagrid("reload");
+	    		    } else {
+	    		    	Common.showMsg("添加失败");
+	    		    }
+	    	    }
+	    });
    },
    
    //删除用户  
@@ -259,5 +455,29 @@ var queryUser = function() {
 
 $(function() {
 	User.init();
+	
+	$("#certFront").change(function() {
+		var _this = this;
+		var val = $(_this).val();
+		$("#imgFront").attr("src", val);
+	});
+	
+	$("#certBack").change(function() {
+		var _this = this;
+		var val = $(_this).val();
+		$("#imgBack").attr("src", val);
+	});
+	
+	$("#mcertFront").change(function() {
+		var _this = this;
+		var val = $(_this).val();
+		$("#mimgFront").attr("src", val);
+	});
+	
+	$("#mcertBack").change(function() {
+		var _this = this;
+		var val = $(_this).val();
+		$("#mimgBack").attr("src", val);
+	});
 });
 

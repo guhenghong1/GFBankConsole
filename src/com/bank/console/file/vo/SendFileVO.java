@@ -1,8 +1,8 @@
-package com.bank.console.file.model;
+package com.bank.console.file.vo;
 
 import java.util.Date;
 
-public class RecFile {
+public class SendFileVO {
 	private String fileId;	//文件编号
 	private String fileNo;	//文件字号
 	private Date createDate; //创建时间
@@ -15,7 +15,7 @@ public class RecFile {
 	private String emgLevel;	//紧急级别
 	private String attachment;	//附件
 	private String status;	//状态
-	private String updateDate;	//修改时间
+	private String updateDateStr; //修改时间
 	
 	public String getFileId() {
 		return fileId;
@@ -90,10 +90,10 @@ public class RecFile {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public String getUpdateDate() {
-		return updateDate;
+	public String getUpdateDateStr() {
+		return updateDateStr;
 	}
-	public void setUpdateDate(String updateDate) {
-		this.updateDate = updateDate;
+	public void setUpdateDateStr(String updateDateStr) {
+		this.updateDateStr = updateDateStr;
 	}
 }

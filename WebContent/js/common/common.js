@@ -39,15 +39,15 @@ var Common = {
     },
     
     //公共表单验证
-    verify : function() {
+    verify : function(ele) {
     	var isNull = false;
-    	$("input.required").each(function(i, e) {
+    	$("#"+ele+" input.required").each(function(i, e) {
     		var _this = this;
     		if(!$(_this).val()) {
     			isNull = true;
     			var text = $(_this).parent().prev("td").find("label").text();
-    			text = text.replace("：*", "");
-    			$(_this).next("span").html("<font style='color:red'>"+text+"</font>");
+    			text = text.replace("：*", "不能为空！");
+    			$(_this).next("span").html("<font style='color:red'> "+text+"</font>");
     		}
     	});
     	return isNull;
@@ -57,9 +57,11 @@ var Common = {
     	//公共的input框失去焦点提示
     	$('td').on('blur','.required',function(){
     		var _this = this;
-    		var text = $(_this).parent().prev("td").find("label").text();
-    		text = text.replace("：*", "不能为空！");
-    		$(_this).next("span").html("<font style='color:red'> "+text+"</font>");
+    		if(!$(_this).val()) {
+    			var text = $(_this).parent().prev("td").find("label").text();
+    			text = text.replace("：*", "不能为空！");
+    			$(_this).next("span").html("<font style='color:red'> "+text+"</font>");
+    		}
     	});
     }
 }

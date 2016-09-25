@@ -2,29 +2,28 @@ package com.bank.console.mapper;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import com.bank.console.system.model.User;
+import com.bank.console.file.form.SendFileForm;
+import com.bank.console.file.vo.SendFileVO;
 
 @Repository
 public interface SendFileMapper {
-	//新增用户
-	int addUser(User user);
-	
-	//修改用户
-	int updateUser(User user);
-	
-	//删除用户
-	int deleteUser(String userId);
-	
-	//查找用户
-	User findUser(String userId);
-	
-	//获取用户详情
-	User getUserInfo(String userId);
-	
-	List<User> getUserList(@Param("user") User user, @Param("roles") List roles);
-	
-	
+	//新增文件
+		int addFile(SendFileForm file);
+		
+		//修改文件
+		int updateFile(SendFileForm file);
+		
+		//删除文件
+		int deleteFile(String fileId);
+		
+		//获取文件详情
+		SendFileVO getFileInfo(String fileId);
+		
+		//查询列表
+		List<SendFileVO> getFileList(SendFileForm file);
+		
+		//查询数量
+		int getFileSum(SendFileForm file);
 }

@@ -105,8 +105,8 @@
 	                </div>
 	                <div title="文件管理" style="padding:10px">
 	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('收文处理', '${basePath}/recFile/init.do')" style="width:100px" data-options="plain:true">收文处理</a></div>
-	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('发文处理')" style="width:100px" data-options="plain:true">发文处理</a></div>
-	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('文件查找')" style="width:100px" data-options="plain:true">文件查找</a></div>
+	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('发文处理', '${basePath}/sendFile/init.do')" style="width:100px" data-options="plain:true">发文处理</a></div>
+	                    <!-- <div><a href="#" class="easyui-linkbutton"  onclick="openTab('文件查找')" style="width:100px" data-options="plain:true">文件查找</a></div> -->
 	                </div>
 	                <div title="资产管理" data-options="selected:false" style="padding:10px;">
 	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('DTU新建')" style="width:100px" data-options="plain:true">DTU新建</a></div>

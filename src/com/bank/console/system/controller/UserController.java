@@ -1,9 +1,11 @@
 package com.bank.console.system.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -12,11 +14,14 @@ import com.bank.console.common.Constant;
 import com.bank.console.common.PageCalc;
 import com.bank.console.common.Pager;
 import com.bank.console.common.interceptor.Permission;
+import com.bank.console.common.util.DateUtil;
 import com.bank.console.common.util.MD5Util;
 import com.bank.console.common.util.ResultUtil;
+import com.bank.console.file.form.SendFileForm;
 import com.bank.console.system.form.UserForm;
 import com.bank.console.system.model.User;
 import com.bank.console.system.service.UserService;
+import com.bank.console.system.vo.UserVO;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -68,7 +73,7 @@ public class UserController {
 		form.setStartRow(calc.getStart(Integer.parseInt(pageNum)));
 		form.setEndRow(calc.getEnd(Integer.parseInt(pageNum)));
 		
-		List<User> userList = userService.getUserList(form);
+		List<UserVO> userList = userService.getUserList(form);
 		JSONArray jsonArr = new JSONArray();
 		jsonArr = JSONArray.fromObject(userList);
 		
@@ -81,27 +86,24 @@ public class UserController {
 	@RequestMapping("/getUserInfo")
 	@ResponseBody
 	public String getUserInfo(@RequestParam("userId") String userId) {
-		User user = userService.getUserInfo(userId);
+		UserVO user = userService.getUserInfo(userId);
 		return JSONObject.fromObject(user).toString();
 	}
 
 	@Permission
 	@RequestMapping("/updateUser")
 	@ResponseBody
-	public String updateUser(@RequestParam("userId") String userId, @RequestParam("phone") String phone,
-			@RequestParam("realName") String realName, @RequestParam("roleId") String roleId,
-			@RequestParam("deptId") String deptId, @RequestParam("mobile") String mobile,
-			@RequestParam("email") String email) {
-		User user = new User();
-		user.setUserId(userId);
-		user.setRealName(realName);
-		user.setRoleId(roleId);
-		user.setDeptId(deptId);
-		user.setPhone(phone);;
-		user.setMobile(mobile);
-		user.setEmail(email);
+	public String updateUser(@ModelAttribute("userForm") UserForm form) {
+		Date birthday = DateUtil.defaultStrToDate(form.getBirthdayStr());
+		if(birthday != null) {
+			form.setBirthday(birthday);
+		}
+		Date entryDate = DateUtil.strToDate(form.getEntryDateStr(), DateUtil.str2CalenderFormate);
+		if(entryDate != null) {
+			form.setEntryDate(entryDate);
+		}
 		
-		int res = userService.updateUser(user);
+		int res = userService.updateUser(form);
 		
 		int code = res >=1? Constant.SUCCESS_CODE: Constant.ERROR_CODE;
 		ResultUtil result = new ResultUtil();
@@ -126,20 +128,18 @@ public class UserController {
 	@Permission
 	@RequestMapping("/addUser")
 	@ResponseBody
-	public String addUser(@RequestParam("userId") String userId,
-			@RequestParam("realName") String realName, @RequestParam("roleId") String roleId,
-			@RequestParam("phone") String customer, @RequestParam("mobile") String mobile,
-			@RequestParam("deptId") String deptId,
-			@RequestParam("email") String email) {
-		User user = new User();
-		user.setRealName(realName);
-		user.setRoleId(roleId);
-		user.setDeptId(deptId);
-		user.setMobile(mobile);
-		user.setEmail(email);
-		user.setPass(MD5Util.getMD5Code(INIT_PWD));
+	public String addUser(@ModelAttribute("userForm") UserForm form) {
+		form.setPass(MD5Util.getMD5Code(INIT_PWD));
+		Date birthday = DateUtil.strToDate(form.getBirthdayStr(), DateUtil.str2CalenderFormate);
+		if(birthday != null) {
+			form.setBirthday(birthday);
+		}
+		Date entryDate = DateUtil.strToDate(form.getEntryDateStr(), DateUtil.str2CalenderFormate);
+		if(entryDate != null) {
+			form.setEntryDate(entryDate);
+		}
 		
-		int res = userService.addUser(user);
+		int res = userService.addUser(form);
 		
 		int code = res >=1? Constant.SUCCESS_CODE: Constant.ERROR_CODE;
 		ResultUtil result = new ResultUtil();

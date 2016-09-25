@@ -14,6 +14,9 @@ public class FileUtil {
 	 * @throws Exception
 	 */
 	public static String saveFile(MultipartFile fileItem, String path) throws Exception{
+		if(fileItem == null) {
+			return "";
+		}
 		String fileName = fileItem.getOriginalFilename();
 		if(fileName.isEmpty()) {
 			return "";

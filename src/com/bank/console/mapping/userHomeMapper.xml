@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bank.console.mapper.UserHomeMapper">
+	<!-- 删除 -->
+	<delete id="deleteUserHome">
+		delete from tb_user_home where userId = #{userId, jdbcType=VARCHAR}
+	</delete>
+	
+	<sql id="columns">
+			 userId,
+             appellation,
+             name,
+             deptName,
+             remark
+	</sql>
+	<!-- 查询 -->
+ 	<select id="getUserHomeList" resultType="UserHome">
+		 	SELECT   
+		    	<include refid="columns"/>
+		    FROM
+		      tb_user_home
+		    <where>
+				<if test="userId != null and userId != ''">
+					and userId = #{userId, jdbcType=VARCHAR}
+				</if>
+		    </where>
+	</select>
+	
+	<!-- 新增用户个人简历（毕业学校信息） -->
+ 	<insert id="addUserHome"  parameterType="UserHome">
+	   insert into tb_user_home(
+	   		userId,
+	   		appellation,
+	   		name,
+	   		deptName,
+	   		remark
+	   ) values(
+	   	 	#{userId, jdbcType=VARCHAR},
+	   	 	#{appellation, jdbcType=VARCHAR},
+	   	 	#{name, jdbcType=INTEGER},
+	   	 	#{deptName, jdbcType=INTEGER},
+	   	 	#{remark, jdbcType=VARCHAR}
+	   )
+	</insert>
+	
+</mapper>

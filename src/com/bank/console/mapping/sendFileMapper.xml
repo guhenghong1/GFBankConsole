@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bank.console.mapper.RecFileMapper">
+<mapper namespace="com.bank.console.mapper.SendFileMapper">
 	<!-- 新增用户 -->
- 	<insert id="addFile"  parameterType="RecFileForm">
-	   insert into tb_recevice_file(
+ 	<insert id="addFile"  parameterType="SendFileForm">
+	   insert into tb_send_file(
 	   		fileId,
 	   		fileNo,
 	   		fileTitle,
@@ -31,8 +31,8 @@
 	</insert>
 	
 	<!-- 修改 -->
-	<update id="updateFile" parameterType="RecFileForm">
-		update tb_recevice_file 
+	<update id="updateFile" parameterType="SendFileForm">
+		update tb_send_file 
 			<set>
 				<if test="fileNo != null and fileNo != ''">
 				 	fileNo = #{fileNo, jdbcType=VARCHAR},
@@ -65,7 +65,7 @@
 	
 	<!-- 删除 -->
 	<delete id="deleteFile">
-		delete from tb_recevice_file where fileId = #{fileId, jdbcType=VARCHAR}
+		delete from tb_send_file where fileId = #{fileId, jdbcType=VARCHAR}
 	</delete>
 	
 	<!-- 查询数量 -->
@@ -73,7 +73,7 @@
 	    SELECT
 	      COUNT(1) AS sum
 	    FROM
-	      tb_recevice_file
+	      tb_send_file
 	    <where>
 	    	<if test="keyWords != null and keyWords != ''">
 				 keyWords like '%${keyWords}%'
@@ -114,11 +114,11 @@
 	</sql>
 	
 	<!-- 查询 -->
- 	<select id="getFileList" resultType="RecFileVO">
+ 	<select id="getFileList" resultType="SendFileForm">
 		 	SELECT   
 		    	<include refid="columns"/>
 		    FROM
-		      tb_recevice_file
+		      tb_send_file
 		    <where>
 		    	<if test="keyWords != null and keyWords != ''">
 					 keyWords like '%${keyWords}%'
@@ -147,11 +147,11 @@
 	</select>
 	
 	<!--查询文件信息 -->
- 	<select id="getFileInfo" resultType="RecFileVO">
+ 	<select id="getFileInfo" resultType="SendFileForm">
 	    SELECT
 	       <include refid="columns"/>
 	    FROM
-	      tb_recevice_file
+	      tb_send_file
 	    where fileId = #{fileId, jdbcType=VARCHAR}
 	</select>
 	

@@ -29,9 +29,9 @@ public class RecFileService {
 	 */
 	public int addFile(RecFileForm form) throws Exception {
 		String path = ConfigProperty.UPLOAD_FILE_PATH + File.separator + FilePath.REC_FILE + File.separator;
-		MultipartFile fileItem = form.getFileItem();
-		String attachment = FileUtil.saveFile(fileItem, path);
-		form.setAttachment(attachment);
+//		MultipartFile fileItem = form.getFileItem();
+//		String attachment = FileUtil.saveFile(fileItem, path);
+//		form.setAttachment(attachment);
 		return recFileMapper.addFile(form);
 	}
 	
@@ -67,7 +67,7 @@ public class RecFileService {
 	 * @param file
 	 * @return
 	 */
-	public RecFile getFileInfo(String fileId) {
+	public RecFileVO getFileInfo(String fileId) {
 		return recFileMapper.getFileInfo(fileId);
 	}
 	

@@ -17,62 +17,67 @@
 <body>
 	<script type="text/javascript" src="${basePath}/js/common/common.js?u=${times}"></script>
 	<script type="text/javascript" src="${basePath}/js/common/comEasyui.js?u=${times}"></script>
-	<script type="text/javascript" src="${basePath}/js/file/recFile.js?u=${times}"></script>
-	<div class="recFile">
+	<script type="text/javascript" src="${basePath}/js/file/sendFile.js?u=${times}"></script>
+	<div class="sendFile" style="padding: 20px">
 		<div id="tb" style="height: auto">
-			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="RecFile.edit()">编辑</a>
-			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="RecFile.add()">新增</a>
-			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="RecFile.deleteOp()">删除</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'',plain:true" onclick="SendFile.edit(0)">详情</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="SendFile.edit(1)">编辑</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="SendFile.add()">新增</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="SendFile.deleteOp()">删除</a>
+			<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-print',plain:true" onclick="SendFile.download()">打印</a>
 		</div>
-        <div>  
+        <div class="query" style="padding: 5px">  
            <label>来文编号：</label><input type="text" id = "qFileId" name="qFileId" style="width:150px"/>  
            <label>关键词：</label><input type="text" id = "qkeyWords" name="qkeyWords" style="width:150px"/>  
-            <select id="qdeptId" class="easyui-combobox" panelHeight="auto" style="width:100px">  
+           <label>总行：</label><select id="qdeptId" class="easyui-combobox" panelHeight="auto" style="width:100px">  
                 <option value="1">总行</option>  
                 <option value="2">支行</option>  
             </select>  
             <a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="queryFile()">查询</a>  
         </div> 
-		<table id="recFile" rownumbers="true"></table>
+		<table id="sendFile" rownumbers="true"></table>
 		
-		<div id="rfw" class="easyui-window" title="添加发文"
+		<div id="sfw" class="easyui-window" title="添加发文"
 			data-options="modal:true,closed:true,iconCls:'icon-save'"
 			style="width: 500px; height: 450px; padding: 10px;">
-		<form id="recFileForm" method="post" action="${basePath}/recFile/addFile.do" enctype="multipart/form-data">  
+		<form id="sendFileForm" method="post" action="${basePath}/sendFile/addFile.do" enctype="multipart/form-data">  
 			<table>
 				<tr>
-					<td><label>来文编号：<span style="color: red">*</span></label></td>
-					<td><input id="fileId" name="fileId" type="text" value=""></input>
+					<td><label>来文编号：<font style="color: red">*</font></label></td>
+					<td><input id="fileId" class="required" name="fileId" type="text" value=""></input>
+					<span id = "fileIdmsg" class="msg"></span>
 					</td>
 				</tr>
 				<tr>
-					<td><label>来文时间：</label><span style="color: red">*</span></td>
+					<td><label>来文时间：<font style="color: red">*</font></label></td>
 					<td> 
 						<input class="easyui-datetimebox" name = "createDate"
-						data-options="required:false,showSeconds:false,formatter:fmt" label="Select DateTime:" labelPosition="top" style="width:181px">
+						data-options="required:false,showSeconds:true,formatter:fmt,parser:pas" label="Select DateTime:" labelPosition="top" style="width:181px">
+						<span id = "createDatemsg" class="msg"></span>
 					</td>
 				</tr>
 				<tr>
-					<td><label>来文单位：<span style="color: red">*</span></label></td>
+					<td><label>来文单位：<font style="color: red">*</font></label></td>
 					<td>
 						<input id="deptId" name="deptId" class="easyui-combotree" data-options="url:'../dept/getDeptTree.do',method:'get',label:'Select Nodes:',labelPosition:'top',multiple:false" style="width:181px">
+						<span id = "deptIdmsg" class="msg"></span>
 					</td>
 				</tr>
 				<tr>
-					<td><label>来文字号：<span style="color: red">*</span></label></td>
-					<td><input id="fileNo" name="fileNo" type="text" value=""></input></td>
+					<td><label>来文字号：<font style="color: red">*</font></label></td>
+					<td><input id="fileNo" name="fileNo" class="required" type="text" value=""></input><span id = "fileNomsg" class="msg"></span></td>
 				</tr>
 				<tr>
 					<td><label>发文标题：</label></td>
-					<td><input id="fileTitle" name="fileTitle" type="text" value=""></input></td>
+					<td><input id="fileTitle" name="fileTitle" type="text" value=""></input><span id = "fileTitlemsg" class="msg"></span></td>
 				</tr>
 				<tr>
-					<td><label>来文文关键词：<span style="color: red">*</span></label></td>
-					<td><input id="keyWords" name= "keyWords" type="text" value=""></input></td>
+					<td><label>来文文关键词：<font style="color: red">*</font></label></td>
+					<td><input id="keyWords" name= "keyWords" class="required" type="text" value=""></input><span id = "keyWordsmsg" class="msg"></span></td>
 				</tr>
 				<tr>
 					<td><label>状态：</label></td>
-					<td><select id="state" name="state">
+					<td><select id="status" name="status">
 					  <option value ="1">已阅</option>
 					  <option value ="1">董事长处理中</option>
 					  <option value ="2">已处理</option>
@@ -106,10 +111,10 @@
 		</form>
 		</div>
 		
-		<div id="mrfw" class="easyui-window" title="添加发文"
+		<div id="msfw" class="easyui-window" title="添加发文"
 			data-options="modal:true,closed:true,iconCls:'icon-save'"
 			style="width: 500px; height: 450px; padding: 10px;">
-		<form id="mrecFileForm" method="post" action="${basePath}/recFile/updateFile.do" enctype="multipart/form-data">  
+		<form id="msendFileForm" method="post" action="${basePath}/sendFile/updateFile.do" enctype="multipart/form-data">  
 			<table>
 				<tr>
 					<td><label>来文编号：</label></td>
@@ -141,7 +146,7 @@
 				</tr>
 				<tr>
 					<td><label>状态：</label></td>
-					<td><select id="mstate" name="state">
+					<td><select id="mstatus" name="status">
 					  <option value ="1">已阅</option>
 					  <option value ="1">董事长处理中</option>
 					  <option value ="2">已处理</option>
@@ -169,8 +174,8 @@
 				</tr>
 			</table>
 			<div style="margin: 20px 0;">
-				<a href="javascript:void(0)" class="easyui-linkbutton" id="add" onclick="updateFile()">保存</a>
-				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm(1)">取消</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton update" id="add" onclick="updateFile()">保存</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton cancle" onclick="clearForm(1)">取消</a>
 			</div>
 		</form>
 		</div>
