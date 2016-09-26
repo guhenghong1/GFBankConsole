@@ -115,7 +115,7 @@
 	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('仪表监控')" style="width:100px" data-options="plain:true">仪表监控</a></div>
 	                </div>
 	                <div title="客户关系管理" style="padding:10px">
-	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('流量统计报表')" style="width:100px" data-options="plain:true">流量统计报表</a></div>
+	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('客户管理', '${basePath}/customer/init.do')" style="width:100px" data-options="plain:true">客户管理</a></div>
 	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('故障分析报表')" style="width:100px" data-options="plain:true">故障分析报表</a></div>
 	                </div>
 	                <div title="会议公告管理" style="padding:10px">

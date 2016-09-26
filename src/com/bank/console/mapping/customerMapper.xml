@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bank.console.mapper.CustomerMapper">
+
+	<resultMap type="com.bank.console.customer.model.Customer" id="CustomerMap">
+		<id property="id" column="id"/>
+		<result property="manager" column="manager" />
+		<result property="name" column="name" />
+		<result property="type" column="type" />
+		<result property="grade" column="grade" />
+		<result property="cardNo" column="card_no" />
+		<result property="account" column="account" />
+		<result property="birthday" column="birthday" />
+		<result property="hobby" column="hobby" />
+		<result property="contact" column="contact" />
+		<result property="remark" column="remark" />
+		<result property="status" column="status" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />	
+	</resultMap>
+	
+	<resultMap type="com.bank.console.customer.vo.CustomerVo" id="CustomerVoMap" extends="CustomerMap">
+		<result property="birthdayStr" column="birthday_str" />
+	</resultMap>
+	
+	<!-- 新增用户 -->
+ 	<insert id="addCustomer"  parameterType="com.bank.console.customer.model.Customer">
+	   insert into tb_customer(
+	   		id,
+	   		manager,
+	   		name,
+	   		type,
+	   		grade,
+	   		card_no,
+	   		account,
+	   		birthday,
+	   		hobby,
+	   		contact,
+	   		remark
+	   ) values(
+	   	 	#{id},
+	   	 	#{manager},
+	   	 	#{name},
+	   	 	#{type},
+	   	 	#{grade},
+	   	 	#{cardNo},
+	   	 	#{account},
+	   	 	#{birthday},
+	   	 	#{hobby},
+	   	 	#{contact},
+	   	 	#{remark}
+	   )
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="updateCustomer" parameterType="com.bank.console.customer.model.Customer">
+		update tb_customer 
+			<set>
+				<if test="manager != null and manager != ''">
+				 	manager = #{manager},
+				 </if>
+				 <if test="name != null and name != ''">
+				 	name = #{name},
+				 </if>
+				 <if test="type != null">
+				 	type = #{type},
+				 </if>
+				 <if test="grade != null">
+				 	grade = #{grade},
+				 </if>
+				 <if test="cardNo != null and cardNo != ''">
+				 	card_no = #{cardNo},
+				 </if>
+				  <if test="account != null and account != ''">
+				  	account = #{account},
+				  </if>
+				 <if test="birthday != null">
+				 	birthday = #{birthday},
+				 </if>
+				 <if test="hobby != null and hobby != ''">
+				 	hobby = #{hobby},
+				 </if>
+				 <if test="contact != null and contact != ''">
+				 	contact = #{contact},
+				 </if>
+				 <if test="remark != null and remark != ''">
+				 	remark = #{remark},
+				 </if>
+			</set>
+		where id = #{id} 
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="deleteCustomer" parameterType="string">
+		update tb_customer set status=0 where id = #{id}
+	</delete>
+
+	<!-- 查询 -->
+ 	<select id="getCustomerList" resultMap="CustomerVoMap">
+	 	SELECT  t.*,date_format(t.birthday, '%Y-%m-%d') as birthday_str FROM tb_customer t
+	    <where>
+	    	status = 1
+	    	<if test="id != null and id != ''">
+				and id like '%${id}%'
+			</if>
+			<if test="name != null and name != ''">
+				and name like '%${name}%'
+			</if>
+	    </where>
+	    order by id
+		limit #{startRow}, #{endRow}
+	</select>
+	
+	<!-- 查询数量 -->
+ 	<select id="getCustomerSum" parameterType="java.util.Map" resultType="int">
+	    SELECT   count(1) FROM tb_customer
+	    <where>
+	    	status = 1
+	    	<if test="id != null and id != ''">
+				and id like '%${id}%'
+			</if>
+			<if test="name != null and name != ''">
+				and name like '%${name}%'
+			</if>
+	    </where>
+	</select>
+	
+	<!--查询用户-->
+ 	<select id="getCustomerInfo" resultMap="CustomerVoMap">
+	    select t.*,date_format(t.birthday, '%Y-%m-%d') as birthday_str from tb_customer t where id = #{id}
+	</select>
+	
+</mapper>
