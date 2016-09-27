@@ -125,7 +125,7 @@
 					<td><label>来文时间：</label></td>
 					<td> 
 						<input id="mcreateDate" class="easyui-datetimebox" name = "createDate"
-						data-options="required:false,showSeconds:false, formatter:fmt" label="Select DateTime:" labelPosition="top" style="width:150px">
+						data-options="required:false,showSeconds:false, formatter:fmt,parser:pas" label="Select DateTime:" labelPosition="top" style="width:150px">
 					</td>
 				</tr>
 				<tr>

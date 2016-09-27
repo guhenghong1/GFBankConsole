@@ -27,7 +27,7 @@
 			<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-print',plain:true" onclick="SendFile.download()">打印</a>
 		</div>
         <div class="query" style="padding: 5px">  
-           <label>来文编号：</label><input type="text" id = "qFileId" name="qFileId" style="width:150px"/>  
+           <label>发文编号：</label><input type="text" id = "qFileId" name="qFileId" style="width:150px"/>  
            <label>关键词：</label><input type="text" id = "qkeyWords" name="qkeyWords" style="width:150px"/>  
            <label>总行：</label><select id="qdeptId" class="easyui-combobox" panelHeight="auto" style="width:100px">  
                 <option value="1">总行</option>  
@@ -43,28 +43,28 @@
 		<form id="sendFileForm" method="post" action="${basePath}/sendFile/addFile.do" enctype="multipart/form-data">  
 			<table>
 				<tr>
-					<td><label>来文编号：<font style="color: red">*</font></label></td>
+					<td><label>发文编号：<font style="color: red">*</font></label></td>
 					<td><input id="fileId" class="required" name="fileId" type="text" value=""></input>
 					<span id = "fileIdmsg" class="msg"></span>
 					</td>
 				</tr>
 				<tr>
-					<td><label>来文时间：<font style="color: red">*</font></label></td>
+					<td><label>发文时间：<font style="color: red">*</font></label></td>
 					<td> 
-						<input class="easyui-datetimebox" name = "createDate"
+						<input class="easyui-datetimebox" name = "createDateStr"
 						data-options="required:false,showSeconds:true,formatter:fmt,parser:pas" label="Select DateTime:" labelPosition="top" style="width:181px">
 						<span id = "createDatemsg" class="msg"></span>
 					</td>
 				</tr>
 				<tr>
-					<td><label>来文单位：<font style="color: red">*</font></label></td>
+					<td><label>发文单位：<font style="color: red">*</font></label></td>
 					<td>
 						<input id="deptId" name="deptId" class="easyui-combotree" data-options="url:'../dept/getDeptTree.do',method:'get',label:'Select Nodes:',labelPosition:'top',multiple:false" style="width:181px">
 						<span id = "deptIdmsg" class="msg"></span>
 					</td>
 				</tr>
 				<tr>
-					<td><label>来文字号：<font style="color: red">*</font></label></td>
+					<td><label>发文字号：<font style="color: red">*</font></label></td>
 					<td><input id="fileNo" name="fileNo" class="required" type="text" value=""></input><span id = "fileNomsg" class="msg"></span></td>
 				</tr>
 				<tr>
@@ -72,29 +72,26 @@
 					<td><input id="fileTitle" name="fileTitle" type="text" value=""></input><span id = "fileTitlemsg" class="msg"></span></td>
 				</tr>
 				<tr>
-					<td><label>来文文关键词：<font style="color: red">*</font></label></td>
+					<td><label>发文文关键词：<font style="color: red">*</font></label></td>
 					<td><input id="keyWords" name= "keyWords" class="required" type="text" value=""></input><span id = "keyWordsmsg" class="msg"></span></td>
 				</tr>
 				<tr>
-					<td><label>状态：</label></td>
-					<td><select id="status" name="status">
-					  <option value ="1">已阅</option>
-					  <option value ="1">董事长处理中</option>
-					  <option value ="2">已处理</option>
-					</select></td>
+					<td><label>发文拟稿人：</label></td>
+					<td><input id="author" name= "author" type="text" value=""></input></td>
 				</tr>
 				<tr>
-					<td><label>来文保密级别：</label></td>
+					<td><label>发文核查人：</label></td>
+					<td><input id="checkAuthor" name= "checkAuthor" type="text" value=""></input></td>
+				</tr>
+				<tr>
+					<td><label>发文签发人：</label></td>
+					<td><input id="signAuthor" name= "signAuthor" type="text" value=""></input></td>
+				</tr>
+				<tr>
+					<td><label>发文保密级别：</label></td>
 					<td><select id="secretLevel" name="secretLevel">
 					  <option value ="1">普通</option>
 					  <option value ="2">保密</option>
-					</select></td>
-				</tr>
-				<tr>
-					<td><label>来文紧急级别：</label></td>
-					<td><select id="emgLevel" name="emgLevel">
-					  <option value ="1">一般</option>
-					  <option value ="2">紧急</option>
 					</select></td>
 				</tr>
 				<tr>
@@ -117,23 +114,23 @@
 		<form id="msendFileForm" method="post" action="${basePath}/sendFile/updateFile.do" enctype="multipart/form-data">  
 			<table>
 				<tr>
-					<td><label>来文编号：</label></td>
+					<td><label>发文编号：</label></td>
 					<td><input id="mfileId" name="fileId" type="text" value=""></input>
 					</td>
 				</tr>
 				<tr>
-					<td><label>来文时间：</label></td>
+					<td><label>发文时间：</label></td>
 					<td> 
-						<input id="mcreateDate" class="easyui-datetimebox" name = "createDate"
-						data-options="required:false,showSeconds:false, formatter:fmt" label="Select DateTime:" labelPosition="top" style="width:150px">
+						<input id="mcreateDate" class="easyui-datetimebox" name = "createDateStr"
+						data-options="required:false,showSeconds:false, formatter:fmt,parser:pas" label="Select DateTime:" labelPosition="top" style="width:150px">
 					</td>
 				</tr>
 				<tr>
-					<td><label>来文单位：</label></td>
-					<td><input id="mdeptId" name="deptId" class="easyui-combotree" data-options="url:'../dept/getDeptTree.do',method:'get',label:'Select Nodes:',labelPosition:'top',multiple:false" style="width:100%"></td>
+					<td><label>发文单位：</label></td>
+					<td><input id="mdeptId" name="deptId" class="easyui-combotree" data-options="url:'../dept/getDeptTree.do',method:'get',label:'Select Nodes:',labelPosition:'top',multiple:false" style="width:181px"></td>
 				</tr>
 				<tr>
-					<td><label>来文字号：</label></td>
+					<td><label>发文字号：</label></td>
 					<td><input id="mfileNo" name="fileNo" type="text" value=""></input></td>
 				</tr>
 				<tr>
@@ -141,29 +138,26 @@
 					<td><input id="mfileTitle" name="fileTitle" type="text" value=""></input></td>
 				</tr>
 				<tr>
-					<td><label>来文文关键词：</label></td>
+					<td><label>发文关键词：</label></td>
 					<td><input id="mkeyWords" name= "keyWords" type="text" value=""></input></td>
 				</tr>
 				<tr>
-					<td><label>状态：</label></td>
-					<td><select id="mstatus" name="status">
-					  <option value ="1">已阅</option>
-					  <option value ="1">董事长处理中</option>
-					  <option value ="2">已处理</option>
-					</select></td>
+					<td><label>发文拟稿人：</label></td>
+					<td><input id="mauthor" name= "author" type="text" value=""></input></td>
 				</tr>
 				<tr>
-					<td><label>来文保密级别：</label></td>
+					<td><label>发文核查人：</label></td>
+					<td><input id="mcheckAuthor" name= "checkAuthor" type="text" value=""></input></td>
+				</tr>
+				<tr>
+					<td><label>发文签发人：</label></td>
+					<td><input id="msignAuthor" name= "signAuthor" type="text" value=""></input></td>
+				</tr>
+				<tr>
+					<td><label>发文保密级别：</label></td>
 					<td><select id="msecretLevel" name="secretLevel">
 					  <option value ="1">普通</option>
 					  <option value ="2">保密</option>
-					</select></td>
-				</tr>
-				<tr>
-					<td><label>来文紧急级别：</label></td>
-					<td><select id="memgLevel" name="emgLevel">
-					  <option value ="1">一般</option>
-					  <option value ="2">紧急</option>
 					</select></td>
 				</tr>
 				<tr>

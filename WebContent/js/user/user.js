@@ -153,8 +153,8 @@ var User = {
 			$("#mmajor").val(user.major);
 			$("#mremark").val(user.remark);
 			
-			$('#mbirthday').datebox('setValue', "'"+user.birthdayStr+"'");
-			$('#mentryDate').datebox('setValue', "'"+user.entryDateStr+"'");
+			$('#mbirthday').datebox('setValue', user.birthdayStr);
+			$('#mentryDate').datebox('setValue', user.entryDateStr);
 			
 			//个人简历
 			var mschoolsTr = $(".muserSchool .mschools");

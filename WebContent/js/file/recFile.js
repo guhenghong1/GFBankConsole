@@ -89,8 +89,8 @@ var RecFile = {
 					$("#mstatus").val(file.status);
 					$("#msecretLevel").val(file.secretLevel);
 					$("#memgLevel").val(file.emgLevel);
-					$("#mattachment").val(file.attachment);
-					$('#mcreateDate').datetimebox('setValue', "'"+file.createDateStr+"'");
+//					$("#mattachment").val(file.attachment);
+					$('#mcreateDate').datetimebox('setValue', file.createDateStr);
 					
 					var deptIdArr = [];
 					var deptIdStr = file.deptId;

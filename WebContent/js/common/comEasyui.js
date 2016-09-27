@@ -36,8 +36,9 @@ function pas(s){
     var h = s.substring(11,13);  
     var min = s.substring(14,16);  
     var sec = s.substring(17);  
-//    console.log("h="+h+" min="+min+" sec="+sec);
+    console.log("y="+y+" m= "+m+" d="+d+" h="+h+" min="+min+" sec="+sec);
     if (!isNaN(y) && !isNaN(m) && !isNaN(d) && !isNaN(h) && !isNaN(min) && !isNaN(sec)){  
+    	console.log("h="+h+" min="+min+" sec="+sec);
         return new Date(y,m-1,d,h,min,sec);  
     } else {  
         return new Date();  

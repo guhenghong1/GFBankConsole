@@ -7,15 +7,17 @@ public class SendFileVO {
 	private String fileNo;	//文件字号
 	private Date createDate; //创建时间
 	private String createDateStr; //创建时间
+	private Date updateDate; //修改时间
+	private String updateDateStr; //修改时间
 	private String deptId;	//部门id
 	private String deptName;	//部门
 	private String fileTitle;	//文件标题
 	private String keyWords; 	//关键词
 	private String secretLevel;	//保密级别
-	private String emgLevel;	//紧急级别
 	private String attachment;	//附件
-	private String status;	//状态
-	private String updateDateStr; //修改时间
+	private String author;	//拟稿人
+	private String checkAuthor;		//审核人
+	private String signAuthor;		//签发人
 	
 	public String getFileId() {
 		return fileId;
@@ -72,28 +74,40 @@ public class SendFileVO {
 	public void setSecretLevel(String secretLevel) {
 		this.secretLevel = secretLevel;
 	}
-	public String getEmgLevel() {
-		return emgLevel;
-	}
-	public void setEmgLevel(String emgLevel) {
-		this.emgLevel = emgLevel;
-	}
 	public String getAttachment() {
 		return attachment;
 	}
 	public void setAttachment(String attachment) {
 		this.attachment = attachment;
 	}
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
 	public String getUpdateDateStr() {
 		return updateDateStr;
 	}
 	public void setUpdateDateStr(String updateDateStr) {
 		this.updateDateStr = updateDateStr;
+	}
+	public String getAuthor() {
+		return author;
+	}
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+	public String getCheckAuthor() {
+		return checkAuthor;
+	}
+	public void setCheckAuthor(String checkAuthor) {
+		this.checkAuthor = checkAuthor;
+	}
+	public String getSignAuthor() {
+		return signAuthor;
+	}
+	public void setSignAuthor(String signAuthor) {
+		this.signAuthor = signAuthor;
+	}
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
 	}
 }

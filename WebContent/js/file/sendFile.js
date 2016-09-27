@@ -27,14 +27,15 @@ var SendFile = {
 	         url: '../sendFile/getFileList.do',
 	         columns: [[
 //	               {field: 'ck', checkbox: true, align:'center', width: 30},
-	               {field: 'fileId', title: '来文编号', align:'center', width: 100},
-	               {field: 'deptName', title: '来文单位', align:'center', width: 100},
-	               {field: 'fileNo', title: '来文字号', align:'center', width: 200},
+	               {field: 'fileId', title: '编号', align:'center', width: 100},
+	               {field: 'deptName', title: '单位', align:'center', width: 100},
+	               {field: 'fileNo', title: '字号', align:'center', width: 200},
 	               {field: 'fileTitle', title: '发文标题', align:'center', width: 200},
-	               {field: 'keyWords', title: '来文文关键词', width: 100},
-	               {field: 'status', title: '状态', align:'center', width: 100},
-	               {field: 'secretLevel', title: '来文保密级别', align:'center', width: 100},
-	               {field: 'emgLevel', title: '来文紧急级别', align:'center', width: 100},
+	               {field: 'keyWords', title: '文关键词', width: 100},
+	               {field: 'author', title: '拟稿人', align:'center', width: 100},
+	               {field: 'checkAuthor', title: '核查人', align:'center', width: 100},
+	               {field: 'signAuthor', title: '签发人', align:'center', width: 100},
+	               {field: 'secretLevel', title: '保密级别', align:'center', width: 100},
 	               {field: 'updateDateStr', title: '修改时间', align:'center', width: 120},	
 //	               {field: 'attachment', title: '操作', align:'center', width: 300},
 	            ]],
@@ -50,12 +51,12 @@ var SendFile = {
 		// 查询弹窗
 	query : function() {
 		$('#qsendFileForm').form('clear');
-		$("#qrfw").window("open");
+		$("#qsfw").window("open");
 	},
 	// 新增弹窗
 	add : function() {
 		$('#sendFileForm').form('clear');
-		$("#rfw").window("open");
+		$("#sfw").window("open");
 	},
 
 	// 编辑弹窗
@@ -86,22 +87,24 @@ var SendFile = {
 					$("#mfileNo").val(file.fileNo);
 					$("#mfileTitle").val(file.fileTitle);
 					$("#mkeyWords").val(file.keyWords);
-					$("#mstatus").val(file.status);
+					$("#mauthor").val(file.author);
+					$("#mcheckAuthor").val(file.checkAuthor);
+					$("#msignAuthor").val(file.signAuthor);
 					$("#msecretLevel").val(file.secretLevel);
-					$("#memgLevel").val(file.emgLevel);
-					$("#mattachment").val(file.attachment);
-					$('#mcreateDate').datetimebox('setValue', "'"+file.createDateStr+"'");
+//					$("#mattachment").val(file.attachment);
+					$('#mcreateDate').datetimebox('setValue', file.createDateStr);
 					
 					var deptIdArr = [];
 					var deptIdStr = file.deptId;
-					for(var i = 0; i< deptIdStr.split(","); i++) {
-						deptIdArr.push(deptIdStr[i]);
-					}
+					deptIdArr = deptIdStr.split(",");
+//					for(var i = 0; i< deptIdStr.split(",").length; i++) {
+//						deptIdArr.push(deptIdStr[i]);
+//					}
 					$('#mdeptId').combotree('setValues', deptIdArr);
 				}
 			}
 		});
-		$("#mrfw").window("open");
+		$("#msfw").window("open");
 	},
 	
 	//删除
@@ -210,10 +213,10 @@ var queryFile = function() {
 var clearForm = function(d) {
 	if(d == 1) {
 		$('#msendFileForm').form('clear');
-//		$("#mrfw").window("close");
+//		$("#msfw").window("close");
 	} else {
 		$('#sendFileForm').form('clear');
-//		$("#rfw").window("close");
+//		$("#sfw").window("close");
 	}
 }
 

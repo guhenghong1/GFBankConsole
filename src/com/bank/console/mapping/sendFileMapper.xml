@@ -10,8 +10,9 @@
 	   		deptId,
 	   		keyWords,
 	   		secretLevel,
-	   		emgLevel,
-	   		status,
+	   		author,
+	   		checkAuthor,
+	   		signAuthor,
 	   		attachment,
 	   		createDate,
 	   		updateDate
@@ -22,8 +23,9 @@
 	   	 	#{deptId, jdbcType=VARCHAR},
 	   	 	#{keyWords, jdbcType=VARCHAR},
 	   	 	#{secretLevel, jdbcType=VARCHAR},
-	   	 	#{emgLevel, jdbcType=VARCHAR},
-	   	 	#{status, jdbcType=VARCHAR},
+	   	 	#{author, jdbcType=VARCHAR},
+	   	 	#{checkAuthor, jdbcType=VARCHAR},
+	   	 	#{signAuthor, jdbcType=VARCHAR},
 	   	 	#{attachment, jdbcType=VARCHAR},
 	   	 	now(),
 	   	 	now()
@@ -49,11 +51,14 @@
 				 <if test="secretLevel != null and secretLevel != ''">
 				 	secretLevel = #{secretLevel, jdbcType=VARCHAR},
 				 </if>
-				  <if test="emgLevel != null and emgLevel != ''">
-				  	emgLevel = #{emgLevel, jdbcType=VARCHAR},
+				  <if test="author != null and author != ''">
+				  	author = #{author, jdbcType=VARCHAR},
 				  </if>
-				 <if test="status != null and status != ''">
-				 	status = #{status, jdbcType=VARCHAR},
+				 <if test="checkAuthor != null and checkAuthor != ''">
+				 	checkAuthor = #{checkAuthor, jdbcType=VARCHAR},
+				 </if>
+				 <if test="signAuthor != null and signAuthor != ''">
+				 	signAuthor = #{signAuthor, jdbcType=VARCHAR},
 				 </if>
 				 <if test="attachment != null and attachment != ''">
 				 	attachment = #{attachment, jdbcType=VARCHAR},
@@ -76,26 +81,39 @@
 	      tb_send_file
 	    <where>
 	    	<if test="keyWords != null and keyWords != ''">
-				 keyWords like '%${keyWords}%'
-			</if>
-			<if test="fileTitle != null and fileTitle != ''">
-				and fileTitle = #{fileTitle, jdbcType=VARCHAR}
-			</if>
-			<if test="fileNo != null and fileNo != ''">
-				and fileNo = #{fileNo, jdbcType=VARCHAR}
-			</if>
-			<if test="secretLevel != null and secretLevel != ''">
-				and secretLevel = #{secretLevel, jdbcType=VARCHAR}
-			</if>
-			<if test="emgLevel != null and emgLevel != ''">
-				and emgLevel = #{emgLevel, jdbcType=VARCHAR}
-			</if>
-			<if test="status != null and status != ''">
-				and status = #{status, jdbcType=VARCHAR}
-			</if>
-			<if test="fileId != null and fileId != ''">
-				and fileId = #{fileId, jdbcType=VARCHAR}
-			</if>
+					 keyWords like '%${keyWords}%'
+				</if>
+				<if test="fileTitle != null and fileTitle != ''">
+					and fileTitle = #{fileTitle, jdbcType=VARCHAR}
+				</if>
+				<if test="fileNo != null and fileNo != ''">
+					and fileNo = #{fileNo, jdbcType=VARCHAR}
+				</if>
+				<if test="secretLevel != null and secretLevel != ''">
+					and secretLevel = #{secretLevel, jdbcType=VARCHAR}
+				</if>
+				<if test="author != null and author != ''">
+					and author = #{author, jdbcType=VARCHAR}
+				</if>
+				<if test="checkAuthor != null and checkAuthor != ''">
+					and checkAuthor = #{checkAuthor, jdbcType=VARCHAR}
+				</if>
+				<if test="signAuthor != null and signAuthor != ''">
+					and signAuthor = #{signAuthor, jdbcType=VARCHAR}
+				</if>
+				<if test="fileId != null and fileId != ''">
+					and fileId = #{fileId, jdbcType=VARCHAR}
+				</if>
+				<if test="startDate != null and startDate != ''">
+		           	<![CDATA[
+		       			AND  createDate >= TO_DATE(#{startDate, jdbcType=VARCHAR},'yyyyMMdd')
+		           	]]>
+		       	</if>
+		   	    <if test="endDate != null and endDate != ''">
+		           	<![CDATA[
+		       			AND  createDate < TO_DATE(#{endDate, jdbcType=VARCHAR},'yyyyMMdd')
+		           	]]>
+		       	</if>
 	    </where>
 	</select>
 	
@@ -105,16 +123,17 @@
 		      fileNo,
 		      fileTitle,
 		      keyWords,
-		      status,
 		      secretLevel,
-		      emgLevel,
+		      author,
+		      checkAuthor,
+		      signAuthor,
 		      attachment,
 		      DATE_FORMAT(createDate,'%Y-%m-%d %H:%i:%s')   AS createDateStr,
 		      DATE_FORMAT(updateDate,'%Y-%m-%d %H:%i:%s')   AS updateDateStr
 	</sql>
 	
 	<!-- 查询 -->
- 	<select id="getFileList" resultType="SendFileForm">
+ 	<select id="getFileList" resultType="SendFileVO">
 		 	SELECT   
 		    	<include refid="columns"/>
 		    FROM
@@ -132,11 +151,14 @@
 				<if test="secretLevel != null and secretLevel != ''">
 					and secretLevel = #{secretLevel, jdbcType=VARCHAR}
 				</if>
-				<if test="emgLevel != null and emgLevel != ''">
-					and emgLevel = #{emgLevel, jdbcType=VARCHAR}
+				<if test="author != null and author != ''">
+					and author = #{author, jdbcType=VARCHAR}
 				</if>
-				<if test="status != null and status != ''">
-					and status = #{status, jdbcType=VARCHAR}
+				<if test="checkAuthor != null and checkAuthor != ''">
+					and checkAuthor = #{checkAuthor, jdbcType=VARCHAR}
+				</if>
+				<if test="signAuthor != null and signAuthor != ''">
+					and signAuthor = #{signAuthor, jdbcType=VARCHAR}
 				</if>
 				<if test="fileId != null and fileId != ''">
 					and fileId = #{fileId, jdbcType=VARCHAR}
@@ -147,7 +169,7 @@
 	</select>
 	
 	<!--查询文件信息 -->
- 	<select id="getFileInfo" resultType="SendFileForm">
+ 	<select id="getFileInfo" resultType="SendFileVO">
 	    SELECT
 	       <include refid="columns"/>
 	    FROM
