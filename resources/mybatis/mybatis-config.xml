@@ -22,5 +22,8 @@
 		
 		<typeAlias type="com.bank.console.dept.vo.DeptVO" alias="DeptVO"/>
 		<typeAlias type="com.bank.console.dept.model.Dept" alias="Dept"/>
+		
+		<typeAlias type="com.bank.console.resource.vo.MaterialsVO" alias="MaterialsVO"/>
+		<typeAlias type="com.bank.console.resource.form.MaterialsForm" alias="MaterialsForm"/>
 	</typeAliases>
 </configuration>

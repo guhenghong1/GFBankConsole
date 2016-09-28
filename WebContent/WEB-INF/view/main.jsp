@@ -98,7 +98,7 @@
 	                <div title="部门机构管理" style="padding:10px;">
 	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('部门管理', '${basePath}/dept/init.do')" style="width:100px" data-options="plain:true">部门管理</a></div>
 	                </div>
-	                <div title="系统管理" data-options="selected:true" style="padding:10px;">
+	                <div title="系统管理" data-options="selected:false" style="padding:10px;">
 	                 	<div><a href="#" class="easyui-linkbutton"  onclick="openTab('用户管理', '${basePath}/user/init.do')" style="width:100px" data-options="plain:true">用户管理</a></div>
 	                 	<div><a href="#" class="easyui-linkbutton"  onclick="openTab('角色管理')" style="width:100px" data-options="plain:true">角色管理</a></div>
 	                 	<div><a href="#" class="easyui-linkbutton"  onclick="openTab('菜单管理')" style="width:100px" data-options="plain:true">菜单管理</a></div>
@@ -109,10 +109,7 @@
 	                    <!-- <div><a href="#" class="easyui-linkbutton"  onclick="openTab('文件查找')" style="width:100px" data-options="plain:true">文件查找</a></div> -->
 	                </div>
 	                <div title="资产管理" data-options="selected:false" style="padding:10px;">
-	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('DTU新建')" style="width:100px" data-options="plain:true">DTU新建</a></div>
-	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('DTU定位')" style="width:100px" data-options="plain:true">DTU定位</a></div>
-	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('DTU')" style="width:100px" data-options="plain:true">DTU</a></div>
-	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('仪表监控')" style="width:100px" data-options="plain:true">仪表监控</a></div>
+	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('物资供应商管理', '${basePath}/materials/init.do')" style="width:100px" data-options="plain:true">物资供应商管理</a></div>
 	                </div>
 	                <div title="客户关系管理" style="padding:10px">
 	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('客户管理', '${basePath}/customer/init.do')" style="width:100px" data-options="plain:true">客户管理</a></div>

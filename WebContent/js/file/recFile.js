@@ -163,7 +163,6 @@ var addFile = function() {
 //	}
     $('#recFileForm').form('submit',{
     	   success:function(data){
-    		   alert("111")
     		   console.log(data);
     		    data = JSON.parse(data);
     		    if(data.code == 1) {

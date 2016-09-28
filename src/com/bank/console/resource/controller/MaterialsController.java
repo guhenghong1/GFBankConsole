@@ -1,4 +1,4 @@
-package com.bank.console.file.controller;
+package com.bank.console.resource.controller;
 
 import java.util.Date;
 import java.util.List;
@@ -17,18 +17,18 @@ import com.bank.console.common.Pager;
 import com.bank.console.common.interceptor.Permission;
 import com.bank.console.common.util.DateUtil;
 import com.bank.console.common.util.ResultUtil;
-import com.bank.console.file.form.RecFileForm;
-import com.bank.console.file.service.RecFileService;
-import com.bank.console.file.vo.RecFileVO;
+import com.bank.console.resource.form.MaterialsForm;
+import com.bank.console.resource.service.MaterialsService;
+import com.bank.console.resource.vo.MaterialsVO;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 @Controller
-@RequestMapping("/recFile")
-public class RecFileController {
+@RequestMapping("/materials")
+public class MaterialsController {
 	@Autowired
-	private RecFileService recFileService;
+	private MaterialsService materialsService;
 	
 	/**
 	 * 跳转页面
@@ -37,7 +37,7 @@ public class RecFileController {
 	@Permission
 	@RequestMapping("/init")
 	public String init() {
-		return "file/receiveFile";
+		return "resource/materials";
 	}
 	
 	/**
@@ -46,18 +46,14 @@ public class RecFileController {
 	 * @return
 	 */
 	@Permission
-	@RequestMapping(value="/addFile", method = RequestMethod.POST)
+	@RequestMapping(value="/addMaterials", method = RequestMethod.POST)
 	@ResponseBody
-	public String addFile(@ModelAttribute("recFileForm") RecFileForm form) {
-		//MultipartFile 
+	public String addMaterials(@ModelAttribute("materialsForm") MaterialsForm form) {
+		//MultipartMaterials 
 		ResultUtil result = new ResultUtil();
 		int res = 0;
 		try {
-			Date createDate = DateUtil.defaultStrToDate(form.getCreateDateStr());
-			if(createDate != null) {
-				form.setCreateDate(createDate);
-			}
-			res = recFileService.addFile(form);
+			res = materialsService.addMaterials(form);
 			int code = res >=1? Constant.SUCCESS_CODE: Constant.ERROR_CODE;
 			result.setCode(code);
 			result.setMsg(res >=1? Constant.SUCCESS_MSG : Constant.ERROR_MSG);
@@ -76,19 +72,14 @@ public class RecFileController {
 	 * @return
 	 */
 	@Permission
-	@RequestMapping(value="/updateFile", method = RequestMethod.POST)
+	@RequestMapping(value="/updateMaterials", method = RequestMethod.POST)
 	@ResponseBody
-	public String updateFile(@ModelAttribute("mrecFileForm") RecFileForm form) {
-		//MultipartFile 
+	public String updateMaterials(@ModelAttribute("mMaterialsForm") MaterialsForm form) {
+		//MultipartMaterials 
 		ResultUtil result = new ResultUtil();
 		int res = 0;
 		try {
-			Date createDate = DateUtil.defaultStrToDate(form.getCreateDateStr());
-			if(createDate != null) {
-				form.setCreateDate(createDate);
-			}
-			
-			res = recFileService.updateFile(form);
+			res = materialsService.updateMaterials(form);
 			int code = res >=1? Constant.SUCCESS_CODE: Constant.ERROR_CODE;
 			result.setCode(code);
 			result.setMsg(res >=1? Constant.SUCCESS_MSG : Constant.ERROR_MSG);
@@ -107,27 +98,23 @@ public class RecFileController {
 	 * @return
 	 */
 	@Permission
-	@RequestMapping("/getFileList")
+	@RequestMapping("/getMaterialsList")
 	@ResponseBody
-	public String getFileList(@RequestParam(value="fileId") String fileId, 
-			@RequestParam(value="keyWords") String keyWords, 
-			@RequestParam(value="deptId") String deptId, 
+	public String getMaterialsList(@RequestParam(value="companyId") String companyId, 
 			@RequestParam(value="pageNum", defaultValue="1") String pageNum, 
 			@RequestParam(value="pageSize", defaultValue="10") String pageSize) {
-		RecFileForm form = new RecFileForm();
-		form.setFileId(fileId);
-//		form.setKeyWords(keyWords);
-//		form.setDeptId(deptId);
+		MaterialsForm form = new MaterialsForm();
+		form.setCompanyId(companyId);
 		
-		int total = recFileService.getFileSum(form);
+		int total = materialsService.getMaterialsSum(form);
 		
 		PageCalc calc = new PageCalc(total);
 		form.setStartRow(calc.getStart(Integer.parseInt(pageNum)));
 		form.setEndRow(calc.getEnd(Integer.parseInt(pageNum)));
 		
-		List<RecFileVO> fileList = recFileService.getFileList(form);
+		List<MaterialsVO> MaterialsList = materialsService.getMaterialsList(form);
 		JSONArray jsonArr = new JSONArray();
-		jsonArr = JSONArray.fromObject(fileList);
+		jsonArr = JSONArray.fromObject(MaterialsList);
 		
 		Pager pager = new Pager();
 		pager.setTotal(total);
@@ -135,26 +122,6 @@ public class RecFileController {
 		return JSONObject.fromObject(pager).toString();
 	}
 	
-	/**
-	 * 获取文件列表
-	 * @param form
-	 * @return
-	 */
-	@Permission
-	@RequestMapping("/queryFile")
-	@ResponseBody
-	public String queryFile(@ModelAttribute("qrecFileForm") RecFileForm form) {
-		int total = recFileService.getFileSum(form);
-		
-		List<RecFileVO> fileList = recFileService.getFileList(form);
-		JSONArray jsonArr = new JSONArray();
-		jsonArr = JSONArray.fromObject(fileList);
-		
-		Pager pager = new Pager();
-		pager.setTotal(total);
-		pager.setRows(jsonArr);
-		return JSONObject.fromObject(pager).toString();
-	}
 	
 	/**
 	 * 获取文件详情
@@ -162,45 +129,33 @@ public class RecFileController {
 	 * @return
 	 */
 	@Permission
-	@RequestMapping("/getFileInfo")
+	@RequestMapping("/getMaterialsInfo")
 	@ResponseBody
-	public String getFileInfo(@RequestParam("fileId") String fileId) {
+	public String getMaterialsInfo(@RequestParam("companyId") String companyId) {
 		ResultUtil result = new ResultUtil();
-		RecFileVO recFile = recFileService.getFileInfo(fileId);
+		MaterialsVO Materials = materialsService.getMaterialsInfo(companyId);
 		
 		result.setCode(Constant.SUCCESS_CODE);
 		result.setMsg(Constant.SUCCESS_MSG);
-		result.setObj(recFile);
+		result.setObj(Materials);
 		return JSONObject.fromObject(result).toString();
 	}
 	
 	/**
-	 * 获取文件详情
+	 * 删除
 	 * @param form
 	 * @return
 	 */
 	@Permission
-	@RequestMapping("/deleteFile")
+	@RequestMapping("/deleteMaterials")
 	@ResponseBody
-	public String deleteFile(@RequestParam("fileId") String fileId) {
+	public String deleteMaterials(@RequestParam("companyId") String companyId) {
 		ResultUtil result = new ResultUtil();
-		int res = recFileService.deleteFile(fileId);
+		int res = materialsService.deleteMaterials(companyId);
 		
 		result.setCode(res > 0 ? Constant.SUCCESS_CODE : Constant.ERROR_CODE);
 		result.setMsg(res > 0 ? Constant.SUCCESS_MSG : Constant.ERROR_MSG);
 		return JSONObject.fromObject(result).toString();
 	}
 	
-	/**
-	 * 获取文件列表
-	 * @param form
-	 * @return
-	 */
-	@Permission
-	@RequestMapping("/findFile")
-	@ResponseBody
-	public String findFile(@RequestParam("fileId") String fileId) {
-		RecFileVO file = recFileService.getFileInfo(fileId);
-		return file.getAttachment();
-	}
 }

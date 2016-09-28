@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bank.console.mapper.MaterialsMapper">
+	<!-- 新增用户 -->
+ 	<insert id="addMaterials"  parameterType="MaterialsForm">
+	   insert into tb_materials_company(
+	   		companyId,
+	   		company,
+	   		type,
+	   		scope,
+	   		supplierA,
+	   		mobileA,
+	   		supplierB,
+	   		mobileB,
+	   		scoreLevel,
+	   		remark,
+	   		createDate,
+	   		updateDate
+	   ) values(
+	   	 	#{companyId, jdbcType=VARCHAR},
+	   	 	#{company, jdbcType=VARCHAR},
+	   	 	#{type, jdbcType=VARCHAR},
+	   	 	#{scope, jdbcType=VARCHAR},
+	   	 	#{supplierA, jdbcType=VARCHAR},
+	   	 	#{mobileA, jdbcType=VARCHAR},
+	   	 	#{supplierB, jdbcType=VARCHAR},
+	   	 	#{mobileB, jdbcType=VARCHAR},
+	   	 	#{scoreLevel, jdbcType=VARCHAR},
+	   	 	#{remark, jdbcType=VARCHAR},
+	   	 	now(),
+	   	 	now()
+	   )
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="updateMaterials" parameterType="MaterialsForm">
+		update tb_materials_company 
+			<set>
+				<if test="company != null and company != ''">
+				 	company = #{company, jdbcType=VARCHAR},
+				 </if>
+				 <if test="type != null and type != ''">
+				 	type = #{MaterialsTitle, jdbcType=VARCHAR},
+				 </if>
+				 <if test="scope != null and scope != ''">
+				 	scope = #{scope, jdbcType=VARCHAR},
+				 </if>
+				 <if test="supplierA != null and supplierA != ''">
+				 	supplierA = #{supplierA, jdbcType=VARCHAR},
+				 </if>
+				 <if test="mobileA != null and mobileA != ''">
+				 	mobileA = #{mobileA, jdbcType=VARCHAR},
+				 </if>
+				 <if test="supplierB != null and supplierB != ''">
+				 	supplierB = #{supplierB, jdbcType=VARCHAR},
+				 </if>
+				 <if test="mobileB != null and mobileB != ''">
+				 	mobileB = #{mobileB, jdbcType=VARCHAR},
+				 </if>
+				  <if test="scoreLevel != null and scoreLevel != ''">
+				  	scoreLevel = #{scoreLevel, jdbcType=VARCHAR},
+				  </if>
+				 <if test="remark != null and remark != ''">
+				 	remark = #{remark, jdbcType=VARCHAR},
+				 </if>
+				 updateDate = now()
+				where companyId = #{companyId, jdbcType=VARCHAR}
+			</set> 
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="deleteMaterials">
+		delete from tb_materials_company where companyId = #{companyId, jdbcType=VARCHAR}
+	</delete>
+	
+	<!-- 查询数量 -->
+ 	<select id="getMaterialsSum" resultType="INTEGER">
+	    SELECT
+	      COUNT(1) AS sum
+	    FROM
+	      tb_materials_company
+	     <where>
+		    	<if test="company != null and company != ''">
+					 company like '%${keyWords}%'
+				</if>
+				<if test="companyId != null and companyId != ''">
+					and companyId = #{companyId, jdbcType=VARCHAR}
+				</if>
+				<if test="type != null and type != ''">
+					and type = #{type, jdbcType=VARCHAR}
+				</if>
+				<if test="supplierA != null and supplierA != ''">
+					and supplierA = #{supplierA, jdbcType=VARCHAR}
+				</if>
+				<if test="mobileA != null and mobileA != ''">
+					and mobileA = #{mobileA, jdbcType=VARCHAR}
+				</if>
+				<if test="scoreLevel != null and scoreLevel != ''">
+					and scoreLevel = #{scoreLevel, jdbcType=VARCHAR}
+				</if>
+		    </where>
+	</select>
+	
+	<sql id="columns">
+            companyId,
+	   		company,
+	   		type,
+	   		scope,
+	   		supplierA,
+	   		mobileA,
+	   		supplierB,
+	   		mobileB,
+	   		scoreLevel,
+	   		remark,
+	   		createDate,
+	   		updateDate,
+		    DATE_FORMAT(createDate,'%Y-%m-%d %H:%i:%s')   AS createDateStr,
+		    DATE_FORMAT(updateDate,'%Y-%m-%d %H:%i:%s')   AS updateDateStr
+	</sql>
+	
+	<!-- 查询 -->
+ 	<select id="getMaterialsList" resultType="MaterialsVO">
+		 	SELECT   
+		    	<include refid="columns"/>
+		    FROM
+		      tb_materials_company
+		    <where>
+		    	<if test="company != null and company != ''">
+					 company like '%${keyWords}%'
+				</if>
+				<if test="companyId != null and companyId != ''">
+					and companyId = #{companyId, jdbcType=VARCHAR}
+				</if>
+				<if test="type != null and type != ''">
+					and type = #{type, jdbcType=VARCHAR}
+				</if>
+				<if test="supplierA != null and supplierA != ''">
+					and supplierA = #{supplierA, jdbcType=VARCHAR}
+				</if>
+				<if test="mobileA != null and mobileA != ''">
+					and mobileA = #{mobileA, jdbcType=VARCHAR}
+				</if>
+				<if test="scoreLevel != null and scoreLevel != ''">
+					and scoreLevel = #{scoreLevel, jdbcType=VARCHAR}
+				</if>
+		    </where>
+		    order by companyId
+			limit #{startRow}, #{endRow}
+	</select>
+	
+	<!--查询文件信息 -->
+ 	<select id="getMaterialsInfo" resultType="MaterialsVO">
+	    SELECT
+	       <include refid="columns"/>
+	    from
+	      tb_materials_company
+	    where companyId = #{companyId, jdbcType=VARCHAR}
+	</select>
+	
+</mapper>

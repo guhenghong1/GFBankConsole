@@ -148,7 +148,7 @@ public class SendFileController {
 	@Permission
 	@RequestMapping("/queryFile")
 	@ResponseBody
-	public String getFileList(@ModelAttribute("qSendFileForm") SendFileForm form) {
+	public String queryFile(@ModelAttribute("qSendFileForm") SendFileForm form) {
 		int total = sendFileService.getFileSum(form);
 
 		List<SendFileVO> fileList = sendFileService.getFileList(form);
@@ -170,7 +170,7 @@ public class SendFileController {
 	@Permission
 	@RequestMapping("/getFileInfo")
 	@ResponseBody
-	public String getFileList(@RequestParam("fileId") String fileId) {
+	public String getFileInfo(@RequestParam("fileId") String fileId) {
 		ResultUtil result = new ResultUtil();
 		SendFileVO sendFile = sendFileService.getFileInfo(fileId);
 
