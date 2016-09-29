@@ -125,7 +125,7 @@ var Equipment = {
 			$("#deptId").combotree("setValue", equipment.deptId);
 		}
 	});
-   	$("#w").window("open");
+   	$("#eqw").window("open");
    },
    
    //修改用户
@@ -175,7 +175,7 @@ var Equipment = {
 					_this.showMsg("修改失败");
 				}
 				
-				$("#w").window("close");
+				$("#eqw").window("close");
 				$("#tb_equipments").datagrid("reload");
 			}
 		}); 	
@@ -184,10 +184,11 @@ var Equipment = {
    //新增用户弹窗
    add: function() {
    		var _this = this;
+   		$('#eqForm').form('clear');
    		$("#tb_equipments").datagrid("unselectAll");
    		$("#add").css("display", "");
    		$("#update").css("display", "none");
-   		$("#w").window("open");
+   		$("#eqw").window("open");
    },
    
    //新增用户
@@ -237,7 +238,7 @@ var Equipment = {
 					_this.showMsg("添加失败");
 				}
 				
-				$("#w").window("close");
+				$("#eqw").window("close");
 				$("#tb_equipments").datagrid("reload");
 			}
 		}); 	
@@ -248,7 +249,7 @@ var Equipment = {
    		var _this = this;
    		var row = $("#tb_equipments").datagrid("getSelected");
    		var id = row.id;
-   		$("#w").window("close");
+   		$("#eqw").window("close");
    		var role = row.role;
    		if(role == 2) {
    			_this.showMsg('权限不够');
@@ -281,7 +282,7 @@ var Equipment = {
   		}
 
   		var id = row.id;
-  		$("#w").window("close");
+  		$("#eqw").window("close");
    		var role = row.role;
    		if(role == 2) {
    			_this.showMsg('权限不够');
@@ -302,7 +303,7 @@ var Equipment = {
 							_this.showMsg("送修失败");
 						}
 						
-						$("#w").window("close");
+						$("#eqw").window("close");
 						$("#tb_equipments").datagrid("reload");
 					}
 				});

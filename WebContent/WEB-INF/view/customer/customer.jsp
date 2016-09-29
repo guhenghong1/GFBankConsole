@@ -23,7 +23,8 @@
 		</div> 
     </div> 
     <table id="tb_customers" rownumbers="true"></table> 
-    <div id="w" class="easyui-window" title="客户详情" data-options="modal:true,closed:true,iconCls:'icon-save'" style="width:500px;height:500px;padding:10px;">
+    <div id="cuw" class="easyui-window" title="客户详情" data-options="modal:true,closed:true,iconCls:'icon-save'" style="width:500px;height:500px;padding:10px;">
+        <form id="cuForm">
         <table>
         	<tr>
         		<td width="80px"><label>客户编号：</label></td>
@@ -86,6 +87,7 @@
         		<td><input id="remark" type="text"></input></td>
         	</tr>
         </table>
+        </form>
         <div style="margin:20px 0;">
         <a href="javascript:void(0)" class="easyui-linkbutton" id="update" onclick="Customer.update()">修改</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" id="add" onclick="Customer.addCustomer()">保存</a>

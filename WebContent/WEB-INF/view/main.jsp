@@ -108,7 +108,7 @@
 	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('发文处理', '${basePath}/sendFile/init.do')" style="width:100px" data-options="plain:true">发文处理</a></div>
 	                    <!-- <div><a href="#" class="easyui-linkbutton"  onclick="openTab('文件查找')" style="width:100px" data-options="plain:true">文件查找</a></div> -->
 	                </div>
-	                <div title="资产管理" data-options="selected:false" style="padding:10px;">
+	                <div title="会议公告管理" data-options="selected:false" style="padding:10px;">
 	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('物资供应商管理', '${basePath}/materials/init.do')" style="width:100px" data-options="plain:true">物资供应商管理</a></div>
 	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('设备管理', '${basePath}/equipment/init.do')" style="width:100px" data-options="plain:true">设备管理</a></div>
 	                </div>
@@ -116,9 +116,10 @@
 	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('客户管理', '${basePath}/customer/init.do')" style="width:100px" data-options="plain:true">客户管理</a></div>
 	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('故障分析报表')" style="width:100px" data-options="plain:true">故障分析报表</a></div>
 	                </div>
-	                <div title="会议公告管理" style="padding:10px">
-	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('系统参数')" style="width:100px" data-options="plain:true">系统参数</a></div>
-	                </div>
+	                <div title="物资设备管理" style="padding:10px">
+	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('物资供应商管理', '${basePath}/materials/init.do')" style="width:100px" data-options="plain:true">物资供应商管理</a></div>
+	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('设备管理', '${basePath}/equipment/init.do')" style="width:100px" data-options="plain:true">设备管理</a></div>
+	                </div> 
 	                <div title="日志管理" style="padding:10px">
 	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('登入日志')" style="width:100px" data-options="plain:true">登入日志</a></div>
 	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('运行日志')" style="width:100px" data-options="plain:true">运行日志</a></div>

@@ -71,7 +71,19 @@ public class UserService {
 	 * @return
 	 */
 	public int updateUser(UserForm user) {
-		return userMapper.updateUser(user);
+		int res = userMapper.updateUser(user);
+		
+		String userId = user.getUserId();
+		
+		deleteUserHome(userId);
+		deleteUserHome(userId);
+		
+		//添加个人简历信息
+		this.addUserSchool(user);
+		//添加个人家庭信息
+		this.addUserHome(user);
+		
+		return res;
 	}
 	
 	/**

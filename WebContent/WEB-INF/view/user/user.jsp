@@ -376,7 +376,7 @@
         </table>
         </form>
         <div style="margin:20px 0;">
-         <a href="javascript:void(0)" class="easyui-linkbutton" id="update" onclick="User.update()">保存</a> 
+         <a href="javascript:void(0)" class="easyui-linkbutton" id="update" onclick="User.updateUser()">保存</a> 
         <!-- <a href="javascript:void(0)" class="easyui-linkbutton" id="add" onclick="User.addUser()">保存</a> -->
         <a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#w').window('close')">取消</a>
     	</div>

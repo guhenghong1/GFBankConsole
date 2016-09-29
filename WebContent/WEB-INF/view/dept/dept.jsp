@@ -17,7 +17,7 @@
 	<script type="text/javascript" src="${basePath}/js/dept/dept.js?u=${times}"></script>
     <div style="margin:20px 0;"></div>
     <div class="easyui-panel" style="padding:5px">
-        <ul class="easyui-tree" data-options="url:'${basePath}/dept/deptList.do',method:'get',loadFilter:myLoadFilter,animate:true,checkbox:true"></ul>
+        <ul class="easyui-tree" data-options="url:'${basePath}/dept/getDeptTree.do',method:'get',loadFilter:myLoadFilter,animate:true,checkbox:false"></ul>
     </div>
     <script>
         function myLoadFilter(data, parent){

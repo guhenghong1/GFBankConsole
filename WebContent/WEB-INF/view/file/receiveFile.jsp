@@ -51,7 +51,7 @@
  				<tr>
 					<td><label>来文时间：<font style="color: red">*</font></label></td>
 					<td> 
-						<input class="easyui-datetimebox" name = "createDateStr"
+						<input class="easyui-datetimebox" name ="createDateStr"
 						data-options="required:false,showSeconds:true,formatter:fmt,parser:pas" label="Select DateTime:" labelPosition="top" style="width:181px">
 						<span id = "createDatemsg" class="msg"></span>
 					</td>
@@ -124,13 +124,13 @@
 				<tr>
 					<td><label>来文时间：</label></td>
 					<td> 
-						<input id="mcreateDate" class="easyui-datetimebox" name = "createDate"
+						<input id="mcreateDate" class="easyui-datetimebox" name = "createDateStr"
 						data-options="required:false,showSeconds:false, formatter:fmt,parser:pas" label="Select DateTime:" labelPosition="top" style="width:150px">
 					</td>
 				</tr>
 				<tr>
 					<td><label>来文单位：</label></td>
-					<td><input id="mdeptId" name="deptId" class="easyui-combotree" data-options="url:'../dept/getDeptTree.do',method:'get',label:'Select Nodes:',labelPosition:'top',multiple:false" style="width:100%"></td>
+					<td><input id="mdeptId" name="deptId" class="easyui-combotree" data-options="url:'../dept/getDeptTree.do',method:'get',label:'Select Nodes:',labelPosition:'top',multiple:false" style="width:181px"></td>
 				</tr>
 				<tr>
 					<td><label>来文字号：</label></td>

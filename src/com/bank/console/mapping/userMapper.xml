@@ -224,15 +224,14 @@
 		      u.certFront,
 		      u.certBack,
 		      u.infoPdf,
+		      u.deptId,
+		      u.roleId,
+		      u.sex,
 		      u.remark
 	</sql>
 	<!-- 查询 -->
  	<select id="getUserList" resultType="UserVO">
 		 	SELECT
-		 	 	d.deptId,
-		      	d.deptName,
-		      	r.roleId,
-		      	r.roleName,   
 		    	<include refid="columns"/>
 		    FROM
 		      tb_user u, tb_dept d, tb_role r

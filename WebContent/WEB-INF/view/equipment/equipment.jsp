@@ -24,7 +24,8 @@
 		</div> 
     </div> 
     <table id="tb_equipments" rownumbers="true"></table> 
-    <div id="w" class="easyui-window" title="设备详情" data-options="modal:true,closed:true,iconCls:'icon-save'" style="width:500px;height:500px;padding:10px;">
+    <div id="eqw" class="easyui-window" title="设备详情" data-options="modal:true,closed:true,iconCls:'icon-save'" style="width:500px;height:500px;padding:10px;">
+        <form id="eqForm">
         <table>
         	<tr>
         		<td width="80px"><label>设备编号：</label></td>
@@ -80,6 +81,7 @@
 				</td>
         	</tr>
         </table>
+        </form>
         <div style="margin:20px 0;">
         <a href="javascript:void(0)" class="easyui-linkbutton" id="update" onclick="Equipment.update()">修改</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" id="add" onclick="Equipment.addEquipment()">保存</a>

@@ -109,7 +109,8 @@ var User = {
    //编辑用户弹窗
    edit:function() {
    	var _this = this;
-   	$("#add").css("display", "none");
+   	$('#userForm').form('clear');
+   	$("#add").css("display", "");
    	$("#update").css("display", "");
    	var row = $("#tb_users").datagrid("getSelected");
 	if(!row) {
@@ -131,7 +132,7 @@ var User = {
 			$("#muserId").val(user.userId);
 			$("#mrealName").val(user.realName);
 			$("#mroleId").val(user.roleId);
-			$('#mdeptId').combotree('setValue', user.deptId);
+			$("#mdeptId").combotree("setValue", user.deptId);
 			$("#mmobile").val(user.mobile);
 			$("#mphone").val(user.phone);
 			$("#memail").val(user.email);
@@ -172,11 +173,12 @@ var User = {
 			
 			if(schoolList.length == 0) {
 //				$("#mschools").css("display", "block");
-				schoolTemp = schoolTemp.replace("{time}", "");
-				schoolTemp = schoolTemp.replace("{schoolName}", "");
-				schoolTemp = schoolTemp.replace("{remark}", "");
+				var divTemp = "";
+				divTemp = schoolTemp.replace("{time}", "")
+				 		.replace("{schoolName}", "")
+				 		.replace("{remark}", "");
 				
-				shTrDiv += schoolTemp;
+				shTrDiv += divTemp;
 			}
 			
 			$.each(schoolList, function(i, obj) {
@@ -194,11 +196,12 @@ var User = {
 				if(!remark) {
 					remark = "";
 				}
-				schoolTemp = schoolTemp.replace("{time}", time);
-				schoolTemp = schoolTemp.replace("{schoolName}", schoolName);
-				schoolTemp = schoolTemp.replace("{remark}", remark);
+				var divTemp = "";
+				divTemp = schoolTemp.replace("{time}", time)
+						.replace("{schoolName}", schoolName)
+						.replace("{remark}", remark);
 				
-				shTrDiv += schoolTemp;
+				shTrDiv += divTemp;
 			});
 			
 			$(".muserSchool").append(shTrDiv);
@@ -219,17 +222,19 @@ var User = {
 			var hTrDiv = "";
 			
 			if(homeList.length == 0) {
+				console.log("length=  "+homeList.length);
 //				$("#mhomes").css("display", "block");
-				homeTemp = homeTemp.replace("{appellation}", "");
-				homeTemp = homeTemp.replace("{name}", "");
-				homeTemp = homeTemp.replace("{deptName}", "");
-				homeTemp = homeTemp.replace("{remark}", "");
+				var divTemp = "";
+				divTemp = homeTemp.replace("{appellation}", "")
+						.replace("{name}", "")
+						.replace("{deptName}", "")
+						.replace("{remark}", "");
 				
-				hTrDiv += homeTemp;
+				hTrDiv += divTemp;
 			}
 			
 			$.each(homeList, function(i, obj) {
-//				console.log("obj=  "+obj);
+				console.log("home1=  "+obj.appellation);
 				var appellation = obj.appellation;
 				if(!appellation) {
 					appellation = "";
@@ -246,12 +251,13 @@ var User = {
 				if(!remark) {
 					remark = "";
 				}
-				homeTemp = homeTemp.replace("{appellation}", appellation);
-				homeTemp = homeTemp.replace("{name}", name);
-				homeTemp = homeTemp.replace("{deptName}", deptName);
-				homeTemp = homeTemp.replace("{remark}", remark);
+				var divTemp = "";
+				divTemp = homeTemp.replace("{appellation}", appellation)
+						.replace("{name}", name)
+						.replace("{deptName}", deptName)
+						.replace("{remark}", remark);
 				
-				hTrDiv += homeTemp;
+				hTrDiv += divTemp;
 			});
 			
 			console.log("hTrDiv==  "+hTrDiv);
@@ -272,10 +278,11 @@ var User = {
 				  remark:""
 		  };
 //		  console.log($(e).find("td input"))
-		  var tds = $(e).find("td");
-		  $(tds).each(function(j, el){
-			  var classAttr = $(el).find("input").attr("class");
-			  if( $(el).val()) {
+		  var inputs = $(e).find("td input");
+		  $(inputs).each(function(j, el){
+			  var classAttr = $(el).attr("class");
+			  console.log("class=  "+classAttr+"  val="+$(el).val());
+			  if($(el).val()) {
 				  if(classAttr == 'mtime') {
 					  school.time = $(el).val();
 				  }
@@ -290,7 +297,7 @@ var User = {
 		  schoolList.push(school);
 	   });
 	   $("#mschoolList").val(JSON.stringify(schoolList));
-//	   console.log("val=  "+JSON.stringify(schoolList))
+	   console.log("val=  "+JSON.stringify(schoolList))
 	   
 	   var homeList = [];
 	   $(".muserHome .mhomes").each(function(i, e){
@@ -301,10 +308,10 @@ var User = {
 				   remark:""
 		   };
 //		  console.log($(e).find("td input"))
-		   var tds = $(e).find("td");
-		   $(tds).each(function(j, el){
+		   var inputs = $(e).find("td input");
+		   $(inputs).each(function(j, el){
 //			   console.log($(el));
-			   var classAttr = $(el).find("input").attr("class");
+			   var classAttr = $(el).attr("class");
 			   if($(el).val()) {
 				   if(classAttr == 'mappellation') {
 					   home.appellation = $(el).val();
@@ -340,15 +347,9 @@ var User = {
    
    //新增用户弹窗
    add: function() {
+	   	$("#tb_users").datagrid("unselectAll");
+	    $('#userForm').form('clear');
    		var _this = this;
-   		$("#tb_users").datagrid("unselectAll");
-   		$("#add").css("display", "");
-   		$("#update").css("display", "none");
-   		$(':input','#userform') 
-   		.not(':button, :submit, :reset, :hidden') 
-   		.val('') 
-   		.removeAttr('checked') 
-   		.removeAttr('selected');
 //   		$('#userform')[0].reset();
    		$("#w").window('refresh').window("open");
    },
@@ -370,10 +371,10 @@ var User = {
 				  remark:""
 		  };
 //		  console.log($(e).find("td input"))
-		  var tds = $(e).find("td");
-		  $(tds).each(function(j, el){
+		  var inputs = $(e).find("td input");
+		  $(inputs).each(function(j, el){
 			  /*console.log("j=  "+j+"  el=  "+$(el));*/
-			  var classAttr = $(el).find("input").attr("class");
+			  var classAttr = $(el).attr("class");
 			  if( $(el).val()) {
 				  if(classAttr == 'time') {
 					  school.time = $(el).val();
@@ -400,8 +401,8 @@ var User = {
 				   remark:""
 		   };
 //		  console.log($(e).find("td input"))
-		   var tds = $(e).find("td");
-		   $(tds).each(function(j, el){
+		   var inputs = $(e).find("td input");
+		   $(inputs).each(function(j, el){
 			   console.log($(el));
 			   var classAttr = $(el).attr("class");
 			   if($(el).val()) {

@@ -34,7 +34,7 @@ public class DeptController {
 	 */
 	@RequestMapping("/getDeptTree")
 	@ResponseBody
-	public String getFileList() {
+	public String getDeptTree() {
 		List<DeptVO> deptList = deptService.getDeptTree();
 		JSONArray jsonArr = new JSONArray();
 		jsonArr = JSONArray.fromObject(deptList);

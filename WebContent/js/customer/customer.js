@@ -133,7 +133,7 @@ var Customer = {
 			$("#remark").val(customer.remark);
 		}
 	});
-   	$("#w").window("open");
+   	$("#cuw").window("open");
    },
    
    //修改用户
@@ -189,7 +189,7 @@ var Customer = {
 					_this.showMsg("修改失败");
 				}
 				
-				$("#w").window("close");
+				$("#cuw").window("close");
 				$("#tb_customers").datagrid("reload");
 			}
 		}); 	
@@ -198,10 +198,11 @@ var Customer = {
    //新增用户弹窗
    add: function() {
    		var _this = this;
+   		$('#cuForm').form('clear');
    		$("#tb_customers").datagrid("unselectAll");
    		$("#add").css("display", "");
    		$("#update").css("display", "none");
-   		$("#w").window("open");
+   		$("#cuw").window("open");
    },
    
    //新增用户
@@ -257,7 +258,7 @@ var Customer = {
 					_this.showMsg("添加失败");
 				}
 				
-				$("#w").window("close");
+				$("#cuw").window("close");
 				$("#tb_customers").datagrid("reload");
 			}
 		}); 	
@@ -268,7 +269,7 @@ var Customer = {
    		var _this = this;
    		var row = $("#tb_customers").datagrid("getSelected");
    		var id = row.id;
-   		$("#w").window("close");
+   		$("#cuw").window("close");
    		var role = row.role;
    		if(role == 2) {
    			_this.showMsg('权限不够');

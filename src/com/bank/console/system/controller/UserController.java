@@ -94,7 +94,7 @@ public class UserController {
 	@RequestMapping("/updateUser")
 	@ResponseBody
 	public String updateUser(@ModelAttribute("userForm") UserForm form) {
-		Date birthday = DateUtil.defaultStrToDate(form.getBirthdayStr());
+		Date birthday = DateUtil.strToDate(form.getEntryDateStr(), DateUtil.str2CalenderFormate);
 		if(birthday != null) {
 			form.setBirthday(birthday);
 		}

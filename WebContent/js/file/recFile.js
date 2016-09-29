@@ -60,7 +60,10 @@ var RecFile = {
 
 	// 编辑弹窗
 	edit : function(m) {
-		if(m != 1) { //详情
+		if(m == 1) { //详情
+			$(".update").css("display", "");
+			$(".cancle").css("display", "");
+		} else {
 			$(".update").css("display", "none");
 			$(".cancle").css("display", "none");
 		}
@@ -92,12 +95,13 @@ var RecFile = {
 //					$("#mattachment").val(file.attachment);
 					$('#mcreateDate').datetimebox('setValue', file.createDateStr);
 					
-					var deptIdArr = [];
-					var deptIdStr = file.deptId;
-					for(var i = 0; i< deptIdStr.split(","); i++) {
-						deptIdArr.push(deptIdStr[i]);
-					}
-					$('#mdeptId').combotree('setValues', deptIdArr);
+					$('#mdeptId').combotree('setValue', file.deptId);
+//					var deptIdArr = [];
+//					var deptIdStr = file.deptId;
+//					for(var i = 0; i< deptIdStr.split(","); i++) {
+//						deptIdArr.push(deptIdStr[i]);
+//					}
+//					$('#mdeptId').combotree('setValues', deptIdArr);
 				}
 			}
 		});
