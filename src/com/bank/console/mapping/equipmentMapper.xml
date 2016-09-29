@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bank.console.mapper.EquipmentMapper">
+
+	<resultMap type="com.bank.console.equipment.model.Equipment" id="EquipmentMap">
+		<id property="id" column="id"/>
+		<result property="name" column="name" />
+		<result property="type" column="type" />
+		<result property="location" column="location" />
+		<result property="inUse" column="in_use" />
+		<result property="companyId" column="company_id" />
+		<result property="buyTime" column="buy_time" />
+		<result property="price" column="price" />
+		<result property="remark" column="remark" />
+		<result property="deptId" column="dept_id" />
+		<result property="status" column="status" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />	
+	</resultMap>
+	
+	<resultMap type="com.bank.console.equipment.vo.EquipmentVo" id="EquipmentVoMap" extends="EquipmentMap">
+		<result property="buyTimeStr" column="buy_time_str" />
+	</resultMap>
+
+	<!-- 新增用户 -->
+ 	<insert id="addEquipment"  parameterType="com.bank.console.equipment.model.Equipment">
+	   insert into tb_equipment(
+	   		id,
+	   		name,
+	   		type,
+	   		location,
+	   		in_use,
+	   		company_id,
+	   		buy_time,
+	   		price,
+	   		remark,
+	   		dept_id
+	   ) values(
+	   	 	#{id},
+	   	 	#{name},
+	   	 	#{type},
+	   	 	#{location},
+	   	 	#{inUse},
+	   	 	#{companyId},
+	   	 	#{buyTime},
+	   	 	#{price},
+	   	 	#{remark},
+	   	 	#{deptId}
+	   )
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="updateEquipment" parameterType="com.bank.console.equipment.model.Equipment">
+		update tb_equipment 
+			<set>
+				 <if test="name != null and name != ''">
+				 	name = #{name},
+				 </if>
+				 <if test="type != null and type != ''">
+				 	type = #{type},
+				 </if>
+				 <if test="location != null and location != ''">
+				 	location = #{location},
+				 </if>
+				 <if test="inUse != null">
+				 	in_use = #{inUse},
+				 </if>
+				  <if test="companyId != null and companyId != ''">
+				  	company_id = #{companyId},
+				  </if>
+				 <if test="buyTime != null">
+				 	buy_time = #{buyTime},
+				 </if>
+				 <if test="price != null and price != ''">
+				 	price = #{price},
+				 </if>
+				 <if test="remark != null and remark != ''">
+				 	remark = #{remark},
+				 </if>
+				 <if test="deptId != null and deptId != ''">
+				 	dept_id = #{deptId},
+				 </if>
+			</set>
+		where id = #{id} 
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="deleteEquipment" parameterType="string">
+		update tb_equipment set status=0 where id = #{id}
+	</delete>
+
+	<!-- 查询 -->
+ 	<select id="getEquipmentList" resultMap="EquipmentVoMap">
+	 	SELECT  t.*,date_format(t.buy_time, '%Y-%m-%d') as buy_time_str FROM tb_equipment t
+	    <where>
+	    	status = 1
+	    	<if test="id != null and id != ''">
+				and id like '%${id}%'
+			</if>
+			<if test="name != null and name != ''">
+				and name like '%${name}%'
+			</if>
+	    </where>
+	    order by id
+		limit #{startRow}, #{endRow}
+	</select>
+	
+	<!-- 查询数量 -->
+ 	<select id="getEquipmentSum" parameterType="java.util.Map" resultType="int">
+	    SELECT   count(1) FROM tb_equipment
+	    <where>
+	    	status = 1
+	    	<if test="id != null and id != ''">
+				and id like '%${id}%'
+			</if>
+			<if test="name != null and name != ''">
+				and name like '%${name}%'
+			</if>
+	    </where>
+	</select>
+	
+	<!--查询用户-->
+ 	<select id="getEquipmentInfo" resultMap="EquipmentVoMap">
+	    select t.*,date_format(t.buy_time, '%Y-%m-%d') as buy_time_str from tb_equipment t where id = #{id}
+	</select>
+	
+</mapper>

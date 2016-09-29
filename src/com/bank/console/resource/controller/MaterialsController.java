@@ -1,6 +1,5 @@
 package com.bank.console.resource.controller;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import com.bank.console.common.Constant;
 import com.bank.console.common.PageCalc;
 import com.bank.console.common.Pager;
 import com.bank.console.common.interceptor.Permission;
-import com.bank.console.common.util.DateUtil;
 import com.bank.console.common.util.ResultUtil;
 import com.bank.console.resource.form.MaterialsForm;
 import com.bank.console.resource.service.MaterialsService;
@@ -156,6 +154,21 @@ public class MaterialsController {
 		result.setCode(res > 0 ? Constant.SUCCESS_CODE : Constant.ERROR_CODE);
 		result.setMsg(res > 0 ? Constant.SUCCESS_MSG : Constant.ERROR_MSG);
 		return JSONObject.fromObject(result).toString();
+	}
+	
+	@RequestMapping("/getMaterialsBox")
+	@ResponseBody
+	public String getMaterialsBox() {
+		List<MaterialsVO> materialsList = materialsService.getAllMaterialsList();
+
+		JSONArray jsonArr = new JSONArray();
+		for(MaterialsVO vo : materialsList){
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("id", vo.getCompanyId());
+			jsonObject.put("text", vo.getCompany());
+			jsonArr.add(jsonObject);
+		}	
+		return jsonArr.toString();
 	}
 	
 }

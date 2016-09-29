@@ -27,4 +27,5 @@ public interface MaterialsMapper {
 	//查询数量
 	int getMaterialsSum(MaterialsForm form);
 	
+	List<MaterialsVO> getAllMaterialsList();
 }

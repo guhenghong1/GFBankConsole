@@ -157,4 +157,8 @@
 	    where companyId = #{companyId, jdbcType=VARCHAR}
 	</select>
 	
+	<select id="getAllMaterialsList" resultType="MaterialsVO">
+		 	SELECT  * FROM tb_materials_company
+	</select>
+	
 </mapper>

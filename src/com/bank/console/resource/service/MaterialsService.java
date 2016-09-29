@@ -69,4 +69,8 @@ public class MaterialsService {
 	public int getMaterialsSum(MaterialsForm form) {
 		return materialsMapper.getMaterialsSum(form);
 	}
+	
+	public List<MaterialsVO> getAllMaterialsList(){
+		return materialsMapper.getAllMaterialsList();
+	}
 }
