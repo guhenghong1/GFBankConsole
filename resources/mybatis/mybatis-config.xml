@@ -25,5 +25,8 @@
 		
 		<typeAlias type="com.bank.console.resource.vo.MaterialsVO" alias="MaterialsVO"/>
 		<typeAlias type="com.bank.console.resource.form.MaterialsForm" alias="MaterialsForm"/>
+		
+		<typeAlias type="com.bank.console.conference.vo.ConferenceVO" alias="ConferenceVO"/>
+		<typeAlias type="com.bank.console.conference.form.ConferenceForm" alias="ConferenceForm"/>
 	</typeAliases>
 </configuration>

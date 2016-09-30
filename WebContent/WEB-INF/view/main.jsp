@@ -109,8 +109,8 @@
 	                    <!-- <div><a href="#" class="easyui-linkbutton"  onclick="openTab('文件查找')" style="width:100px" data-options="plain:true">文件查找</a></div> -->
 	                </div>
 	                <div title="会议公告管理" data-options="selected:false" style="padding:10px;">
-	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('物资供应商管理', '${basePath}/materials/init.do')" style="width:100px" data-options="plain:true">物资供应商管理</a></div>
-	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('设备管理', '${basePath}/equipment/init.do')" style="width:100px" data-options="plain:true">设备管理</a></div>
+	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('会议管理', '${basePath}/conference/init.do')" style="width:100px" data-options="plain:true">会议管理</a></div>
+	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('建议公示', '${basePath}/advise/init.do')" style="width:100px" data-options="plain:true">建议公示</a></div>
 	                </div>
 	                <div title="客户关系管理" style="padding:10px">
 	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('客户管理', '${basePath}/customer/init.do')" style="width:100px" data-options="plain:true">客户管理</a></div>

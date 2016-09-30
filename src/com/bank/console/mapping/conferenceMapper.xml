@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bank.console.mapper.ConferenceMapper">
+	<!-- 新增用户 -->
+ 	<insert id="addConference"  parameterType="ConferenceForm">
+	   insert into tb_conference(
+	   		id,
+	   		name,
+	   		time,
+	   		place,
+	   		persons,
+	   		emphasis,
+	   		content,
+	   		remark,
+	   		createDate
+	   ) values(
+	   	 	#{id, jdbcType=VARCHAR},
+	   	 	#{name, jdbcType=VARCHAR},
+	   	 	#{time, jdbcType=DATE},
+	   	 	#{place, jdbcType=VARCHAR},
+	   	 	#{persons, jdbcType=VARCHAR},
+	   	 	#{emphasis, jdbcType=VARCHAR},
+	   	 	#{content, jdbcType=VARCHAR},
+	   	 	#{remark, jdbcType=VARCHAR},
+	   	 	now()
+	   )
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="updateConference" parameterType="ConferenceForm">
+		update tb_conference 
+			<set>
+				<if test="name != null and name != ''">
+				 	name = #{name, jdbcType=VARCHAR},
+				 </if>
+				 <if test="place != null and place != ''">
+				 	place = #{place, jdbcType=VARCHAR},
+				 </if>
+				 <if test="persons != null and persons != ''">
+				 	persons = #{persons, jdbcType=VARCHAR},
+				 </if>
+				 <if test="time != null and time != ''">
+				 	time = #{time, jdbcType=DATE},
+				 </if>
+				 <if test="emphasis != null and emphasis != ''">
+				 	emphasis = #{emphasis, jdbcType=VARCHAR},
+				 </if>
+				 <if test="content != null and content != ''">
+				 	content = #{content, jdbcType=VARCHAR},
+				 </if>
+				 <if test="remark != null and remark != ''">
+				 	remark = #{remark, jdbcType=VARCHAR},
+				 </if>
+				where id = #{id, jdbcType=VARCHAR}
+			</set> 
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="deleteConference">
+		delete from tb_conference where id = #{id, jdbcType=VARCHAR}
+	</delete>
+	
+	<!-- 查询数量 -->
+ 	<select id="getConferenceSum" resultType="INTEGER">
+	    SELECT
+	      COUNT(1) AS sum
+	    FROM
+	      tb_conference
+	     <where>
+		    	<if test=" emphasis!= null and emphasis != ''">
+					 emphasis like '%${keyWords}%'
+				</if>
+				<if test="id != null and id != ''">
+					and id = #{id, jdbcType=VARCHAR}
+				</if>
+				<if test="startDate != null and startDate !=''">
+					<![CDATA[
+						and time >= TO_DATE(#{startDate, jdbType=VARCHAR}, '%Y%m%d')
+					]]>
+				</if>
+				<if test="endDate != null and endDate !=''">
+					<![CDATA[
+						and time < TO_DATE(#{endDate, jdbType=VARCHAR}, '%Y%m%d')
+					]]>
+				</if>
+		    </where>
+	</select>
+	
+	<sql id="columns">
+	   		id,
+	   		name,
+	   		time,
+	   		place,
+	   		persons,
+	   		emphasis,
+	   		content,
+	   		remark,
+	   		createDate,
+		    DATE_FORMAT(createDate,'%Y-%m-%d %H:%i:%s')   AS createDateStr,
+		    DATE_FORMAT(time,'%Y-%m-%d %H:%i:%s')   AS timeStr
+	</sql>
+	
+	<!-- 查询 -->
+ 	<select id="getConferenceList" resultType="ConferenceVO">
+		 	SELECT   
+		    	<include refid="columns"/>
+		    FROM
+		      tb_conference
+		      <where>
+		    	<if test=" emphasis!= null and emphasis != ''">
+					 emphasis like '%${keyWords}%'
+				</if>
+				<if test="id != null and id != ''">
+					and id = #{id, jdbcType=VARCHAR}
+				</if>
+				<if test="startDate != null and startDate !=''">
+					<![CDATA[
+						and time >= TO_DATE(#{startDate, jdbType=VARCHAR}, '%Y%m%d')
+					]]>
+				</if>
+				<if test="endDate != null and endDate !=''">
+					<![CDATA[
+						and time < TO_DATE(#{endDate, jdbType=VARCHAR}, '%Y%m%d')
+					]]>
+				</if>
+		    </where>
+		    order by id
+			limit #{startRow}, #{endRow}
+	</select>
+	
+	<!--查询文件信息 -->
+ 	<select id="getConferenceInfo" resultType="ConferenceVO">
+	    SELECT
+	       <include refid="columns"/>
+	    from
+	      tb_conference
+	    where id = #{id, jdbcType=VARCHAR}
+	</select>
+	
+	<select id="getAllConferenceList" resultType="ConferenceVO">
+		 	SELECT  * FROM tb_conference
+	</select>
+	
+</mapper>

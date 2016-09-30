@@ -1,6 +1,7 @@
 package com.bank.console.system.service;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import com.bank.console.common.Constant;
 import com.bank.console.common.FilePath;
 import com.bank.console.common.util.FileUtil;
 import com.bank.console.common.util.MD5Util;
+import com.bank.console.common.util.TextpdfUtil;
 import com.bank.console.mapper.UserHomeMapper;
 import com.bank.console.mapper.UserMapper;
 import com.bank.console.mapper.UserSchoolMapper;
@@ -20,6 +22,17 @@ import com.bank.console.system.model.User;
 import com.bank.console.system.model.UserHome;
 import com.bank.console.system.model.UserSchool;
 import com.bank.console.system.vo.UserVO;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -75,7 +88,7 @@ public class UserService {
 		
 		String userId = user.getUserId();
 		
-		deleteUserHome(userId);
+		deleteUserSchool(userId);
 		deleteUserHome(userId);
 		
 		//添加个人简历信息
@@ -242,6 +255,58 @@ public class UserService {
 	 */
 	public boolean createUserInfoPdf(UserVO user) {
 		boolean bol = true;
+		return bol;
+	}
+	
+	public boolean createPdf(UserForm user, String path) {
+		Boolean bol = true;
+		try{
+			Document doc = new Document();
+			File file = new File(path);
+			file.getParentFile().mkdirs();
+			PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream(path));
+			doc.open();
+			PdfContentByte canvas = writer.getDirectContentUnder();
+			Image image = Image.getInstance("");
+			image.scaleAbsolute(155.4f, 30.625f);
+			image.setAbsolutePosition(35, 806-30.625f);
+			canvas.addImage(image);
+			float[] widths = {};
+			PdfPTable table = new PdfPTable(widths);
+			table.setWidthPercentage(100);
+			table.setSpacingBefore(50);
+			
+			BaseFont baseFont = BaseFont.createFont("fonts/SIMFANG.TTF", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+			Font font = new Font(baseFont, 18, Font.BOLD);
+			Paragraph title = TextpdfUtil.createParagraph("员工信息表", font);
+			title.setFont(font);
+//			title.add(Chunk.TABBING);
+			title.setAlignment(Element.ALIGN_CENTER);
+			PdfPCell cell = TextpdfUtil.createCell(title, 1, 1);
+			cell.setBorder(PdfPCell.NO_BORDER);
+			cell.setPaddingBottom(13);
+			cell.setFixedHeight(32);
+			table.addCell(cell);
+			
+			baseFont = BaseFont.createFont("fonts/SIMSUN.TTC,1", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+			Font bold = new Font(baseFont, 10, Font.BOLD);
+			font = new Font(baseFont, 11);
+			
+			cell = TextpdfUtil.createCell(new Paragraph("姓 名", font), 1,  1, Element.ALIGN_CENTER, Element.ALIGN_MIDDLE);
+			table.addCell(cell);
+			cell = TextpdfUtil.createCell(new Paragraph(user.getRealName(), font), 1,  1, Element.ALIGN_CENTER, Element.ALIGN_MIDDLE);
+			table.addCell(cell);
+			
+			cell = TextpdfUtil.createCell(new Paragraph("姓 名", font), 1,  1, Element.ALIGN_CENTER, Element.ALIGN_MIDDLE);
+			table.addCell(cell);
+			cell = TextpdfUtil.createCell(new Paragraph("\u221A男   \u25A1女", font), 1,  1, Element.ALIGN_CENTER, Element.ALIGN_MIDDLE);
+			table.addCell(cell);
+			
+			doc.add(table);
+		} catch(Exception e) {
+			e.printStackTrace();
+			bol = false;
+		}
 		return bol;
 	}
 }

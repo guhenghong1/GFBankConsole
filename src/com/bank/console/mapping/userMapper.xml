@@ -232,6 +232,8 @@
 	<!-- 查询 -->
  	<select id="getUserList" resultType="UserVO">
 		 	SELECT
+		 	  	d.deptName,
+		 	  	 r.roleName,
 		    	<include refid="columns"/>
 		    FROM
 		      tb_user u, tb_dept d, tb_role r
