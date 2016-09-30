@@ -115,47 +115,47 @@
 			<table>
 				<tr>
 					<td><label>发文编号：</label></td>
-					<td><input id="mfileId" name="fileId" type="text" value=""></input>
+					<td><input id="mfileIds" name="fileId" type="text" value=""></input>
 					</td>
 				</tr>
 				<tr>
 					<td><label>发文时间：</label></td>
 					<td> 
-						<input id="mcreateDate" class="easyui-datetimebox" name = "createDateStr"
+						<input id="mcreateDates" class="easyui-datetimebox" name = "createDateStr"
 						data-options="required:false,showSeconds:false, formatter:fmt,parser:pas" label="Select DateTime:" labelPosition="top" style="width:150px">
 					</td>
 				</tr>
 				<tr>
 					<td><label>发文单位：</label></td>
-					<td><input id="mdeptId" name="deptId" class="easyui-combotree" data-options="url:'../dept/getDeptTree.do',method:'get',label:'Select Nodes:',labelPosition:'top',multiple:false" style="width:181px"></td>
+					<td><input id="mdeptIds" name="deptId" class="easyui-combotree" data-options="url:'../dept/getDeptTree.do',method:'get',label:'Select Nodes:',labelPosition:'top',multiple:false" style="width:181px"></td>
 				</tr>
 				<tr>
 					<td><label>发文字号：</label></td>
-					<td><input id="mfileNo" name="fileNo" type="text" value=""></input></td>
+					<td><input id="mfileNos" name="fileNo" type="text" value=""></input></td>
 				</tr>
 				<tr>
 					<td><label>发文标题：</label></td>
-					<td><input id="mfileTitle" name="fileTitle" type="text" value=""></input></td>
+					<td><input id="mfileTitles" name="fileTitle" type="text" value=""></input></td>
 				</tr>
 				<tr>
 					<td><label>发文关键词：</label></td>
-					<td><input id="mkeyWords" name= "keyWords" type="text" value=""></input></td>
+					<td><input id="mkeyWordss" name= "keyWords" type="text" value=""></input></td>
 				</tr>
 				<tr>
 					<td><label>发文拟稿人：</label></td>
-					<td><input id="mauthor" name= "author" type="text" value=""></input></td>
+					<td><input id="mauthors" name= "author" type="text" value=""></input></td>
 				</tr>
 				<tr>
 					<td><label>发文核查人：</label></td>
-					<td><input id="mcheckAuthor" name= "checkAuthor" type="text" value=""></input></td>
+					<td><input id="mcheckAuthors" name= "checkAuthor" type="text" value=""></input></td>
 				</tr>
 				<tr>
 					<td><label>发文签发人：</label></td>
-					<td><input id="msignAuthor" name= "signAuthor" type="text" value=""></input></td>
+					<td><input id="msignAuthors" name= "signAuthor" type="text" value=""></input></td>
 				</tr>
 				<tr>
 					<td><label>发文保密级别：</label></td>
-					<td><select id="msecretLevel" name="secretLevel">
+					<td><select id="msecretLevels" name="secretLevel">
 					  <option value ="1">普通</option>
 					  <option value ="2">保密</option>
 					</select></td>
@@ -163,7 +163,7 @@
 				<tr>
 					<td><label>附件：</label></td>
 					<td><img src=""/>
-						<input id="mattachment" type="file" name="fileItem">
+						<input id="mattachments" type="file" name="fileItem">
 					</td>  
 				</tr>
 			</table>

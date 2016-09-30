@@ -85,19 +85,19 @@ var SendFile = {
 				var data = JSON.parse(data);
 				if(!!data.obj) {
 					var file = data.obj;
-					$("#mfileId").val(file.fileId);
-					$("#mdeptName").val(file.deptName);
-					$("#mfileNo").val(file.fileNo);
-					$("#mfileTitle").val(file.fileTitle);
-					$("#mkeyWords").val(file.keyWords);
-					$("#mauthor").val(file.author);
-					$("#mcheckAuthor").val(file.checkAuthor);
-					$("#msignAuthor").val(file.signAuthor);
-					$("#msecretLevel").val(file.secretLevel);
+					$("#mfileIds").val(file.fileId);
+					$("#mdeptNames").val(file.deptName);
+					$("#mfileNos").val(file.fileNo);
+					$("#mfileTitles").val(file.fileTitle);
+					$("#mkeyWordss").val(file.keyWords);
+					$("#mauthors").val(file.author);
+					$("#mcheckAuthors").val(file.checkAuthor);
+					$("#msignAuthors").val(file.signAuthor);
+					$("#msecretLevels").val(file.secretLevel);
 //					$("#mattachment").val(file.attachment);
-					$('#mcreateDate').datetimebox('setValue', file.createDateStr);
+					$('#mcreateDates').datetimebox('setValue', file.createDateStr);
 					
-					$('#mdeptId').combotree('setValue', file.deptId);
+					$('#mdeptIds').combotree('setValue', file.deptId);
 //					var deptIdArr = [];
 //					var deptIdStr = file.deptId;
 //					deptIdArr = deptIdStr.split(",");

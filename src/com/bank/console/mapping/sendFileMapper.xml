@@ -78,10 +78,11 @@
 	    SELECT
 	      COUNT(1) AS sum
 	    FROM
-	      tb_send_file
+	      tb_send_file s, tb_dept d
 	    <where>
+	    	s.deptId = d.deptId
 	    	<if test="keyWords != null and keyWords != ''">
-					 keyWords like '%${keyWords}%'
+					and keyWords like '%${keyWords}%'
 				</if>
 				<if test="fileTitle != null and fileTitle != ''">
 					and fileTitle = #{fileTitle, jdbcType=VARCHAR}
@@ -118,29 +119,31 @@
 	</select>
 	
 	<sql id="columns">
-              fileId,
-		      deptId,
-		      fileNo,
-		      fileTitle,
-		      keyWords,
-		      secretLevel,
-		      author,
-		      checkAuthor,
-		      signAuthor,
-		      attachment,
-		      DATE_FORMAT(createDate,'%Y-%m-%d %H:%i:%s')   AS createDateStr,
-		      DATE_FORMAT(updateDate,'%Y-%m-%d %H:%i:%s')   AS updateDateStr
+              s.fileId,
+		      s.deptId,
+		      s.fileNo,
+		      s.fileTitle,
+		      s.keyWords,
+		      s.secretLevel,
+		      s.author,
+		      s.checkAuthor,
+		      s.signAuthor,
+		      s.attachment,
+		      DATE_FORMAT(s.createDate,'%Y-%m-%d %H:%i:%s')   AS createDateStr,
+		      DATE_FORMAT(s.updateDate,'%Y-%m-%d %H:%i:%s')   AS updateDateStr
 	</sql>
 	
 	<!-- 查询 -->
  	<select id="getFileList" resultType="SendFileVO">
-		 	SELECT   
+		 	SELECT
+		 		d.deptName,   
 		    	<include refid="columns"/>
 		    FROM
-		      tb_send_file
+		      tb_send_file s, tb_dept d
 		    <where>
+		    	s.deptId = d.deptId
 		    	<if test="keyWords != null and keyWords != ''">
-					 keyWords like '%${keyWords}%'
+					and keyWords like '%${keyWords}%'
 				</if>
 				<if test="fileTitle != null and fileTitle != ''">
 					and fileTitle = #{fileTitle, jdbcType=VARCHAR}
@@ -173,7 +176,7 @@
 	    SELECT
 	       <include refid="columns"/>
 	    FROM
-	      tb_send_file
+	      tb_send_file s
 	    where fileId = #{fileId, jdbcType=VARCHAR}
 	</select>
 	
