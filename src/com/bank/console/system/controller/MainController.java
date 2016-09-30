@@ -79,8 +79,8 @@ public class MainController {
 		} 
 		
 		if (!MD5Util.getMD5Code(oriPwd).equals(user.getPass())) {	//工号已存在
-			result.setCode(Constant.USER_ID_IS_EXISTED);
-			result.setMsg(Constant.USER_ID_IS_EXISTED_MSG);
+			result.setCode(Constant.PWD_ERROR);
+			result.setMsg(Constant.PWD_ERROR_MSG);
 			return JSONObject.fromObject(result).toString();
 		}
 		

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -176,7 +177,7 @@ public class UserService {
 	 */
 	public void addUserSchool(UserForm form) {
 		String schoolList = form.getSchoolList();
-		if(schoolList.isEmpty()) {
+		if(StringUtils.isEmpty(schoolList)) {
 			return ;
 		}
 		
@@ -205,7 +206,7 @@ public class UserService {
 	 */
 	public void addUserHome(UserForm form) {
 		String homeList = form.getHomeList();
-		if(homeList.isEmpty()) {
+		if(StringUtils.isEmpty(homeList)) {
 			return ;
 		}
 		

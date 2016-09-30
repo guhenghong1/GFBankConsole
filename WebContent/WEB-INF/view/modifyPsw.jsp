@@ -188,16 +188,24 @@
                     }
                });
                $("#newPwd").blur(function() {
+            	   var reg = /^[a-zA-Z\d+]{6}$/gi;
+            	   var val = $("#newPwd").val();
             	   if ($("#newPwd").val() == "") {
                        $(".newPwdMsg").html("新密码不能为空!");
-                    } else {
+                    } else if(!reg.test(val)) {
+                    	$(".newPwdMsg").html("请输入规定格式的密码");
+                    }else {
                     	$(".newPwdMsg").html("");
                     }
                });
                $("#newPwd1").blur(function() {
+            	   var reg = /^[a-zA-Z\d+]{6}$/gi;
+            	   var val = $("#newPwd1").val();
             	   if ($("#newPwd1").val() == "") {
                        $(".newPwd1Msg").html("密码不能为空!");
-                    } else {
+                    } else if(!reg.test(val)) {
+                    	$(".newPwd1Msg").html("请输入规定格式的密码");
+                    }else {
                     	$(".newPwd1Msg").html("");
                     }
             	   if ($("#newPwd1").val() != $("#newPwd").val()) {
@@ -268,11 +276,11 @@
                      	<label><span class="oriPwdMsg" style="color:red"></span></label>
                      </div>
                      <div>
-                     	<label><input type="password" id="newPwd" placeholder="请输入新密码"/><label>
+                     	<label><input type="password" id="newPwd" placeholder="请输入6位数字加字母的新密码"/><label>
                      	<label><span class="newPwdMsg" style="color:red"></span></label>
                      </div>
                      <div>
-	                     <label><input type="password" id="newPwd1" placeholder="请再次输入新密码"/><label>
+	                     <label><input type="password" id="newPwd1" placeholder="请输入6位数字加字母的新密码"/><label>
 	                     <label><span class="newPwd1Msg" style="color:red"></span></label>
                      </div>
                      <div class="btn">
