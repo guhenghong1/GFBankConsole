@@ -11,6 +11,8 @@ public class DateUtil {
 	
 	public static final String str2CalenderFormate = "yyyy-MM-dd";
 	
+	public static final String str2DayFormate = "yyyyMMdd";
+	
 	/**
 	 * 默认转str
 	 * @param date

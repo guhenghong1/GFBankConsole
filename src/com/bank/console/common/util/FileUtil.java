@@ -21,7 +21,7 @@ public class FileUtil {
 		if(fileName.isEmpty()) {
 			return "";
 		}
-		path += File.separator + System.currentTimeMillis() + fileName.substring(fileName.lastIndexOf("."));
+		path += File.separator + fileName;
 		path = path.replace("\\", "/");
 		File dir = new File(path);
 		if(!dir.isDirectory()) {

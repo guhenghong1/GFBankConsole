@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bank.console.mapper.WarrantMapper">
+	<!-- 新增用户 -->
+ 	<insert id="addWarrant"  parameterType="WarrantForm">
+	   insert into tb_warrant(
+	   		id,
+	   		type,
+	   		borrower,
+	   		normLimit,
+	   		propertyOwner,
+	   		cardId,
+	   		deptId,
+	   		remark,
+	   		status,
+	   		createDate,
+	   		updateDate
+	   ) values(
+	   	 	#{id, jdbcType=VARCHAR},
+	   	 	#{type, jdbcType=VARCHAR},
+	   	 	#{borrower, jdbcType=DATE},
+	   	 	#{normLimit, jdbcType=INTEGER},
+	   	 	#{propertyOwner, jdbcType=VARCHAR},
+	   	 	#{cardId, jdbcType=VARCHAR},
+	   	 	#{deptId, jdbcType=VARCHAR},
+	   	 	#{remark, jdbcType=VARCHAR},
+	   	 	0,
+	   	 	now(),
+	   	 	now()
+	   )
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="updateWarrant" parameterType="WarrantForm">
+		update tb_warrant 
+			<set>
+				<if test="type != null and type != ''">
+				 	type = #{type, jdbcType=VARCHAR},
+				 </if>
+				 <if test="borrower != null and borrower != ''">
+				 	borrower = #{borrower, jdbcType=VARCHAR},
+				 </if>
+				 <if test="normLimit != null and normLimit != ''">
+				 	normLimit = #{normLimit, jdbcType=INTEGER},
+				 </if>
+				 <if test="propertyOwner != null and propertyOwner != ''">
+				 	propertyOwner = #{propertyOwner, jdbcType=DATE},
+				 </if>
+				 <if test="cardId != null and cardId != ''">
+				 	cardId = #{cardId, jdbcType=VARCHAR},
+				 </if>
+				 <if test="deptId != null and deptId != ''">
+				 	deptId = #{deptId, jdbcType=VARCHAR},
+				 </if>
+				 <if test="remark != null and remark != ''">
+				 	remark = #{remark, jdbcType=VARCHAR},
+				 </if>
+				 <if test="status != null and status != ''">
+				 	status = #{status, jdbcType=INTEGER},
+				 </if>
+				 updateDate = now()
+			</set> 
+				where id = #{id, jdbcType=VARCHAR}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="deleteWarrant">
+		delete from tb_warrant where id = #{id, jdbcType=VARCHAR}
+	</delete>
+	
+	<!-- 查询数量 -->
+ 	<select id="getWarrantSum" resultType="INTEGER">
+	    SELECT
+	      COUNT(1) AS sum
+	    FROM
+	      tb_warrant
+	     <where>
+		    	<if test=" borrower != null and borrower != ''">
+					 borrower like '%${borrower}%'
+				</if>
+				<if test="id != null and id != ''">
+					and id = #{id, jdbcType=VARCHAR}
+				</if>
+				<if test="status != -1">
+					and status = #{status, jdbcType=INTEGER}
+				</if>
+				<if test="startDate != null and startDate !=''">
+					<![CDATA[
+						and createDate >= TO_DATE(#{startDate, jdbType=VARCHAR}, '%Y%m%d')
+					]]>
+				</if>
+				<if test="endDate != null and endDate !=''">
+					<![CDATA[
+						and createDate < TO_DATE(#{endDate, jdbType=VARCHAR}, '%Y%m%d')
+					]]>
+				</if>
+		    </where>
+	</select>
+	
+	<sql id="columns">
+	   		id,
+	   		type,
+	   		borrower,
+	   		normLimit,
+	   		propertyOwner,
+	   		cardId,
+	   		deptId,
+	   		remark,
+	   		createDate,
+	   		updateDate,
+		    DATE_FORMAT(createDate,'%Y-%m-%d %H:%i:%s')   AS createDateStr,
+		    DATE_FORMAT(updateDate,'%Y-%m-%d %H:%i:%s')   AS updateDateStr
+	</sql>
+	
+	<!-- 查询 -->
+ 	<select id="getWarrantList" resultType="WarrantVO">
+		 	SELECT   
+		    	<include refid="columns"/>
+		    FROM
+		      tb_warrant
+		      <where>
+		    	<if test=" borrower != null and borrower != ''">
+					 borrower like '%${borrower}%'
+				</if>
+				<if test="id != null and id != ''">
+					and id = #{id, jdbcType=VARCHAR}
+				</if>
+				<if test="status != -1">
+					and status = #{status, jdbcType=INTEGER}
+				</if>
+				<if test="startDate != null and startDate !=''">
+					<![CDATA[
+						and createDate >= TO_DATE(#{startDate, jdbType=VARCHAR}, '%Y%m%d')
+					]]>
+				</if>
+				<if test="endDate != null and endDate !=''">
+					<![CDATA[
+						and createDate < TO_DATE(#{endDate, jdbType=VARCHAR}, '%Y%m%d')
+					]]>
+				</if>
+		    </where>
+		    order by id desc
+			limit #{startRow}, #{endRow}
+	</select>
+	
+	<!--查询文件信息 -->
+ 	<select id="getWarrantInfo" resultType="WarrantVO">
+	    SELECT
+	       <include refid="columns"/>
+	    from
+	      tb_warrant
+	    where id = #{id, jdbcType=VARCHAR}
+	</select>
+	
+	<!-- 查询最大 -->
+ 	<select id="getMaxid" resultType="String">
+ 		SELECT MAX(id) as maxid FROM tb_warrant
+	</select>
+</mapper>

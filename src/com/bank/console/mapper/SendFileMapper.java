@@ -26,4 +26,9 @@ public interface SendFileMapper {
 		
 		//查询数量
 		int getFileSum(SendFileForm file);
+		
+		/**
+		 * 
+		 */
+		String getMaxFileId();
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bank.console.common.DBIndex.CommonService;
 import com.bank.console.conference.form.ConferenceForm;
 import com.bank.console.conference.vo.ConferenceVO;
 import com.bank.console.mapper.ConferenceMapper;
@@ -13,7 +14,10 @@ import com.bank.console.mapper.ConferenceMapper;
 public class ConferenceService {
 	@Autowired
 	private ConferenceMapper conferenceMapper;
+	@Autowired
+	private CommonService commonService;
 	
+	private static final String TABLENAME = "tb_conference";
 	
 	/**
 	 * 新增文件
@@ -22,6 +26,8 @@ public class ConferenceService {
 	 * @throws Exception 
 	 */
 	public int addConference(ConferenceForm form) throws Exception {
+		String nextId = commonService.getNextId(TABLENAME);
+		form.setId(nextId);
 		return conferenceMapper.addConference(form);
 	}
 	

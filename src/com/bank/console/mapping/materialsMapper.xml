@@ -64,8 +64,8 @@
 				 	remark = #{remark, jdbcType=VARCHAR},
 				 </if>
 				 updateDate = now()
-				where companyId = #{companyId, jdbcType=VARCHAR}
 			</set> 
+				where companyId = #{companyId, jdbcType=VARCHAR}
 	</update>
 	
 	<!-- 删除 -->

@@ -9,9 +9,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.bank.console.common.ConfigProperty;
 import com.bank.console.common.FilePath;
+import com.bank.console.common.DBIndex.CommonService;
 import com.bank.console.common.util.FileUtil;
 import com.bank.console.file.form.SendFileForm;
-import com.bank.console.file.model.SendFile;
 import com.bank.console.file.vo.SendFileVO;
 import com.bank.console.mapper.SendFileMapper;
 
@@ -19,7 +19,10 @@ import com.bank.console.mapper.SendFileMapper;
 public class SendFileService {
 	@Autowired
 	private SendFileMapper sendFileMapper;
+	@Autowired
+	private CommonService commonService;
 	
+	private static final String TABLENAME = "tb_send_file";
 	
 	/**
 	 * 新增文件
@@ -32,6 +35,11 @@ public class SendFileService {
 		MultipartFile fileItem = form.getFileItem();
 		String attachment = FileUtil.saveFile(fileItem, path);
 		form.setAttachment(attachment);
+		
+		String nextId = commonService.getNextId(TABLENAME);
+		
+		form.setFileId(nextId);
+		
 		return sendFileMapper.addFile(form);
 	}
 	

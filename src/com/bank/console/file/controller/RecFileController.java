@@ -3,6 +3,8 @@ package com.bank.console.file.controller;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -78,11 +80,15 @@ public class RecFileController {
 	@Permission
 	@RequestMapping(value="/updateFile", method = RequestMethod.POST)
 	@ResponseBody
-	public String updateFile(@ModelAttribute("mrecFileForm") RecFileForm form) {
+	public String updateFile(@ModelAttribute("mrecFileForm") RecFileForm form, HttpServletRequest req) {
 		//MultipartFile 
 		ResultUtil result = new ResultUtil();
-		int res = 0;
 		try {
+		if (req.getCharacterEncoding() == null) {
+			req.setCharacterEncoding("UTF-8");//你的编码格式
+			}
+		
+		int res = 0;
 			Date createDate = DateUtil.defaultStrToDate(form.getCreateDateStr());
 			if(createDate != null) {
 				form.setCreateDate(createDate);

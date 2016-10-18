@@ -1,38 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bank.console.mapper.DeptMapper">
+<!-- 新增用户 -->
+ 	<insert id="addDept"  parameterType="DeptForm">
+	   insert into tb_dept(
+	   		deptId,
+	   		deptName,
+	   		superDeptId,
+	   		level,
+	   		isSalesDept,
+	   		address,
+	   		remark
+	   ) values(
+	   	 	#{deptId, jdbcType=VARCHAR},
+	   	 	#{deptName, jdbcType=VARCHAR},
+	   	 	#{superDeptId, jdbcType=VARCHAR},
+	   	 	#{level, jdbcType=VARCHAR},
+	   	 	#{isSalesDept, jdbcType=INTEGER},
+	   	 	#{address, jdbcType=VARCHAR},
+	   	 	#{remark, jdbcType=VARCHAR}
+	   )
+	</insert>
 	<!-- 修改 -->
-	<!-- <update id="updateDept" parameterType="RecFileForm">
-		update tb_recevice_file 
+	<update id="updateDept" parameterType="DeptForm">
+		update tb_dept 
 			<set>
-				<if test="fileNo != null and fileNo != ''">
-				 	fileNo = #{fileNo, jdbcType=VARCHAR},
+				<if test="superDeptId != null and superDeptId != ''">
+				 	superDeptId = #{superDeptId, jdbcType=VARCHAR},
 				 </if>
-				 <if test="fileTitle != null and fileTitle != ''">
-				 	fileTitle = #{fileTitle, jdbcType=VARCHAR},
+				 <if test="isSalesDept != null and isSalesDept != ''">
+				 	isSalesDept = #{isSalesDept, jdbcType=INTEGER},
 				 </if>
-				 <if test="deptId != null and deptId != ''">
-				 	deptId = #{deptId, jdbcType=VARCHAR},
+				 <if test="deptName != null and deptName != ''">
+				 	deptName = #{deptName, jdbcType=VARCHAR},
 				 </if>
-				 <if test="keyWords != null and keyWords != ''">
-				 	keyWords = #{keyWords, jdbcType=VARCHAR},
-				 </if>
-				 <if test="secretLevel != null and secretLevel != ''">
-				 	secretLevel = #{secretLevel, jdbcType=VARCHAR},
-				 </if>
-				  <if test="emgLevel != null and emgLevel != ''">
-				  	emgLevel = #{emgLevel, jdbcType=VARCHAR},
+				  <if test="level != null and level != ''">
+				  	level = #{level, jdbcType=VARCHAR},
 				  </if>
-				 <if test="status != null and status != ''">
-				 	status = #{status, jdbcType=VARCHAR},
+				 <if test="address != null and address != ''">
+				 	address = #{address, jdbcType=VARCHAR},
 				 </if>
-				 <if test="attachment != null and attachment != ''">
-				 	attachment = #{attachment, jdbcType=VARCHAR},
+				 <if test="remark != null and remark != ''">
+				 	remark = #{remark, jdbcType=VARCHAR},
 				 </if>
-				 updateDate = now()
-				where fileId = #{fileId, jdbcType=VARCHAR}
 			</set> 
-	</update> -->
+				where deptId = #{deptId, jdbcType=VARCHAR}
+	</update>
 	
 	<!-- 删除 -->
 	<delete id="deleteDept">
@@ -43,19 +56,32 @@
 <sql id="columns">
               deptId,
 		      deptName,
-		      isLeaf,
-		      status,
 		      remark,
 		      superDeptId,
-		      level
+		      level,
+		      isSalesDept,
+		      address
 	</sql>
 	
 	<!-- 查询 -->
  	<select id="getDeptList" resultType="DeptVO">
+		 	SELECT
+		    	<include refid="columns"/>
+		    FROM
+		      tb_dept
+	</select>
+	<!-- 查询 -->
+ 	<select id="getDeptInfo" resultType="DeptVO">
 		 	SELECT   
 		    	<include refid="columns"/>
 		    FROM
 		      tb_dept
+		    where deptId = #{deptId, jdbcType=VARCHAR}
+	</select>
+	
+	<!-- 查询最大 -->
+ 	<select id="getMaxDeptId" resultType="String">
+ 		SELECT MAX(deptId) as maxDeptId FROM tb_dept
 	</select>
 	
 </mapper>

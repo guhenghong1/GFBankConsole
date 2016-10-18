@@ -11,6 +11,11 @@
 		<typeAlias type="com.bank.console.system.model.UserHome" alias="UserHome"/>
 		<typeAlias type="com.bank.console.system.form.UserForm" alias="UserForm"/>
 		<typeAlias type="com.bank.console.system.vo.UserVO" alias="UserVO"/>
+		<typeAlias type="com.bank.console.system.model.UserMenu" alias="UserMenu"/>
+		<typeAlias type="com.bank.console.system.form.UserMenuForm" alias="UserMenuForm"/>
+		<typeAlias type="com.bank.console.system.vo.UserMenuVO" alias="UserMenuVO"/>
+		<typeAlias type="com.bank.console.system.form.MenuForm" alias="MenuForm"/>
+		<typeAlias type="com.bank.console.system.vo.MenuVO" alias="MenuVO"/>
 		
 		<typeAlias type="com.bank.console.file.model.RecFile" alias="RecFile"/>
 		<typeAlias type="com.bank.console.file.vo.RecFileVO" alias="RecFileVO"/>
@@ -22,11 +27,16 @@
 		
 		<typeAlias type="com.bank.console.dept.vo.DeptVO" alias="DeptVO"/>
 		<typeAlias type="com.bank.console.dept.model.Dept" alias="Dept"/>
+		<typeAlias type="com.bank.console.dept.form.DeptForm" alias="DeptForm"/>
 		
 		<typeAlias type="com.bank.console.resource.vo.MaterialsVO" alias="MaterialsVO"/>
 		<typeAlias type="com.bank.console.resource.form.MaterialsForm" alias="MaterialsForm"/>
 		
 		<typeAlias type="com.bank.console.conference.vo.ConferenceVO" alias="ConferenceVO"/>
 		<typeAlias type="com.bank.console.conference.form.ConferenceForm" alias="ConferenceForm"/>
+		
+		<typeAlias type="com.bank.console.business.vo.WarrantVO" alias="WarrantVO"/>
+		<typeAlias type="com.bank.console.business.form.WarrantForm" alias="WarrantForm"/>
+		<typeAlias type="com.bank.console.business.model.Dictionary" alias="Dictionary"/>
 	</typeAliases>
 </configuration>

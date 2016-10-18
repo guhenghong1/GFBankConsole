@@ -17,9 +17,9 @@ import com.bank.console.common.interceptor.Permission;
 import com.bank.console.common.util.DateUtil;
 import com.bank.console.common.util.MD5Util;
 import com.bank.console.common.util.ResultUtil;
-import com.bank.console.file.form.SendFileForm;
 import com.bank.console.system.form.UserForm;
-import com.bank.console.system.model.User;
+import com.bank.console.system.form.UserMenuForm;
+import com.bank.console.system.service.UserMenuService;
 import com.bank.console.system.service.UserService;
 import com.bank.console.system.vo.UserVO;
 
@@ -31,6 +31,8 @@ import net.sf.json.JSONObject;
 public class UserController {
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private UserMenuService userMenuService;
 	
 	private static final String INIT_PWD = "888888";	//初始化密码
 
@@ -148,5 +150,34 @@ public class UserController {
 		return JSONObject.fromObject(result).toString();
 	}
 	
+	@Permission
+	@RequestMapping("/addUserMenu")
+	@ResponseBody
+	public String addUserMenu(@ModelAttribute("userMenuForm") UserMenuForm form) {
+		//清除旧菜单项
+		userMenuService.deleteUserMenu(form.getUserId());
+		
+		int res = userMenuService.addUserMenu(form);
+		
+		int code = res >=1? Constant.SUCCESS_CODE: Constant.ERROR_CODE;
+		ResultUtil result = new ResultUtil();
+		result.setCode(code);
+		result.setMsg(Constant.SUCCESS_MSG);
+		return JSONObject.fromObject(result).toString();
+	}
+	
+	@Permission
+	@RequestMapping("/getUserMenu")
+	@ResponseBody
+	public String getUserMenu(@RequestParam("userId") String userId) {
+		UserMenuForm userMenu = userMenuService.getUserMenu(userId);
+		
+		int code = Constant.SUCCESS_CODE;
+		ResultUtil result = new ResultUtil();
+		result.setCode(code);
+		result.setMsg(Constant.SUCCESS_MSG);
+		result.setObj(userMenu);
+		return JSONObject.fromObject(result).toString();
+	}
 	
 }

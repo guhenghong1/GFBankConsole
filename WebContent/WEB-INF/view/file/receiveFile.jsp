@@ -20,11 +20,12 @@
 	<script type="text/javascript" src="${basePath}/js/file/recFile.js?u=${times}"></script>
 	<div class="recFile" style="padding: 20px">
 		<div id="tb" style="height: auto">
-			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'',plain:true" onclick="RecFile.edit(0)">详情</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-help',plain:true" onclick="RecFile.edit(0)">详情</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="RecFile.edit(1)">编辑</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="RecFile.add()">新增</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="RecFile.deleteOp()">删除</a>
-			<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-print',plain:true" onclick="RecFile.download()">打印</a>
+			<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-export',plain:true" onclick="RecFile.download()">下载附件</a>
+			<!-- <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-print',plain:true" onclick="RecFile.download()">打印</a> -->
 		</div>
         <div class="query" style="padding: 5px">  
            <label>来文编号：</label><input type="text" id = "qFileId" name="qFileId" style="width:150px"/>  
@@ -42,12 +43,12 @@
 			style="width: 500px; height: 450px; padding: 10px;">
 		<form id="recFileForm" method="post" action="${basePath}/recFile/addFile.do" enctype="multipart/form-data">  
 			<table>
-				<tr>
+<!-- 				<tr>
 					<td><label>来文编号：<font style="color: red">*</font></label></td>
 					<td><input id="fileId" class="required" name="fileId" type="text" value=""></input>
 					<span id = "fileIdmsg" class="msg"></span>
 					</td>
-				</tr>
+				</tr> -->
  				<tr>
 					<td><label>来文时间：<font style="color: red">*</font></label></td>
 					<td> 
@@ -59,7 +60,7 @@
 				<tr>
 					<td><label>来文单位：<font style="color: red">*</font></label></td>
 					<td>
-						<input id="deptId" name="deptId" class="easyui-combotree" data-options="url:'../dept/getDeptTree.do',method:'get',label:'Select Nodes:',labelPosition:'top',multiple:false" style="width:181px">
+						<input id="deptId" name="deptId" class="easyui-combotree" data-options="url:'../dept/getDeptTree.do',method:'get',label:'Select Nodes:',labelPosition:'top',multiple:false,animate:true,lines:true" style="width:181px">
 						<span id = "deptIdmsg" class="msg"></span>
 					</td>
 				</tr>
@@ -125,7 +126,7 @@
 					<td><label>来文时间：</label></td>
 					<td> 
 						<input id="mcreateDate" class="easyui-datetimebox" name = "createDateStr"
-						data-options="required:false,showSeconds:false, formatter:fmt,parser:pas" label="Select DateTime:" labelPosition="top" style="width:150px">
+						data-options="required:false,showSeconds:false, formatter:fmt,parser:pas,animate:true,lines:true" label="Select DateTime:" labelPosition="top" style="width:150px">
 					</td>
 				</tr>
 				<tr>

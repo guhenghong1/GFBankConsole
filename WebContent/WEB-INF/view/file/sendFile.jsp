@@ -42,12 +42,12 @@
 			style="width: 500px; height: 450px; padding: 10px;">
 		<form id="sendFileForm" method="post" action="${basePath}/sendFile/addFile.do" enctype="multipart/form-data">  
 			<table>
-				<tr>
+<!-- 				<tr>
 					<td><label>发文编号：<font style="color: red">*</font></label></td>
 					<td><input id="fileId" class="required" name="fileId" type="text" value=""></input>
 					<span id = "fileIdmsg" class="msg"></span>
 					</td>
-				</tr>
+				</tr> -->
 				<tr>
 					<td><label>发文时间：<font style="color: red">*</font></label></td>
 					<td> 

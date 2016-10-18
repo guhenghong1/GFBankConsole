@@ -51,8 +51,8 @@
 				 <if test="remark != null and remark != ''">
 				 	remark = #{remark, jdbcType=VARCHAR},
 				 </if>
-				where id = #{id, jdbcType=VARCHAR}
 			</set> 
+				where id = #{id, jdbcType=VARCHAR}
 	</update>
 	
 	<!-- 删除 -->

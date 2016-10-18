@@ -65,3 +65,27 @@ function myparser(s){
         return new Date();
     }
 }
+
+var initFormatCombotree = function(ele) {
+	$('#'+ele).combotree({
+		onLoadSuccess:function(node, data){
+			formatComboTreeValue(ele);
+		},
+		onCheck:function(node, checked){
+			formatComboTreeValue(ele);
+		},
+		onClick:function(node, checked){
+			formatComboTreeValue(ele);
+		}
+	});
+}
+
+function formatComboTreeValue(ele) {
+	var value = $('#'+ele).combotree('getText');
+	console.log("val=="+value);
+//	if(value.indexOf("根节点,") >= 0) {
+	    var endIndex = value.indexOf(',');
+	    value = value.substring(endIndex+1);
+	    $('#'+ele).combotree('setText', value);
+//	}
+}

@@ -19,14 +19,17 @@
 </style>
 </head>
 <body>
+<link rel="stylesheet" type="text/css" href="../jquery-easyui-1.3.2/themes/default/easyui.css">
 <script type="text/javascript" src="${basePath}/js/common/common.js?u=${times}"></script>
 <script type="text/javascript" src="${basePath}/js/common/comEasyui.js?u=${times}"></script>
 <script type="text/javascript" src="${basePath}/js/user/user.js?u=${times}"></script>
 <div class="qz-user">
     <div id="tb" style="height:auto">
-        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="User.edit()">编辑</a>
+    	<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-help',plain:true" onclick="User.edit(0)">详情</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="User.edit(1)">编辑</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="User.add()">新增</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="User.deleteUser()">删除</a>
+        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-set',plain:true" onclick="User.setMenu()">功能菜单权限设置</a>
     </div> 
   	<div class="query" style="padding-top: 5px"> 
   		<div style="padding-bottom: 5px"> 
@@ -375,10 +378,34 @@
         	</tr>
         </table>
         </form>
+        <div id="userMenuw" class="easyui-window" title="用户详情" data-options="modal:true,closed:true,cache:false,iconCls:'icon-save'" style="width:400px;height:300px;padding:10px;">
+        <form id="userMenuForm" method="post" action="${basePath}/user/addUserMenu.do" enctype="multipart/form-data">
+        <table class="userInfo">
+        	<tr>
+        		<td><label>用户工号：</label></td>
+        		<td>
+        			<input id="menuUserId" name="userId" type="text" value=""></input>
+        		</td>
+        	</tr>
+        	<tr>
+        		<td><label>姓名：</label></td>
+        		<td><input id="menuRealName" name="realName" type="text" value=""></input></td>
+        	</tr>
+        	<tr>
+        		<td><label>菜单：</label></td>
+        		<td>
+        			<input id="menuIds" name="menuIds" class="easyui-combotree" data-options="url:'../menu/getMenuTree.do',method:'get',label:'Select Nodes:',labelPosition:'top',multiple:true" style="width:181px">
+        		</td>
+        	</tr>
+        	</table>
+        	</form>
+        	<a href="javascript:void(0)" class="easyui-linkbutton" id="add" onclick="addUserMenu()">保存</a>
+        	<a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#userMenuw').window('close')">取消</a>
+        </div>
         <div style="margin:20px 0;">
-         <a href="javascript:void(0)" class="easyui-linkbutton" id="update" onclick="User.updateUser()">保存</a> 
+         <a href="javascript:void(0)" class="easyui-linkbutton update" id="update" onclick="User.updateUser()">保存</a> 
         <!-- <a href="javascript:void(0)" class="easyui-linkbutton" id="add" onclick="User.addUser()">保存</a> -->
-        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#w').window('close')">取消</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton cancle" onclick="$('#w').window('close')">取消</a>
     	</div>
     </div>
 </div>

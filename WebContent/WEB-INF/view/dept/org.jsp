@@ -1,87 +1,159 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@page import="java.util.Date"%> 
 <!DOCTYPE html>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	pageContext.setAttribute("basePath", basePath);
+	
+	long times = new Date().getTime();
+	pageContext.setAttribute("times", times);
+%>
 <html>
 <head>
     <meta charset="UTF-8">
 </head>
 <body>
-    <h2>Editable TreeGrid</h2>
-    <p>Select one node and click edit button to perform editing.</p>
-    <div style="margin:20px 0;">
-        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="edit()">Edit</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="save()">Save</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="cancel()">Cancel</a>
+	<script type="text/javascript" src="${basePath}/js/common/common.js?u=${times}"></script>
+	<script type="text/javascript" src="${basePath}/js/dept/org.js?u=${times}"></script>
+<div class="org" style="padding: 20px">
+    <div style="margin-bottom: 10px;">
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-help',plain:true" onclick="Org.edit(0)">详情</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="Org.edit(1)">修改</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="Org.add()">新增</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="Org.deleteOrg()">删除</a>
     </div>
-    <table id="tg" class="easyui-treegrid" title="Editable TreeGrid" style="width:700px;height:250px"
+    <table id="org" class="easyui-treegrid" title="部门机构列表" style="width:700px;height:400px"
             data-options="
                 iconCls: 'icon-ok',
                 rownumbers: true,
                 animate: true,
                 collapsible: true,
                 fitColumns: true,
-                url: 'treegrid_data2.json',
+                url: '${basePath}/dept/getOrgTree.do',
                 method: 'get',
-                idField: 'id',
-                treeField: 'name',
+                idField: 'deptId',
+                treeField: 'deptName',
                 showFooter: true
             ">
         <thead>
             <tr>
-                <th data-options="field:'name',width:180,editor:'text'">Task Name</th>
-                <th data-options="field:'persons',width:60,align:'right',editor:'numberbox'">Persons</th>
-                <th data-options="field:'begin',width:80,editor:'datebox'">Begin Date</th>
-                <th data-options="field:'end',width:80,editor:'datebox'">End Date</th>
-                <th data-options="field:'progress',width:120,formatter:formatProgress,editor:'numberbox'">Progress</th>
+                <th data-options="field:'deptName',width:120,align:'left',editor:'numberbox'">名称</th>
+                <th data-options="field:'deptId',width:80,editor:'text'">编号</th>
+                <th data-options="field:'isSalesDept',width:80,editor:'datebox'">是否为营业部</th>
+                <th data-options="field:'address',width:80,editor:'datebox'">地址</th>
+                <!-- <th data-options="field:'progress',width:120,formatter:formatProgress,editor:'numberbox'">Progress</th> -->
             </tr>
         </thead>
     </table>
-    <script type="text/javascript">
-        function formatProgress(value){
-            if (value){
-                var s = '<div style="width:100%;border:1px solid #ccc">' +
-                        '<div style="width:' + value + '%;background:#cc0000;color:#fff">' + value + '%' + '</div>'
-                        '</div>';
-                return s;
-            } else {
-                return '';
-            }
-        }
-        var editingId;
-        function edit(){
-            if (editingId != undefined){
-                $('#tg').treegrid('select', editingId);
-                return;
-            }
-            var row = $('#tg').treegrid('getSelected');
-            if (row){
-                editingId = row.id
-                $('#tg').treegrid('beginEdit', editingId);
-            }
-        }
-        function save(){
-            if (editingId != undefined){
-                var t = $('#tg');
-                t.treegrid('endEdit', editingId);
-                editingId = undefined;
-                var persons = 0;
-                var rows = t.treegrid('getChildren');
-                for(var i=0; i<rows.length; i++){
-                    var p = parseInt(rows[i].persons);
-                    if (!isNaN(p)){
-                        persons += p;
-                    }
-                }
-                var frow = t.treegrid('getFooterRows')[0];
-                frow.persons = persons;
-                t.treegrid('reloadFooter');
-            }
-        }
-        function cancel(){
-            if (editingId != undefined){
-                $('#tg').treegrid('cancelEdit', editingId);
-                editingId = undefined;
-            }
-        }
-    </script>
- 
+    <div id="orgw" class="easyui-window" title="新增部门机构"
+			data-options="modal:true,closed:true,iconCls:'icon-save'"
+			style="width: 500px; height: 400px; padding: 10px;">
+		<form id="orgForm" method="post" action="${basePath}/dept/addDept.do" enctype="multipart/form-data">  
+			<table>
+				<tr>
+					<td><label>机构名称：<font style="color: red">*</font></label></td>
+					<td><input id="deptName" class="required" name="deptName" type="text" value=""></input>
+					<span class = "deptNamemsg" class="msg"></span>
+					</td>
+				</tr>
+ 				<tr>
+					<td><label>父节点：<font style="color: red">*</font></label></td>
+					<td> 
+						<input id="superDeptId" name="superDeptId" class="easyui-combotree" data-options="url:'../dept/getDeptTree.do',method:'get',label:'Select Nodes:',labelPosition:'top',multiple:false,animate:true,lines:true" style="width:181px">
+						<span class = "superDeptIdmsg" class="msg"></span>
+					</td>
+				</tr>
+				<tr>
+					<td><label>是否为营业部：</label></td>
+					<td><select id="isSalesDept" name="isSalesDept">
+					  <option value ="1">是</option>
+					  <option value ="0">否</option>
+					</select></td>
+				</tr>
+				<tr>
+					<td><label>机构级别：</label></td>
+					<td><select id="level" name="level">
+					  <option value ="0">总行</option>
+					  <option value ="1">一级机构</option>
+					  <option value ="2">二级机构</option>
+					  <option value ="3">三级机构</option>
+					</select></td>
+				</tr>
+ 				<tr>
+					<td><label>地址：</label></td>
+					<td>
+						<input id="address" class="" name="address" type="text" value=""></input>
+					</td>  
+				</tr>
+				<tr>
+	        		<td><label>备注：</label></td>
+	        		<td colspan=""><textarea id="remark" name="remark" style="width: 300px; height: 80px;"></textarea></td>
+        		</tr>
+			</table>
+			<div style="margin: 20px 0;">
+				<a href="javascript:void(0)" class="easyui-linkbutton" id="add" onclick="addOrg()">保存</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">取消</a>
+			</div>
+		</form>
+		</div>
+    <div id="morgw" class="easyui-window" title="修改部门机构"
+			data-options="modal:true,closed:true,iconCls:'icon-save'"
+			style="width: 500px; height: 400px; padding: 10px;">
+		<form id="morgForm" method="post" action="${basePath}/dept/updateDept.do" enctype="multipart/form-data">  
+			<table>
+				<tr>
+					<td><label>机构编号：<font style="color: red">*</font></label></td>
+					<td><input id="mdeptId" class="required" name="deptId" type="text" value=""></input>
+					<span class = "deptIdmsg" class="msg"></span>
+					</td>
+				</tr>
+				<tr>
+					<td><label>机构名称：<font style="color: red">*</font></label></td>
+					<td><input id="mdeptName" class="required" name="deptName" type="text" value=""></input>
+					<span class = "deptNamemsg" class="msg"></span>
+					</td>
+				</tr>
+ 				<tr>
+					<td><label>父节点：<font style="color: red">*</font></label></td>
+					<td> 
+						<input id="msuperDeptId" name="superDeptId" class="easyui-combotree" data-options="url:'../dept/getDeptTree.do',method:'get',label:'Select Nodes:',labelPosition:'top',multiple:false,animate:true,lines:true" style="width:181px">
+						<span class = "superDeptIdmsg" class="msg"></span>
+					</td>
+				</tr>
+				<tr>
+					<td><label>是否为营业部：</label></td>
+					<td><select id="misSalesDept" name="isSalesDept">
+					  <option value ="1">是</option>
+					  <option value ="0">否</option>
+					</select></td>
+				</tr>
+				<tr>
+					<td><label>机构级别：</label></td>
+					<td><select id="mlevel" name="level">
+					  <option value ="0">总行</option>
+					  <option value ="1">一级机构</option>
+					  <option value ="2">二级机构</option>
+					  <option value ="3">三级机构</option>
+					</select></td>
+				</tr>
+ 				<tr>
+					<td><label>地址：</label></td>
+					<td>
+						<input id="maddress" class="" name="address" type="text" value=""></input>
+					</td>  
+				</tr>
+				<tr>
+	        		<td><label>备注：</label></td>
+	        		<td colspan=""><textarea id="mremark" name="remark" style="width: 300px; height: 80px;"></textarea></td>
+        		</tr>
+			</table>
+			<div style="margin: 20px 0;">
+				<a href="javascript:void(0)" class="easyui-linkbutton update" id="add" onclick="updateOrg()">保存</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton cancle" onclick="clearForm()">取消</a>
+			</div>
+		</form>
+		</div>
+    </div>
 </body>
 </html>

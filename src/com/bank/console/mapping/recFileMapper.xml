@@ -59,8 +59,8 @@
 				 	attachment = #{attachment, jdbcType=VARCHAR},
 				 </if>
 				 updateDate = now()
-				where fileId = #{fileId, jdbcType=VARCHAR}
 			</set> 
+				where fileId = #{fileId, jdbcType=VARCHAR}
 	</update>
 	
 	<!-- 删除 -->
@@ -158,4 +158,8 @@
 	    where fileId = #{fileId, jdbcType=VARCHAR}
 	</select>
 	
+	<!-- 查询最大 -->
+ 	<select id="getMaxFileId" resultType="String">
+ 		SELECT MAX(fileId) as fileId FROM tb_recevice_file
+	</select>
 </mapper>

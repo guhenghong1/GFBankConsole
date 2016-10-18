@@ -28,4 +28,8 @@ public interface RecFileMapper {
 	//查询数量
 	int getFileSum(RecFileForm file);
 	
+	/**
+	 * 
+	 */
+	String getMaxFileId();
 }

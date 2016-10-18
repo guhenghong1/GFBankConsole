@@ -7,8 +7,11 @@ public class Dept{
 	private String deptName;	//部门名称
 	private String superDeptId;		//父级部门编号
 	private String superDeptName;	//父级部门名称
-	private int isLeaf;			//是否是叶子节点 1是  0否
 	private boolean status;	//打开、关闭状态
+	private int isSalesDept;			//是否是营业部门 1是  0否
+	private String address;			//地址
+	private String level;	//机构等级
+	private String remark;			//备注
 	
 	public String getDeptId() {
 		return deptId;
@@ -40,10 +43,29 @@ public class Dept{
 	public void setSuperDeptName(String superDeptName) {
 		this.superDeptName = superDeptName;
 	}
-	public int getIsLeaf() {
-		return isLeaf;
+	public int getIsSalesDept() {
+		return isSalesDept;
 	}
-	public void setIsLeaf(int isLeaf) {
-		this.isLeaf = isLeaf;
+	public void setIsSalesDept(int isSalesDept) {
+		this.isSalesDept = isSalesDept;
 	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getLevel() {
+		return level;
+	}
+	public void setLevel(String level) {
+		this.level = level;
+	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+	
 }

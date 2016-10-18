@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bank.console.mapper.DictionaryMapper">
+<!-- 新增用户 -->
+ 	<insert id="addDictionary"  parameterType="Dictionary">
+	   insert into tb_warrant_dictionary(
+	   		id,
+	   		name,
+	   		type
+	   ) values(
+	   	 	#{id, jdbcType=VARCHAR},
+	   	 	#{name, jdbcType=VARCHAR},
+	   	 	#{type, jdbcType=INTEGER}
+	   )
+	</insert>
+	
+	<!-- 删除 -->
+	<delete id="deleteDictionary">
+		delete from tb_warrant_dictionary where id = #{id, jdbcType=VARCHAR}
+	</delete>
+	
+	
+<sql id="columns">
+              id,
+		      name,
+		      type
+	</sql>
+	
+	<!-- 查询 -->
+ 	<select id="getDictionaryList" resultType="Dictionary">
+		 	SELECT
+		    	<include refid="columns"/>
+		    FROM
+		      tb_warrant_dictionary
+		    <where>
+					type = #{type, jdbcType=INTEGER}
+				<if test="name != null and name != ''">
+					and name like '%${name}%'
+				</if>
+		    </where> 
+		    order by id 
+	</select>
+	<!-- 查询 -->
+ 	<select id="getDictionaryInfo" resultType="Dictionary">
+		 	SELECT   
+		    	<include refid="columns"/>
+		    FROM
+		      tb_warrant_dictionary
+		    <where>
+					type = #{type, jdbcType=INTEGER}
+				<if test="name != null and name != ''">
+					and name like '%${name}%'
+				</if>
+		    </where> 
+	</select>
+	
+	<!-- 查询最大 -->
+ 	<select id="getMaxid" resultType="String">
+ 		SELECT MAX(id) as maxid FROM tb_warrant_dictionary
+	</select>
+	
+</mapper>

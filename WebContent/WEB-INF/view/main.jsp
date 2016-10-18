@@ -78,7 +78,9 @@
       <input id="hidden-enddate" type="hidden" value=""/>
       <div class="easyui-layout" fit="true">
          <div region="north" border="none" class="qz-top" style="z-index: 9999">
-              <div style="float:left; margin-top: 10px">BankConsole平台</div>
+              <div style="float:left; margin-top: 10px">
+              	<img src="${basePath}/images/logo.jpg" style="max-width:220px;"/>
+              </div>
             <div id="qz_menu">
                <li class="qz_menu_li">
                   <a href="javascript:;" class="qz_set">${userId}</a>
@@ -90,7 +92,7 @@
                </li>
             </div>
 
-            <a style="float:right; margin:10px 20px 0 0"><span id="time"></span>
+            <a style="float:right; margin:20px 20px 0 0"><span id="time"></span>
             </a>
          </div>
          <div class="qz-left" region="west" title="管理列表">
@@ -120,11 +122,11 @@
 	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('物资供应商管理', '${basePath}/materials/init.do')" style="width:100px" data-options="plain:true">物资供应商管理</a></div>
 	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('设备管理', '${basePath}/equipment/init.do')" style="width:100px" data-options="plain:true">设备管理</a></div>
 	                </div> 
-	                <div title="日志管理" style="padding:10px">
-	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('登入日志')" style="width:100px" data-options="plain:true">登入日志</a></div>
-	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('运行日志')" style="width:100px" data-options="plain:true">运行日志</a></div>
-	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('操作日志')" style="width:100px" data-options="plain:true">操作日志</a></div>
-	                </div>
+	                <div title="业务应用" style="padding:10px">
+	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('权证录入', '${basePath}/warrant/init.do?menu=add')" style="width:100px" data-options="plain:true">权证录入</a></div>
+	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('权证信息修改', '${basePath}/warrant/init.do?menu=update')" style="width:100px" data-options="plain:true">权证信息修改</a></div>
+	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('权证出入库', '${basePath}/warrant/init.do?menu=updateStatus')" style="width:100px" data-options="plain:true">权证出入库</a></div>
+	                </div>  
             </div>
          </div>
          <div id="w_tabs" region="center" class="easyui-tabs"  fit="true">
@@ -169,5 +171,54 @@
 		  $("#setMenu").css("display","none");
 	  }); 
    });
+   </script>
+   <script>
+   $(function() {
+	/*    initMenu();   */
+	   var menuDiv = "<div title=\"部门机构管理\" style=\"padding:10px;\"><div><a href=\"#\" class=\"easyui-linkbutton\"  onclick=\"openTab('部门管理', '${basePath}/dept/init.do')\" style=\"width:100px\" data-options=\"plain:true\">部门管理</a></div></div>";
+	   
+	   /*  $("#menu").append(menuDiv);  */
+   });
+   function initMenu() {
+	    var superMenuTemp = "<div title='{superMenuName}' data-options='selected:false' style='padding:10px;'>"
+		var childMenuTemp = "<div><a href='#' class='easyui-linkbutton'  onclick=\"openTab('{childMenuName}', '${basePath}/{linkUrl}')\" style='width:100px' data-options='plain:true'>{childMenuName}</a></div>";
+		var userId = '${userId}';
+		$.ajax({
+			url: "${basePath}/menu/getUserMenuTree.do",
+			data: {"userId":userId},
+			success: function(data) {
+				data = JSON.parse(data);
+				var code = data.code;
+				var menus = data.obj;
+				if(code == 1 && !!menus) {
+					for(var i = 0; i< menus.length; i++) {
+						var spDiv = "";
+						var menu = menus[i];
+						var superMenuName = menu.menuName;
+				   
+						var children = menu.children;
+						if(!!children) {
+							for(var j=0; j<children.length; j++) {
+								var chDiv = "";
+								
+								var chMenu = children[j];
+								var chMenuName = chMenu.menuName;
+								var linkUrl = chMenu.linkUrl;
+								
+								chDiv = childMenuTemp.replace(new RegExp(/{childMenuName}/g), chMenuName)
+										.replace(new RegExp(/{linkUrl}/g), linkUrl);
+								spDiv += chDiv;
+							}
+						}
+						
+				        $('#menu').accordion('add',{
+			                 title:superMenuName,
+			                 content:spDiv
+			             });
+					}
+				}
+			}
+		})
+	}
    </script>
 </html>

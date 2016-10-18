@@ -3,6 +3,7 @@ package com.bank.console.common;
 public class Constant {
 	public static final int SUCCESS_CODE = 1;	//成功
 	public static final int ERROR_CODE = 0;		//失败
+	public static final int DATA_EMPTY_CODE = 2;		//数据为空
 	
 	//用户登入状态
 	public static final int USER_NOT_EXIST = -1;	//用户不存在
@@ -15,6 +16,7 @@ public class Constant {
 	public static final String USER_NOT_EXIST_MSG = "用户不存在";
 	public static final String USER_ID_IS_EXISTED_MSG = "工号已存在";
 	public static final String PWD_ERROR_MSG = "密码错误";
+	public static final String DATA_EMPTY_MSG = "数据为空";
 	
 	//session key
 	public static final String SESSION_USER_ID = "sessionUserId";	//用户id

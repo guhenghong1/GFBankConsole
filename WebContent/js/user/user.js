@@ -107,11 +107,16 @@ var User = {
    },
    
    //编辑用户弹窗
-   edit:function() {
+   edit:function(m) {
+		if(m == 1) { //详情
+			$(".update").css("display", "");
+			$(".cancle").css("display", "");
+		} else {
+			$(".update").css("display", "none");
+			$(".cancle").css("display", "none");
+		}
    	var _this = this;
    	$('#userForm').form('clear');
-   	$("#add").css("display", "");
-   	$("#update").css("display", "");
    	var row = $("#tb_users").datagrid("getSelected");
 	if(!row) {
 		Common.showMsg("请选择一条记录！");
@@ -464,6 +469,37 @@ var User = {
 				$("#tb_users").datagrid("reload");
    			}
    		});
+   },
+   
+   setMenu : function() {
+	   $("#userMenuForm").form("clear");
+	   
+	   var row = $("#tb_users").datagrid("getSelected");
+	   if(!row) {
+		   Common.showMsg("请选择一条记录！");
+		   return false;
+	   }
+	   var userId = row.userId;
+	   var realName = row.realName;
+	   
+	   $("#userMenuw").window("open");
+	   
+	   $("#menuUserId").val(userId);
+	   $("#menuRealName").val(realName);
+	   
+		$.ajax({
+			url:"../user/getUserMenu.do",
+			data:{"userId":userId},
+			success: function(data) {
+				data = JSON.parse(data);
+				var menuIdArr = [];
+				var menuIdStr = data.obj.menuIds;
+				
+				var len = menuIdStr.split(",").length;
+				menuIdArr = menuIdStr.split(",");
+				$('#menuIds').combotree('setValues', menuIdArr);
+			}
+		});
    }
 }
 
@@ -477,6 +513,23 @@ var queryUser = function() {
             mobile: $("#qmobile").val()  
         });  
 } 
+
+//添加菜单项
+var addUserMenu = function() {
+    $('#userMenuForm').form('submit',{
+ 	   success:function(data){
+ 		    data = JSON.parse(data);
+ 		    if(data.code == 1) {
+ 		    	Common.showMsg("添加成功");
+ 		    	$("#userMenuw").window("close");
+// 				$("#tb_users").datagrid("reload");
+ 		    	window.location.href=window.location.href;
+ 		    } else {
+ 		    	Common.showMsg("添加失败");
+ 		    }
+ 	    }
+    });
+}
 
 $(function() {
 	User.init();
@@ -504,5 +557,40 @@ $(function() {
 		var val = $(_this).val();
 		$("#mimgBack").attr("src", val);
 	});
+	
+//	initFormatCombotree("menuIds");
+	
+	$('#menuIds').combotree({
+//		onLoadSuccess:function(node, data){
+//			var  node1=$("#menuIds").tree('getParent',node.target);
+//		    $(tree).tree('check', node1.target);
+//		},
+	/*	onCheck:function(node, checked){
+			console.log("node== "+node);
+			if(checked){
+				checkNode($('#tree').tree('getParent',node.target));
+			}
+		},*/
+	onClick: function(node){
+		alert(node.text);  // alert node text property when clicked
+		checkNode(node);
+	}
+	});
+	
+	function checkNode(node){
+		
+		if(!node){
+			return;
+		}else{
+			checkNode($('#tree').tree('getParent',node.target));
+			$('#tree').tree('check',node.target);
+			
+		}
+	}
+	
+	var t = $('#menuIds').combotree('tree');	// get the tree object
+	var n = t.tree('getSelected');		// get selected node
+	alert(n);
 });
+
 

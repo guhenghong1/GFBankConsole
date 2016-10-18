@@ -157,8 +157,8 @@
 				 	infoPdf = #{infoPdf, jdbcType=VARCHAR},
 				 </if>
 				 updateDate = NOW()
-				where userId = #{userId, jdbcType=VARCHAR}
 			</set> 
+				where userId = #{userId, jdbcType=VARCHAR}
 	</update>
 	
 	<!-- 删除 -->
