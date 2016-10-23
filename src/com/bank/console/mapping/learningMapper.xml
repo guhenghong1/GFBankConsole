@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bank.console.mapper.LearningMapper">
+	<!-- 新增用户 -->
+ 	<insert id="addLearning"  parameterType="LearningForm">
+	   insert into tb_learning_materials(
+	   		id,
+	   		title,
+	   		remark,
+	   		viewCount,
+	   		attachment,
+	   		createDate,
+	   		updateDate
+	   ) values(
+	   	 	#{id, jdbcType=VARCHAR},
+	   	 	#{title, jdbcType=VARCHAR},
+	   	 	#{remark, jdbcType=VARCHAR},
+	   	 	#{viewCount, jdbcType=INTEGER},
+	   	 	#{attachment, jdbcType=VARCHAR},
+	   	 	now(),
+	   	 	now()
+	   )
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="updateLearning" parameterType="LearningForm">
+		update tb_learning_materials 
+			<set>
+				<if test="title != null and title != ''">
+				 	title = #{title, jdbcType=VARCHAR},
+				 </if>
+				 <if test="remark != null and remark != ''">
+				 	remark = #{remark, jdbcType=VARCHAR},
+				 </if>
+				 <if test="attachment != null and attachment != ''">
+				 	attachment = #{attachment, jdbcType=VARCHAR},
+				 </if>
+				 updateDate = now()
+			</set> 
+				where id = #{id, jdbcType=VARCHAR}
+	</update>
+	<!-- 修改 -->
+	<update id="updateViewCount">
+		update tb_learning_materials 
+			set viewCount = viewCount + 1
+			where id = #{id, jdbcType=VARCHAR}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="deleteLearning">
+		delete from tb_learning_materials where id = #{id, jdbcType=VARCHAR}
+	</delete>
+	
+	<!-- 查询数量 -->
+ 	<select id="getLearningSum" resultType="INTEGER">
+	    SELECT
+	      COUNT(1) AS sum
+	    FROM
+	      tb_learning_materials
+	     <where>
+		    	<if test=" title != null and title != ''">
+					 title like '%${title}%'
+				</if>
+				<if test="id != null and id != ''">
+					and id = #{id, jdbcType=VARCHAR}
+				</if>
+				<if test="startDate != null and startDate !=''">
+					<![CDATA[
+						and time >= DATE_FORMAT(#{startDate, jdbType=VARCHAR}, '%Y-%m-%d')
+					]]>
+				</if>
+				<if test="endDate != null and endDate !=''">
+					<![CDATA[
+						and time < DATE_FORMAT(#{endDate, jdbType=VARCHAR}, '%Y-%m-%d')
+					]]>
+				</if>
+		    </where>
+	</select>
+	
+	<sql id="columns">
+	   		id,
+	   		title,
+	   		remark,
+	   		viewCount,
+	   		attachment,
+	   		createDate,
+		    DATE_FORMAT(createDate,'%Y-%m-%d %H:%i:%s')   AS createDateStr,
+		    updateDate,
+		    DATE_FORMAT(updateDate,'%Y-%m-%d %H:%i:%s')   AS createDateStr
+	</sql>
+	
+	<!-- 查询 -->
+ 	<select id="getLearningList" resultType="LearningVO">
+		 	SELECT   
+		    	<include refid="columns"/>
+		    FROM
+		      tb_learning_materials
+		      <where>
+		    	<if test=" title != null and title != ''">
+					 title like '%${title}%'
+				</if>
+				<if test="id != null and id != ''">
+					and id = #{id, jdbcType=VARCHAR}
+				</if>
+				<if test="startDate != null and startDate !=''">
+					<![CDATA[
+						and createDate >= DATE_FORMAT(#{startDate, jdbcType=VARCHAR}, '%Y-%m-%d')
+					]]>
+				</if>
+				<if test="endDate != null and endDate !=''">
+					<![CDATA[
+						and createDate <= DATE_FORMAT(#{endDate, jdbcType=VARCHAR}, '%Y-%m-%d')
+					]]>
+				</if>
+		    </where>
+		    order by id desc
+			limit #{startRow}, #{endRow}
+	</select>
+	
+	<!--查询文件信息 -->
+ 	<select id="getLearningInfo" resultType="LearningVO">
+	    SELECT
+	       <include refid="columns"/>
+	    from
+	      tb_learning_materials
+	    where id = #{id, jdbcType=VARCHAR}
+	</select>
+	
+
+	
+</mapper>

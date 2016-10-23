@@ -41,11 +41,17 @@ public class UserForm extends BaseForm{
 	private String infoPdf;		//用户信息pdf
 	private String createDate;	//创建时间
 	private String updateDate;	//修改时间
-	private String  certFront;		//上传文件
-	private String  certBack;		//上传文件
+	
+	private String firstDay;	//第一天
+	private String lastDay;		//最后一天
+	
+	private String  certFront;		//身份证正面
+	private String  certBack;		//身份证反面
+	private String  headPhoto;		//员工头像
 	
 	private MultipartFile  certFrontAttach;		//上传文件
 	private MultipartFile  certBackAttach;		//上传文件
+	private MultipartFile  headPhotoAttach;		//头像
 	
 	private String schoolList;	//用户毕业学校
 	private String homeList;	//用户家庭信息
@@ -289,5 +295,29 @@ public class UserForm extends BaseForm{
 	}
 	public void setHomeList(String homeList) {
 		this.homeList = homeList;
+	}
+	public String getFirstDay() {
+		return firstDay;
+	}
+	public void setFirstDay(String firstDay) {
+		this.firstDay = firstDay;
+	}
+	public String getLastDay() {
+		return lastDay;
+	}
+	public void setLastDay(String lastDay) {
+		this.lastDay = lastDay;
+	}
+	public String getHeadPhoto() {
+		return headPhoto;
+	}
+	public void setHeadPhoto(String headPhoto) {
+		this.headPhoto = headPhoto;
+	}
+	public MultipartFile getHeadPhotoAttach() {
+		return headPhotoAttach;
+	}
+	public void setHeadPhotoAttach(MultipartFile headPhotoAttach) {
+		this.headPhotoAttach = headPhotoAttach;
 	}
 }

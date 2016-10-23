@@ -172,7 +172,9 @@ var User = {
 			var schoolTemp = "<tr class='mschools'>"
 					+"<td><input class='mtime'  type='text' value='{time}'></input></td>"
 					+"<td><input class='mschoolName'  type='text' value='{schoolName}'></input></td>"
-					+"<td><input class='mremark'  type='text' value='{remark}'></input></td>"
+					+"<td><input class='mremark'  type='text' value='{remark}'></input>"
+					+"<a href='javascript:void(0)' onclick='removeEle(this)'><img src='../images/remove.png'/></a>"
+					+"</td>"
 					+"</tr>";
 			var shTrDiv = "";
 			
@@ -222,7 +224,9 @@ var User = {
 				+"<td><input class='mappellation'  type='text' value='{appellation}'></input></td>"
 				+"<td><input class='mname'  type='text' value='{name}'></input></td>"
 				+"<td><input class='mdeptName'  type='text' value='{deptName}'></input></td>"
-				+"<td><input class='mremark'  type='text' value='{remark}'></input></td>"
+				+"<td><input class='mremark'  type='text' value='{remark}'></input>"
+				+"<a href='javascript:void(0)' onclick='removeEle(this)'><img src='../images/remove.png'/></a>"
+				+"</td>"
 				+"</tr>";
 			var hTrDiv = "";
 			
@@ -497,7 +501,7 @@ var User = {
 				
 				var len = menuIdStr.split(",").length;
 				menuIdArr = menuIdStr.split(",");
-				$('#menuIds').combotree('setValues', menuIdArr);
+				$('#amenuIds').combotree('setValues', menuIdArr);
 			}
 		});
    }
@@ -512,6 +516,26 @@ var queryUser = function() {
             phone: $("#qphone").val(),  
             mobile: $("#qmobile").val()  
         });  
+} 
+
+//查询
+var exportUser = function() {
+	var params = {
+		userId: $("#quserId").val(),  
+		realName: $("#qrealName").val(),  
+		deptId: $('#qdeptId').combotree('getValue'),
+		phone: $("#qphone").val(),  
+		mobile: $("#qmobile").val()
+	}
+	$.ajax({
+		url:"../user/createCSV.do",
+		data:params,
+		success:function(data) {
+			var filePath = data;
+			var url = "../file/exportFile.do?filePath="+filePath;
+			window.open(url);
+		}
+	});
 } 
 
 //添加菜单项
@@ -531,8 +555,102 @@ var addUserMenu = function() {
     });
 }
 
+//增加个人简历
+var addSchoolEle = function(m) {
+	var schoolTemp = "";
+	if(m == 1) {
+		schoolTemp = "<tr class='mschools'>"
+			+"<td><input class='mtime'  type='text' value='{time}'></input></td>"
+			+"<td><input class='mschoolName'  type='text' value='{schoolName}'></input></td>"
+			+"<td><input class='mremark'  type='text' value='{remark}'></input>"
+			+"		<a href='javascript:void(0)' onclick=\"removeEle(this)\"><img src='../images/remove.png'/></a>"
+			+"</td>"
+			+"</tr>";
+	} else {
+		schoolTemp = "<tr class='schools'>"
+			+"<td><input class='time'  type='text' value='{time}'></input></td>"
+			+"<td><input class='schoolName'  type='text' value='{schoolName}'></input></td>"
+			+"<td><input class='remark'  type='text' value='{remark}'></input>"
+			+"		<a href='javascript:void(0)' onclick=\"removeEle(this)\"><img src='../images/remove.png'/></a>"
+			+"</td>"
+			+"</tr>";
+	}
+	var shTrDiv = "";
+	var divTemp = "";
+	divTemp = schoolTemp.replace("{time}", "")
+		 	.replace("{schoolName}", "")
+		 	.replace("{remark}", "");
+	shTrDiv += divTemp;
+	if(m == 1) {
+		$(".muserSchool").append(shTrDiv);
+	} else {
+		$(".userSchool").append(shTrDiv);
+	}
+}
+
+var addHomeEle = function(m) {
+	var homeTemp = "";
+	if(m == 1) {
+		homeTemp = "<tr class='mhomes'>"
+			+"<td><input class='mappellation'  type='text' value='{appellation}'></input></td>"
+			+"<td><input class='mname'  type='text' value='{name}'></input></td>"
+			+"<td><input class='mdeptName'  type='text' value='{deptName}'></input></td>"
+			+"<td><input class='mremark'  type='text' value='{remark}'></input>"
+			+"<a href='javascript:void(0)' onclick='removeEle(this)'><img src='../images/remove.png'/></a>"
+			+"</td>"
+			+"</tr>";
+	} else {
+		homeTemp = "<tr class='homes'>"
+			+"<td><input class='appellation'  type='text' value='{appellation}'></input></td>"
+			+"<td><input class='name'  type='text' value='{name}'></input></td>"
+			+"<td><input class='deptName'  type='text' value='{deptName}'></input></td>"
+			+"<td><input class='remark'  type='text' value='{remark}'></input>"
+			+"<a href='javascript:void(0)' onclick='removeEle(this)'><img src='../images/remove.png'/></a>"
+			+"</td>"
+			+"</tr>";	
+	}
+	var hTrDiv = "";
+	
+	var divTemp = "";
+	divTemp = homeTemp.replace("{appellation}", "")
+			.replace("{name}", "")
+			.replace("{deptName}", "")
+			.replace("{remark}", "");
+		
+	hTrDiv += divTemp;
+	if(m == 1) {
+		$(".muserHome").append(hTrDiv);
+	} else {
+		$(".userHome").append(hTrDiv);
+	}
+}
+
+var removeEle = function(_this) {
+	console.log($(_this));
+	console.log($(_this).parent().html());
+	$(_this).parent().parent().remove();
+}
+
 $(function() {
 	User.init();
+	
+	$("#headPhoto").on('change', function() {
+		alert("1111");
+		var _this = this;
+		var val = $(_this).val();
+		console.log("val=="+val);
+		$("#imgHeadPhoto").attr("src", val);
+	});
+	
+	$("#imgHeadPhoto").click(function() {
+		$("#headPhoto").click();
+		$("#headPhoto").on("change", function() {
+			var objUrl = this.files[0];
+			if(objUrl) {
+				$("#imgHeadPhoto").attr("src", objUrl);
+			}
+		});
+	});
 	
 	$("#certFront").change(function() {
 		var _this = this;
@@ -560,37 +678,41 @@ $(function() {
 	
 //	initFormatCombotree("menuIds");
 	
-	$('#menuIds').combotree({
+	$('#amenuIds').combotree({
 //		onLoadSuccess:function(node, data){
 //			var  node1=$("#menuIds").tree('getParent',node.target);
 //		    $(tree).tree('check', node1.target);
 //		},
-	/*	onCheck:function(node, checked){
-			console.log("node== "+node);
-			if(checked){
-				checkNode($('#tree').tree('getParent',node.target));
-			}
-		},*/
-	onClick: function(node){
-		alert(node.text);  // alert node text property when clicked
-		checkNode(node);
-	}
+		onCheck:function(node, checked){
+//			console.log("node== "+node);
+//			alert("target=="+node.target);
+//			alert("text=="+node.text);  
+//			if(checked){
+//				checkNode($('#amenuIds').tree('getParent',node.target));
+//			}
+		}
+//	onClick: function(node){
+//		alert("target=="+n.target);
+//		alert("text=="+node.text);  // alert node text property when clicked
+//		checkNode(node);
+//	}
 	});
 	
 	function checkNode(node){
-		
+		console.log("node=="+node.target+" text="+node.text);
 		if(!node){
 			return;
 		}else{
-			checkNode($('#tree').tree('getParent',node.target));
-			$('#tree').tree('check',node.target);
+//			if(!!$('#amenuIds').tree('getParent',node.target)) {
+//				checkNode($('#amenuIds').tree('getParent',node.target));
+//			}
+			console.log(" text="+node.text);
+//			$('#amenuIds').combotree('tree').tree('check',node.target);
 			
 		}
 	}
 	
-	var t = $('#menuIds').combotree('tree');	// get the tree object
-	var n = t.tree('getSelected');		// get selected node
-	alert(n);
+	
 });
 
 

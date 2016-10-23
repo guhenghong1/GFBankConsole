@@ -30,6 +30,16 @@
 		    order by userId
 	</select>
 	
+	<!-- 查询 -->
+ 	<select id="getUserMenu" resultType="UserMenuVO">
+		 	SELECT   
+		    	*
+		    FROM
+		      tb_user_menu
+		    where userId = #{userId, jdbcType=VARCHAR}
+		    and menuId = #{menuId, jdbcType=VARCHAR}
+	</select>
+	
 	<!-- 新增用户个人简历（毕业学校信息） -->
  	<insert id="addUserMenu"  parameterType="UserMenu">
 	   insert into tb_user_menu(

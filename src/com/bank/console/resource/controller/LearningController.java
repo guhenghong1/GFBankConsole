@@ -1,9 +1,8 @@
-package com.bank.console.file.controller;
+package com.bank.console.resource.controller;
 
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,18 +19,18 @@ import com.bank.console.common.Pager;
 import com.bank.console.common.interceptor.Permission;
 import com.bank.console.common.util.DateUtil;
 import com.bank.console.common.util.ResultUtil;
-import com.bank.console.file.form.RecFileForm;
-import com.bank.console.file.service.RecFileService;
-import com.bank.console.file.vo.RecFileVO;
+import com.bank.console.resource.form.LearningForm;
+import com.bank.console.resource.service.LearningService;
+import com.bank.console.resource.vo.LearningVO;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 @Controller
-@RequestMapping("/recFile")
-public class RecFileController {
+@RequestMapping("/learn")
+public class LearningController {
 	@Autowired
-	private RecFileService recFileService;
+	private LearningService learningService;
 	
 	/**
 	 * 跳转页面
@@ -40,27 +39,23 @@ public class RecFileController {
 	@Permission
 	@RequestMapping("/init")
 	public String init() {
-		return "file/receiveFile";
+		return "resource/learn";
 	}
 	
 	/**
-	 * 新增文件
+	 * 新增
 	 * @param form
 	 * @return
 	 */
 	@Permission
-	@RequestMapping(value="/addFile", method = RequestMethod.POST)
+	@RequestMapping(value="/addLearn", method = RequestMethod.POST)
 	@ResponseBody
-	public String addFile(@ModelAttribute("recFileForm") RecFileForm form) {
-		//MultipartFile 
+	public String addLearning(@ModelAttribute("LearningForm") LearningForm form) {
+		//MultipartLearning 
 		ResultUtil result = new ResultUtil();
 		int res = 0;
 		try {
-			Date createDate = DateUtil.defaultStrToDate(form.getCreateDateStr());
-			if(createDate != null) {
-				form.setCreateDate(createDate);
-			}
-			res = recFileService.addFile(form);
+			res = learningService.addLearning(form);
 			int code = res >=1? Constant.SUCCESS_CODE: Constant.ERROR_CODE;
 			result.setCode(code);
 			result.setMsg(res >=1? Constant.SUCCESS_MSG : Constant.ERROR_MSG);
@@ -74,28 +69,19 @@ public class RecFileController {
 	}
 	
 	/**
-	 * 修改文件
+	 * 修改
 	 * @param form
 	 * @return
 	 */
 	@Permission
-	@RequestMapping(value="/updateFile", method = RequestMethod.POST)
+	@RequestMapping(value="/updateLearn", method = RequestMethod.POST)
 	@ResponseBody
-	public String updateFile(@ModelAttribute("mrecFileForm") RecFileForm form, HttpServletRequest req) {
-		//MultipartFile 
+	public String updateLearning(@ModelAttribute("mLearningForm") LearningForm form) {
+		//MultipartLearning 
 		ResultUtil result = new ResultUtil();
-		try {
-		if (req.getCharacterEncoding() == null) {
-			req.setCharacterEncoding("UTF-8");//你的编码格式
-			}
-		
 		int res = 0;
-			Date createDate = DateUtil.defaultStrToDate(form.getCreateDateStr());
-			if(createDate != null) {
-				form.setCreateDate(createDate);
-			}
-			
-			res = recFileService.updateFile(form);
+		try {
+			res = learningService.updateLearning(form);
 			int code = res >=1? Constant.SUCCESS_CODE: Constant.ERROR_CODE;
 			result.setCode(code);
 			result.setMsg(res >=1? Constant.SUCCESS_MSG : Constant.ERROR_MSG);
@@ -109,32 +95,56 @@ public class RecFileController {
 	}
 	
 	/**
-	 * 获取文件列表
+	 * 修改
 	 * @param form
 	 * @return
 	 */
 	@Permission
-	@RequestMapping("/getFileList")
+	@RequestMapping(value="/updateViewCount")
 	@ResponseBody
-	public String getFileList(@RequestParam(value="fileId") String fileId, 
-			@RequestParam(value="keyWords") String keyWords, 
-			@RequestParam(value="deptId") String deptId, 
+	public String updateViewCount(@RequestParam(value="id") String id) {
+		//MultipartLearning 
+		ResultUtil result = new ResultUtil();
+		int res = 0;
+		try {
+			res = learningService.updateViewCount(id);
+			int code = res >=1? Constant.SUCCESS_CODE: Constant.ERROR_CODE;
+			result.setCode(code);
+			result.setMsg(res >=1? Constant.SUCCESS_MSG : Constant.ERROR_MSG);
+		} catch (Exception e) {
+			result.setCode(Constant.ERROR_CODE);
+			result.setMsg(Constant.ERROR_MSG);
+			e.printStackTrace();
+		}
+		
+		return JSONObject.fromObject(result).toString();
+	}
+	
+	/**
+	 * 获取列表
+	 * @param form
+	 * @return
+	 */
+	@Permission
+	@RequestMapping("/getLearnList")
+	@ResponseBody
+	public String getLearningList(@RequestParam(value="id") String id, 
+			@RequestParam(value="title") String title, 
 			@RequestParam(value="pageNum", defaultValue="1") String pageNum, 
 			@RequestParam(value="pageSize", defaultValue="10") String pageSize) {
-		RecFileForm form = new RecFileForm();
-		form.setFileId(fileId);
-//		form.setKeyWords(keyWords);
-//		form.setDeptId(deptId);
+		LearningForm form = new LearningForm();
+		form.setId(id);
+		form.setTitle(title);
 		
-		int total = recFileService.getFileSum(form);
+		int total = learningService.getLearningSum(form);
 		
 		PageCalc calc = new PageCalc(total);
 		form.setStartRow(calc.getStart(Integer.parseInt(pageNum)));
 		form.setEndRow(calc.getEnd(Integer.parseInt(pageNum)));
 		
-		List<RecFileVO> fileList = recFileService.getFileList(form);
+		List<LearningVO> LearningList = learningService.getLearningList(form);
 		JSONArray jsonArr = new JSONArray();
-		jsonArr = JSONArray.fromObject(fileList);
+		jsonArr = JSONArray.fromObject(LearningList);
 		
 		Pager pager = new Pager();
 		pager.setTotal(total);
@@ -142,73 +152,42 @@ public class RecFileController {
 		return JSONObject.fromObject(pager).toString();
 	}
 	
-	/**
-	 * 获取文件列表
-	 * @param form
-	 * @return
-	 */
-	@Permission
-	@RequestMapping("/queryFile")
-	@ResponseBody
-	public String queryFile(@ModelAttribute("qrecFileForm") RecFileForm form) {
-		int total = recFileService.getFileSum(form);
-		
-		List<RecFileVO> fileList = recFileService.getFileList(form);
-		JSONArray jsonArr = new JSONArray();
-		jsonArr = JSONArray.fromObject(fileList);
-		
-		Pager pager = new Pager();
-		pager.setTotal(total);
-		pager.setRows(jsonArr);
-		return JSONObject.fromObject(pager).toString();
-	}
 	
 	/**
-	 * 获取文件详情
+	 * 获取详情
 	 * @param form
 	 * @return
 	 */
 	@Permission
-	@RequestMapping("/getFileInfo")
+	@RequestMapping("/getLearnInfo")
 	@ResponseBody
-	public String getFileInfo(@RequestParam("fileId") String fileId) {
+	public String getLearningInfo(@RequestParam("id") String id, HttpServletResponse resp) {
 		ResultUtil result = new ResultUtil();
-		RecFileVO recFile = recFileService.getFileInfo(fileId);
+		LearningVO Learning = learningService.getLearningInfo(id);
 		
+		resp.setHeader("content-type", "application/msword;charset=UTF-8");
 		result.setCode(Constant.SUCCESS_CODE);
 		result.setMsg(Constant.SUCCESS_MSG);
-		result.setObj(recFile);
+		result.setObj(Learning);
 		return JSONObject.fromObject(result).toString();
 	}
 	
 	/**
-	 * 获取文件详情
+	 * 删除
 	 * @param form
 	 * @return
 	 */
 	@Permission
-	@RequestMapping("/deleteFile")
+	@RequestMapping("/deleteLearn")
 	@ResponseBody
-	public String deleteFile(@RequestParam("fileId") String fileId) {
+	public String deleteLearning(@RequestParam("id") String id) {
 		ResultUtil result = new ResultUtil();
-		int res = recFileService.deleteFile(fileId);
+		int res = learningService.deleteLearning(id);
 		
 		result.setCode(res > 0 ? Constant.SUCCESS_CODE : Constant.ERROR_CODE);
 		result.setMsg(res > 0 ? Constant.SUCCESS_MSG : Constant.ERROR_MSG);
 		return JSONObject.fromObject(result).toString();
 	}
 	
-	/**
-	 * 获取文件列表
-	 * @param form
-	 * @return
-	 */
-	@Permission
-	@RequestMapping("/findFile")
-	@ResponseBody
-	public String findFile(@RequestParam("fileId") String fileId, HttpServletResponse resp) {
-		resp.setHeader("content-type", "application/msword;charset=UTF-8");
-		RecFileVO file = recFileService.getFileInfo(fileId);
-		return file.getAttachment();
-	}
+	
 }

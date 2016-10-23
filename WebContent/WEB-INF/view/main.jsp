@@ -97,13 +97,12 @@
          </div>
          <div class="qz-left" region="west" title="管理列表">
 	         <div id="menu" class="easyui-accordion" data-options="fit:true,border:false">
-	                <div title="部门机构管理" style="padding:10px;">
-	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('部门管理', '${basePath}/dept/init.do')" style="width:100px" data-options="plain:true">部门管理</a></div>
-	                </div>
-	                <div title="系统管理" data-options="selected:false" style="padding:10px;">
+	                 <div title="系统管理" data-options="selected:false" style="padding:10px;">
+	                 	<div><a href="#" class="easyui-linkbutton"  onclick="openTab('用户基本信息', '${basePath}/user/detail.do')" style="width:100px" data-options="plain:true">用户基本信息</a></div>
 	                 	<div><a href="#" class="easyui-linkbutton"  onclick="openTab('用户管理', '${basePath}/user/init.do')" style="width:100px" data-options="plain:true">用户管理</a></div>
 	                 	<div><a href="#" class="easyui-linkbutton"  onclick="openTab('角色管理')" style="width:100px" data-options="plain:true">角色管理</a></div>
 	                 	<div><a href="#" class="easyui-linkbutton"  onclick="openTab('菜单管理')" style="width:100px" data-options="plain:true">菜单管理</a></div>
+	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('部门管理', '${basePath}/dept/init.do')" style="width:100px" data-options="plain:true">部门管理</a></div>
 	                </div>
 	                <div title="文件管理" style="padding:10px">
 	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('收文处理', '${basePath}/recFile/init.do')" style="width:100px" data-options="plain:true">收文处理</a></div>
@@ -127,6 +126,9 @@
 	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('权证信息修改', '${basePath}/warrant/init.do?menu=update')" style="width:100px" data-options="plain:true">权证信息修改</a></div>
 	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('权证出入库', '${basePath}/warrant/init.do?menu=updateStatus')" style="width:100px" data-options="plain:true">权证出入库</a></div>
 	                </div>  
+	                <div title="会计学习平台" style="padding:10px">
+	                    <div><a href="#" class="easyui-linkbutton"  onclick="openTab('资料分享', '${basePath}/learn/init.do')" style="width:100px" data-options="plain:true">资料分享</a></div>
+	                </div>   
             </div>
          </div>
          <div id="w_tabs" region="center" class="easyui-tabs"  fit="true">
@@ -174,7 +176,7 @@
    </script>
    <script>
    $(function() {
-	/*    initMenu();   */
+	    //initMenu();   
 	   var menuDiv = "<div title=\"部门机构管理\" style=\"padding:10px;\"><div><a href=\"#\" class=\"easyui-linkbutton\"  onclick=\"openTab('部门管理', '${basePath}/dept/init.do')\" style=\"width:100px\" data-options=\"plain:true\">部门管理</a></div></div>";
 	   
 	   /*  $("#menu").append(menuDiv);  */

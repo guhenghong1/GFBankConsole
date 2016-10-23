@@ -9,6 +9,8 @@ public class MenuForm {
 	private String menuName;
 	private String superMenuId;
 	private String remark;
+	private String linkUrl;
+	
 	public String getMenuId() {
 		return menuId;
 	}
@@ -32,5 +34,11 @@ public class MenuForm {
 	}
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+	public String getLinkUrl() {
+		return linkUrl;
+	}
+	public void setLinkUrl(String linkUrl) {
+		this.linkUrl = linkUrl;
 	}
 }

@@ -42,7 +42,7 @@ public class WarrantMapperTest {
 	
 	@Test
 	public void testGetMaxIdSate(){
-		String maxId = commonMapper.getMaxId("tb_dept", "deptId");
+		String maxId = commonMapper.getMaxIdState("tb_dept", "deptId");
 		System.out.println("maxId：" + maxId);
 	}
 

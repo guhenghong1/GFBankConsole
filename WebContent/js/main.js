@@ -75,4 +75,5 @@ function openTab(title, url) {
 }
 $(function() {
 //   Main.init();
+	openTab("用户基本信息","../user/detail.do");
 });

@@ -75,12 +75,12 @@
 				</if>
 				<if test="startDate != null and startDate !=''">
 					<![CDATA[
-						and time >= TO_DATE(#{startDate, jdbType=VARCHAR}, '%Y%m%d')
+						and time >= DATE_FORMAT(#{startDate, jdbcType=VARCHAR}, '%Y%m%d')
 					]]>
 				</if>
 				<if test="endDate != null and endDate !=''">
 					<![CDATA[
-						and time < TO_DATE(#{endDate, jdbType=VARCHAR}, '%Y%m%d')
+						and time <= DATE_FORMAT(#{endDate, jdbcType=VARCHAR}, '%Y%m%d')
 					]]>
 				</if>
 		    </where>
@@ -115,12 +115,12 @@
 				</if>
 				<if test="startDate != null and startDate !=''">
 					<![CDATA[
-						and time >= TO_DATE(#{startDate, jdbType=VARCHAR}, '%Y%m%d')
+						and time >= DATE_FORMAT(#{startDate, jdbType=VARCHAR}, '%Y%m%d')
 					]]>
 				</if>
 				<if test="endDate != null and endDate !=''">
 					<![CDATA[
-						and time < TO_DATE(#{endDate, jdbType=VARCHAR}, '%Y%m%d')
+						and time < DATE_FORMAT(#{endDate, jdbType=VARCHAR}, '%Y%m%d')
 					]]>
 				</if>
 		    </where>

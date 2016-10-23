@@ -38,7 +38,7 @@ public class CommonService {
 	 */
 	public String getNextId(final String tableName, final String id) {
 		synchronized (tableName) {
-			String maxIdStr = commonMapper.getMaxId(tableName, id);
+			String maxIdStr = commonMapper.getMaxIdState(tableName, id);
 			if(StringUtils.isEmpty(maxIdStr)){
 				return "1";
 			}

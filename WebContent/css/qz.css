@@ -80,7 +80,7 @@ a {
 }
 #qz_menu li{
    list-style: none;
-   padding: 3px 0 0 0;
+   padding: 10px 0 0 0;
 }
 #qz_menu li:hover{
    background:#fff;

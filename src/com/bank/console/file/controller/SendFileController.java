@@ -3,6 +3,8 @@ package com.bank.console.file.controller;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -207,7 +209,8 @@ public class SendFileController {
 	@Permission
 	@RequestMapping("/findFile")
 	@ResponseBody
-	public String findFile(@RequestParam("fileId") String fileId) {
+	public String findFile(@RequestParam("fileId") String fileId, HttpServletResponse resp) {
+		resp.setHeader("content-type", "application/msword;charset=UTF-8");
 		SendFileVO file = sendFileService.getFileInfo(fileId);
 		return file.getAttachment();
 	}

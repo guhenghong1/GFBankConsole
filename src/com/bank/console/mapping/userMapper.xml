@@ -32,6 +32,7 @@
 	   		remark,
 	   		certFront,
 	   		certBack,
+	   		headPhoto,
 	   		createDate,
 	   		updateDate		
 	   ) values(
@@ -63,6 +64,7 @@
 	   	 	#{remark, jdbcType=VARCHAR},
 	   	 	#{certFront, jdbcType=VARCHAR},
 	   	 	#{certBack, jdbcType=VARCHAR},
+	   	 	#{headPhoto, jdbcType=VARCHAR},
 	   	 	NOW(),
 	   	 	NOW()
 	   )
@@ -153,6 +155,9 @@
 				 <if test="certBack != null and certBack != ''">
 				 	certBack = #{certBack, jdbcType=VARCHAR},
 				 </if>
+				 <if test="headPhoto != null and headPhoto != ''">
+				 	headPhoto = #{headPhoto, jdbcType=VARCHAR},
+				 </if>
 				 <if test="infoPdf != null and infoPdf != ''">
 				 	infoPdf = #{infoPdf, jdbcType=VARCHAR},
 				 </if>
@@ -223,6 +228,7 @@
 		      u.major,
 		      u.certFront,
 		      u.certBack,
+		      u.headPhoto,
 		      u.infoPdf,
 		      u.deptId,
 		      u.roleId,
@@ -253,6 +259,16 @@
 				</if>
 				<if test="deptId != null and deptId != ''">
 					and u.deptId = #{deptId, jdbcType=VARCHAR}
+				</if>
+				<if test="firstDay != null and firstDay !=''">
+					<![CDATA[
+						and birthday >= DATE_FORMAT(#{firstDay, jdbcType=VARCHAR}, '%Y-%m-%d')
+					]]>
+				</if>
+				<if test="lastDay != null and lastDay !=''">
+					<![CDATA[
+						and birthday <= DATE_FORMAT(#{lastDay, jdbcType=VARCHAR}, '%Y-%m-%d')
+					]]>
 				</if>
 		    </where>
 		    order by u.createDate desc

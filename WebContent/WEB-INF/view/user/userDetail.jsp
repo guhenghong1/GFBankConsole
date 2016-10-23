@@ -1,35 +1,84 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<div id="userInfo" style="display:none;">
-    <div id="userDetail" style="font-size: 14px; margin: 20px 20px 20px 20px"></div>
+<%@page import="java.util.Date"%> 
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	pageContext.setAttribute("basePath", basePath);
+	
+	long times = new Date().getTime();
+	pageContext.setAttribute("times", times);
+	
+	String userId = (String)request.getAttribute("userId");
+	pageContext.setAttribute("userId", userId);
+%>
+<style type="text/css">
+	.detail li {
+		list-style: none;
+    	margin-top: 10px;
+	}
+	.detail span {margin-left: 10px;}
+	
+</style>
+<div id="userInfo" style="">
+    <div id="userDetail" style="font-size: 14px; margin: 20px 20px 20px 20px">
+    	<ul class="detail">
+    		<li></li>
+    		<li><lable>姓名：</lable><span class="name"></span></li>
+    		<li><lable>性别：</lable><span class="sex"></span></li>
+    		<li><lable>部门：</lable><span class="dept"></span></li>
+    		<li><lable>生日：</lable><span class="birthday"></span></li>
+    		<li><lable>电话：</lable><span class="phone"></span></li>
+    		<li><lable>手机号：</lable><span class="mobile"></span></li>
+    		<li class="coll"><lable>本月同事生日：</lable></li>
+    		<li class="customer"><lable>本月客户生日：</lable></li>
+    	</ul>
+    </div>
 </div>
-<script id="userDetail-template" type="text/template">
-    <table id="tb_user_info">
-    <tr>
-    <td colspan="4" style="text-align:center"><img src="{{HEADPHOTO}}" height="100" width="100" title="{{NICKNAME}}的头像"/></td>
-    </tr>
-    <tr>
-    <th>名称</th>
-    <td><input type="text" value="{{NICKNAME}}" readonly="true"></td>
-    <th>Email</th>
-    <td><input type="text" value="{{EMAIL}}" readonly="true"></td>
-    </tr>
-    <tr>
-    <th>全名</th>
-    <td><input type="text" value="{{FULLNAME}}" readonly="true"></td>
-    <th>所在小区</th>
-    <td><input type="text" value="{{GARDENNAME}}" readonly="true"></td>
-    </tr>
-    <tr>
-    <th>ID</th>
-    <td><input type="text" value="{{USERID}}" readonly="true"></td>
-    <th>家家号</th>
-    <td><input type="text" value="{{JIAID}}" readonly="true"></td>
-    </tr>
-    <tr>
-    <th style="width:200px">状态</th>
-    <td><input type="text" value="{{ISPASSED}}" readonly="true"></td>
-    <th style="width:200px">加入日期</th>
-    <td><input type="text" value="{{JOINDATE}}" readonly="true"></td>
-    </tr>
-    </table>
+<script type="text/javascript">
+$(function() {
+	$.ajax({
+		url:"../user/getBasicUserInfo.do",
+		data:{
+			userId:"${userId}"
+		},
+		success:function(data) {
+			var data = JSON.parse(data);
+			var userInfo = data.obj;
+			console.log(data);
+			var user = userInfo.user;
+			var colleagueList = userInfo.colleagueList;
+			var customerList = userInfo.customerList;
+			
+			$(".name").html(user.realName);
+			$(".sex").html(user.sex);
+			$(".dept").html(user.deptName);
+			$(".birthday").html(user.birthdayStr);
+			$(".phone").html(user.phone);
+			$(".mobile").html(user.mobile);
+			
+			buildColleague(colleagueList);
+			buildCustomer(customerList);
+		}
+	});
+	
+	function buildColleague(colleagueList) {
+		var collDiv = "";
+		for(var i = 0; i< colleagueList.length; i++) {
+			var colleague = colleagueList[i];
+			var coll = "<span style='color:red' class='coll_"+colleague.userId+"'><"+colleague.realName+"  "+colleague.birthdayStr+"></span>";
+			collDiv += coll;
+		}
+		$(".coll").append(collDiv);
+	}
+	
+	function buildCustomer(customerList) {
+		var customerDiv = "";
+		for(var i = 0; i< customerList.length; i++) {
+			var customer = customerList[i];
+			var cus = "<span style='color:red' class='coll_"+customer.id+"'><"+customer.name+"  "+customer.birthdayStr+"></span>";
+			customerDiv += cus;
+		}
+		$(".customer").append(customerDiv);
+	}
+});
 </script>

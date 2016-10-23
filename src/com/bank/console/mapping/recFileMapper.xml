@@ -97,6 +97,16 @@
 			<if test="fileId != null and fileId != ''">
 				and fileId = #{fileId, jdbcType=VARCHAR}
 			</if>
+			<if test="startDate != null and startDate !=''">
+					<![CDATA[
+						and createDate >= DATE_FORMAT(#{startDate, jdbcType=VARCHAR}, '%Y-%m-%d')
+					]]>
+				</if>
+				<if test="endDate != null and endDate !=''">
+					<![CDATA[
+						and createDate < DATE_FORMAT(#{endDate, jdbcType=VARCHAR}, '%Y-%m-%d')
+					]]>
+				</if>
 	    </where>
 	</select>
 	
@@ -143,6 +153,16 @@
 				</if>
 				<if test="fileId != null and fileId != ''">
 					and fileId = #{fileId, jdbcType=VARCHAR}
+				</if>
+				<if test="startDate != null and startDate !=''">
+					<![CDATA[
+						and createDate >= DATE_FORMAT(#{startDate, jdbcType=VARCHAR}, '%Y-%m-%d')
+					]]>
+				</if>
+				<if test="endDate != null and endDate !=''">
+					<![CDATA[
+						and createDate <= DATE_FORMAT(#{endDate, jdbcType=VARCHAR}, '%Y-%m-%d')
+					]]>
 				</if>
 		    </where>
 		    order by fileId

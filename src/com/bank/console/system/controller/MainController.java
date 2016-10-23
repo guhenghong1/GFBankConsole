@@ -31,6 +31,7 @@ public class MainController {
 		User user = userService.findUser(userId);
 		model.addAttribute("userId", userId);
 		model.addAttribute("pass", pass);
+		session.setAttribute("userId", userId);
 		
 		ResultUtil result = new ResultUtil();
 		if(user == null) {	//用户不存在

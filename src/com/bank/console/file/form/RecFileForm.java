@@ -22,6 +22,9 @@ public class RecFileForm extends BaseForm{
 	
 	private MultipartFile  fileItem;		//上传文件
 	
+	private String startDate;
+	private String endDate;
+	
 	public String getFileId() {
 		return fileId;
 	}
@@ -100,4 +103,17 @@ public class RecFileForm extends BaseForm{
 	public void setFileItem(MultipartFile fileItem) {
 		this.fileItem = fileItem;
 	}
+	public String getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+	public String getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+	
 }

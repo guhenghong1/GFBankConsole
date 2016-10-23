@@ -39,6 +39,7 @@ public class UserVO {
 	private String major;		//专业
 	private String certFront;		//身份证正面
 	private String certBack;		//身份证反面
+	private String headPhoto;		//头像
 	private String remark;		//其他备注
 	private String infoPdf;		//用户信息pdf
 	private String createDate;	//创建时间
@@ -264,6 +265,12 @@ public class UserVO {
 	}
 	public void setCertBack(String certBack) {
 		this.certBack = certBack;
+	}
+	public String getHeadPhoto() {
+		return headPhoto;
+	}
+	public void setHeadPhoto(String headPhoto) {
+		this.headPhoto = headPhoto;
 	}
 	public String getBirthdayStr() {
 		return birthdayStr;

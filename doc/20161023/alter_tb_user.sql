@@ -1,0 +1,1 @@
+alter table tb_user add headPhoto varchar(500) 

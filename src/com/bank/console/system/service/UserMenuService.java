@@ -1,5 +1,6 @@
 package com.bank.console.system.service;
 
+import java.awt.Menu;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +13,7 @@ import com.bank.console.common.util.StringUtil;
 import com.bank.console.mapper.UserMenuMapper;
 import com.bank.console.system.form.UserMenuForm;
 import com.bank.console.system.model.UserMenu;
+import com.bank.console.system.vo.MenuVO;
 import com.bank.console.system.vo.UserMenuVO;
 
 import net.sf.json.JSONArray;
@@ -21,6 +23,8 @@ import net.sf.json.JSONObject;
 public class UserMenuService {
 	@Autowired
 	private UserMenuMapper userMenuMapper;
+	@Autowired
+	private MenuService menuService;
 
 	private static final String ROOTID = "0001"; // 根节点
 
@@ -31,6 +35,7 @@ public class UserMenuService {
 	 * @return
 	 */
 	public int addUserMenu(UserMenuForm form) {
+		
 		String menuIdStr = form.getMenuIds();
 		List<String> menuIds = StringUtil.str2List(menuIdStr, ",");
 
@@ -40,6 +45,18 @@ public class UserMenuService {
 			userMenu.setUserId(form.getUserId());
 			userMenu.setMenuId(menuId);
 			res = userMenuMapper.addUserMenu(userMenu);
+			
+			MenuVO menu = menuService.getMenuInfo(menuId);
+			String supMId = menu.getSuperMenuId();
+			if(!ROOTID.equals(supMId)) {
+				UserMenuVO userMenuVO = userMenuMapper.getUserMenu(form.getUserId(), supMId);
+				if(userMenuVO == null) {
+					UserMenu userSupMenu = new UserMenu();
+					userSupMenu.setUserId(form.getUserId());
+					userSupMenu.setMenuId(supMId);
+					res = userMenuMapper.addUserMenu(userSupMenu);
+				}
+			}
 		}
 		return res;
 	}
@@ -68,6 +85,10 @@ public class UserMenuService {
 		for (UserMenuVO userMenu : userMenus) {
 			String uId = userMenu.getUserId();
 			String menuId = userMenu.getMenuId();
+			MenuVO menu = menuService.getMenuInfo(menuId);
+			if(ROOTID.equals(menu.getSuperMenuId())) {
+				continue;
+			}
 
 			if (!map.containsKey(uId)) {
 				list = new ArrayList();

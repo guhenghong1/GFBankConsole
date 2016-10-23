@@ -19,4 +19,6 @@ public interface UserMenuMapper {
 	//删除用户毕业学校
 	int deleteUserMenu(String userId);
 	
+	UserMenuVO getUserMenu(@Param("userId") String userId, @Param("menuId") String menuId);
+	
 }

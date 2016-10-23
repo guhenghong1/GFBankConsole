@@ -106,6 +106,16 @@
 			<if test="name != null and name != ''">
 				and name like '%${name}%'
 			</if>
+			<if test="firstDay != null and firstDay !=''">
+				<![CDATA[
+					and birthday >= DATE_FORMAT(#{firstDay, jdbcType=VARCHAR}, '%Y-%m-%d')
+				]]>
+			</if>
+			<if test="lastDay != null and lastDay !=''">
+				<![CDATA[
+					and birthday <= DATE_FORMAT(#{lastDay, jdbcType=VARCHAR}, '%Y-%m-%d')
+				]]>
+			</if>
 	    </where>
 	    order by id
 		limit #{startRow}, #{endRow}

@@ -20,7 +20,7 @@
 	<script type="text/javascript" src="${basePath}/js/resource/materials.js?u=${times}"></script>
 	<div class="Materials" style="padding: 20px">
 		<div id="tb" style="height: auto">
-			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-help',plain:true" onclick="Materials.edit(0)">详情</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'',plain:true" onclick="Materials.edit(0)">详情</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="Materials.edit(1)">编辑</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="Materials.add()">新增</a>
 			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="Materials.deleteOp()">删除</a>

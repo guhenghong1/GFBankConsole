@@ -320,6 +320,23 @@ var queryEquipment = function() {
         });  
 } 
 
+//查询
+var exportEq = function() {
+	var params = {
+			id: $("#qid").val(),  
+        	name: $("#qname").val()
+	}
+	$.ajax({
+		url:"../equipment/createCSV.do",
+		data:params,
+		success:function(data) {
+			var filePath = data;
+			var url = "../file/exportFile.do?filePath="+filePath;
+			window.open(url);
+		}
+	});
+} 
+
 $(function() {
 	Equipment.init();
 });

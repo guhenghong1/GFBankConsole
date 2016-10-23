@@ -2,7 +2,12 @@ package com.bank.console.system.service;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.bank.console.common.ConfigProperty;
 import com.bank.console.common.Constant;
 import com.bank.console.common.FilePath;
+import com.bank.console.common.util.CSVUtil;
+import com.bank.console.common.util.DateUtil;
 import com.bank.console.common.util.FileUtil;
 import com.bank.console.common.util.MD5Util;
 import com.bank.console.common.util.TextpdfUtil;
@@ -23,7 +30,6 @@ import com.bank.console.system.model.User;
 import com.bank.console.system.model.UserHome;
 import com.bank.console.system.model.UserSchool;
 import com.bank.console.system.vo.UserVO;
-import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
@@ -247,6 +253,81 @@ public class UserService {
 	 */
 	public int deleteUserHome(String userId) {
 		return userHomeMapper.deleteUserHome(userId);
+	}
+	
+	/**
+	 * 创建excel
+	 * @param form
+	 * @param path
+	 * @param fileName
+	 * @return
+	 */
+	public File createCSVData(UserForm form, String path, String fileName) {
+		List<UserVO> userList = this.getUserList(form);
+		List<Map> exportData = this.buildData(userList);
+
+		Map titleMap = this.buildTitle();
+		File file = CSVUtil.createCSVFile(exportData, titleMap, path, fileName);
+		return file;
+	}
+	
+	/**
+	 * 表头
+	 * @return
+	 */
+	private Map buildTitle() {
+		Map map = new HashMap();
+	    map.put("1", "编号");
+	    map.put("2", "姓名");
+	    map.put("3", "角色");
+	    map.put("4", "部门");
+	    map.put("5", "性别");
+	    map.put("6", "生日");
+	    map.put("7", "电话");
+	    map.put("8", "手机号");
+	    map.put("9", "邮箱");
+	    map.put("10", "籍贯");
+	    map.put("11", "政治面貌");
+	    map.put("12", "身份证号");
+	    map.put("13", "家庭地址");
+	    map.put("14", "毕业学校");
+	    map.put("15", "学历");
+	    map.put("16", "专业");
+	    map.put("17", "职位");
+	    map.put("18", "入职时间");
+	    map.put("19", "爱好");
+	    return map;
+	}
+	
+	private List<Map> buildData(List<UserVO> userList) {
+	    List exportData = new ArrayList<Map>();
+	    Map row = new HashMap<String, String>();
+	    
+	    for(int i = 0; i < userList.size(); i++) {
+	    	UserVO user = userList.get(i);
+	    	row.put("1", user.getUserId());
+	    	row.put("2", user.getRealName());
+	    	row.put("3", user.getRoleName());
+	    	row.put("4", user.getDeptName());
+	    	row.put("5", user.getSex());
+	    	row.put("6", user.getBirthdayStr());
+	    	row.put("7", user.getPhone());
+	    	row.put("8", user.getMobile());
+	    	row.put("9", user.getEmail());
+	    	row.put("10", user.getNativePlace());
+	    	row.put("11", user.getPoliticsStatus());
+	    	row.put("12", user.getCertId());
+	    	row.put("13", user.getHomeAddress());
+	    	row.put("14", user.getSchool());
+	    	row.put("15", user.getEduLevel());
+	    	row.put("16", user.getMajor());
+	    	row.put("17", user.getPosition());
+	    	row.put("18", user.getEntryDate());
+	    	row.put("19", user.getInterest());
+	    	exportData.add(row);
+	    }
+	    
+	    return exportData;
 	}
 	
 	/**

@@ -15,6 +15,7 @@
         <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="Equipment.add()">新增</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="Equipment.deleteEquipment()">删除</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="Equipment.sendRepair()">送修</a>
+        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-export',plain:true" onclick="exportEq()">导出</a>
     </div> 
   	<div class="query" style="padding-top: 5px"> 
   		<div style="padding-bottom: 5px"> 
