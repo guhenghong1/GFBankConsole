@@ -1,7 +1,5 @@
 package com.bank.console.equipment.controller;
 
-import java.io.File;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,9 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bank.console.common.ConfigProperty;
 import com.bank.console.common.Constant;
-import com.bank.console.common.FilePath;
 import com.bank.console.common.PageCalc;
 import com.bank.console.common.Pager;
 import com.bank.console.common.interceptor.Permission;
@@ -53,13 +49,13 @@ public class EquipmentController {
 	@Permission
 	@RequestMapping("/getEquipmentList")
 	@ResponseBody
-	public String getEquipmentList(@RequestParam("id") String id,
+	public String getEquipmentList(@RequestParam("location") String location,
 			@RequestParam("name") String name, 			
 			@RequestParam(value="pageNum", defaultValue="1") String pageNum,
 			@RequestParam(value="pageSize", defaultValue="10") String pageSize) {
 		
 		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("id", id); 
+		param.put("location", location); 
 		param.put("name", name); 
 		
 		int total = equipmentService.getEquipmentSum(param);
@@ -132,25 +128,4 @@ public class EquipmentController {
 		return JSONObject.fromObject(result).toString();
 	}
 
-	@Permission
-	@RequestMapping("/createCSV")
-	@ResponseBody
-	public String createCSV(@RequestParam("id") String id,
-			@RequestParam("name") String name, 			
-			@RequestParam(value="pageNum", defaultValue="1") String pageNum,
-			@RequestParam(value="pageSize", defaultValue="10") String pageSize) {
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("id", id); 
-		param.put("name", name); 
-		param.put("startRow", 1);
-		param.put("endRow", 1000);
-		
-		String path = ConfigProperty.EXPORT_FILE_PATH + File.separator + FilePath.EXPORT_EQUIPMENT + File.separator 
-				+ DateUtil.formateDateToStr(new Date(), DateUtil.str2DayFormate)+File.separator;
-		String fileName = "user-"+DateUtil.formateDateToStr(new Date(), DateUtil.str2DayFormate);
-		path = path.replace("\\", "/");
-		File file = equipmentService.createCSVData(param, path, fileName);
-		
-		return file.getPath();
-	}
 }

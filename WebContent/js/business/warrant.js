@@ -108,6 +108,30 @@ var Warrant = {
 				}
 			}
 		});
+	},
+	
+	//打印申请表
+	printApply : function() {
+		var _this = this;
+		var row = $("#warrant").datagrid("getSelected");
+		if(!row) {
+			Common.showMsg("请选择一条记录！");
+			return false;
+		}
+		var id = row.id;
+		window.open("../common/view.jsp?id="+id+"&type=warrant_apply");
+	},
+	
+	//打印入库单
+	printInOrder : function() {
+		var _this = this;
+		var row = $("#warrant").datagrid("getSelected");
+		if(!row) {
+			Common.showMsg("请选择一条记录！");
+			return false;
+		}
+		var id = row.id;
+		window.open("../common/view.jsp?id="+id+"&type=warrant_in");
 	}
 }
 

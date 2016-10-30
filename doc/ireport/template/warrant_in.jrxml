@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="warrant_in" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6b8059d6-b7a7-4db0-ae75-24644461dcf8">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="250"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="0fab6602-d9ea-4185-83eb-54327a02da27"/>
+	<parameter name="id" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select id,type,cardId,borrower,normLimit,propertyOwner,remark,date_format(createDate, '%Y-%m-%d') as time from tb_warrant
+where id=$P{id}]]>
+	</queryString>
+	<field name="id" class="java.lang.String">
+		<fieldDescription><![CDATA[编号]]></fieldDescription>
+	</field>
+	<field name="type" class="java.lang.String">
+		<fieldDescription><![CDATA[权证类型]]></fieldDescription>
+	</field>
+	<field name="cardId" class="java.lang.String">
+		<fieldDescription><![CDATA[权证证号]]></fieldDescription>
+	</field>
+	<field name="borrower" class="java.lang.String">
+		<fieldDescription><![CDATA[借款人]]></fieldDescription>
+	</field>
+	<field name="normLimit" class="java.lang.Integer">
+		<fieldDescription><![CDATA[额度单位万元]]></fieldDescription>
+	</field>
+	<field name="propertyOwner" class="java.lang.String">
+		<fieldDescription><![CDATA[产权所有人]]></fieldDescription>
+	</field>
+	<field name="remark" class="java.lang.String">
+		<fieldDescription><![CDATA[备注]]></fieldDescription>
+	</field>
+	<field name="time" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="802" splitType="Stretch">
+			<staticText>
+				<reportElement x="47" y="87" width="105" height="30" uuid="9dfbc27a-a532-454a-9f63-24dc0ba34a4b"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="宋体" size="16"/>
+				</textElement>
+				<text><![CDATA[编号]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="152" y="87" width="319" height="30" uuid="681698cf-5204-4312-8e89-bc3ec832684b"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="47" y="117" width="105" height="30" uuid="d7369f41-fbae-40d2-8b16-6bc80a99a557"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="16"/>
+				</textElement>
+				<text><![CDATA[权证类型]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="152" y="117" width="319" height="30" uuid="09ea90bd-2970-44da-9285-e5bddecf43f6"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{type}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="47" y="147" width="105" height="30" uuid="777e04c9-2fd9-4ce8-8749-c232cbaf1672"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="16"/>
+				</textElement>
+				<text><![CDATA[权证证号]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="152" y="147" width="319" height="30" uuid="12663aa0-12fa-46c8-95ae-ee388cfb11f5"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cardId}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="47" y="177" width="105" height="30" uuid="dd393114-abf9-44d3-82c0-a95f68e9e4fb"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="16"/>
+				</textElement>
+				<text><![CDATA[权证债权额]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="152" y="177" width="319" height="30" uuid="d689b106-e6c8-4350-b31a-d5744e8787fa"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{normLimit}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="47" y="207" width="105" height="30" uuid="118af4fd-aa7b-4550-bacc-59f68a27ae30"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="16"/>
+				</textElement>
+				<text><![CDATA[借款人]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="152" y="207" width="319" height="30" uuid="ae160ccb-793b-4e63-91a3-e3212df2861c"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{borrower}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="47" y="237" width="105" height="30" uuid="8f942c83-0779-4f25-98b5-08aa71cb27cf"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="16"/>
+				</textElement>
+				<text><![CDATA[产权所有人]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="152" y="237" width="319" height="30" uuid="09d16683-50fc-43e9-8b08-887965c0817d"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{propertyOwner}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="47" y="267" width="105" height="29" uuid="588e2e55-881a-425e-9421-a930cf81565a"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="16"/>
+				</textElement>
+				<text><![CDATA[备注]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="152" y="267" width="319" height="29" uuid="280ce246-a97d-47a9-8235-c163b2d9d90c"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{remark}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="47" y="296" width="105" height="26" uuid="f8b49149-de1e-4e8f-af9e-a414a599aa40"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="16"/>
+				</textElement>
+				<text><![CDATA[入库时间]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="152" y="296" width="319" height="26" uuid="ee19da14-0e3c-4603-86fa-cb290dc67e60"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{time}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="109" y="24" width="286" height="45" uuid="167fbaad-7294-4aed-911a-8273198c84bd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="20"/>
+				</textElement>
+				<text><![CDATA[广丰广信村镇银行权证入库单]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="67" y="335" width="100" height="20" uuid="aac881e9-95f8-4d94-923a-e700ce3ea8f5"/>
+				<textElement>
+					<font fontName="宋体" size="16"/>
+				</textElement>
+				<text><![CDATA[移交人：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="335" width="100" height="20" uuid="2cde6695-6803-49d0-9a83-9aa0be36d1ca"/>
+				<textElement>
+					<font fontName="宋体" size="16"/>
+				</textElement>
+				<text><![CDATA[接交人：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="333" y="335" width="100" height="20" uuid="8d46717b-9dad-47f4-95c1-782d91385070"/>
+				<textElement>
+					<font fontName="宋体" size="16"/>
+				</textElement>
+				<text><![CDATA[监交人：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="716" width="100" height="20" uuid="230aaeb8-8c75-41f8-b9f9-d977fd6652e1"/>
+				<textElement>
+					<font fontName="宋体" size="16"/>
+				</textElement>
+				<text><![CDATA[接交人：]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="152" y="588" width="319" height="30" uuid="0f2fd298-059d-4620-b77d-fcb5619a6eac"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{borrower}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="109" y="405" width="286" height="45" uuid="42661231-cb6d-4586-8629-3b5bb1938dbb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="20"/>
+				</textElement>
+				<text><![CDATA[广丰广信村镇银行权证入库单]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="152" y="498" width="319" height="30" uuid="5aaf0cab-f5d6-4bcc-b4e0-0fe424043446"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{type}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="47" y="528" width="105" height="30" uuid="02152030-adff-46d3-bdd4-827c199d1409"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="16"/>
+				</textElement>
+				<text><![CDATA[权证证号]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="47" y="618" width="105" height="30" uuid="ca79aae4-5d0e-4dab-8955-515395e2afd7"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="16"/>
+				</textElement>
+				<text><![CDATA[产权所有人]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="47" y="468" width="105" height="30" uuid="4efafddd-f3a9-4a72-874d-33c7a68f56d8"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="宋体" size="16"/>
+				</textElement>
+				<text><![CDATA[编号]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="152" y="558" width="319" height="30" uuid="9ff99348-83d3-4e9b-b6dd-d0efaa989c53"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{normLimit}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="333" y="716" width="100" height="20" uuid="79ac3942-1e13-459a-9726-54c81da219f7"/>
+				<textElement>
+					<font fontName="宋体" size="16"/>
+				</textElement>
+				<text><![CDATA[监交人：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="47" y="498" width="105" height="30" uuid="e9d2faf1-0e93-435b-a28f-55f46dd90838"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="16"/>
+				</textElement>
+				<text><![CDATA[权证类型]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="152" y="618" width="319" height="30" uuid="3686bee5-f49f-4956-b9fe-169e788f26a3"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{propertyOwner}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="152" y="677" width="319" height="26" uuid="5455a9b5-d2c0-4609-af4a-949538da52f2"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{time}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="152" y="468" width="319" height="30" uuid="6257b89c-7022-4d8e-a05c-2285e67df6ae"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="152" y="648" width="319" height="29" uuid="4b8a2ec1-a3fa-4fb4-9c25-042dace1b150"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{remark}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="47" y="648" width="105" height="29" uuid="54641aa8-241a-45e6-b8ab-0164c93662bb"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="16"/>
+				</textElement>
+				<text><![CDATA[备注]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="47" y="677" width="105" height="26" uuid="d3b1a324-b86a-46fb-a9f0-acc6e9311eaa"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="16"/>
+				</textElement>
+				<text><![CDATA[入库时间]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="47" y="588" width="105" height="30" uuid="1e0fded1-e2d2-4816-845e-740b4a69baf2"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="16"/>
+				</textElement>
+				<text><![CDATA[借款人]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="47" y="558" width="105" height="30" uuid="f909a8a5-abc2-4579-b646-ee0a32cf8955"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="16"/>
+				</textElement>
+				<text><![CDATA[权证债权额]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="152" y="528" width="319" height="30" uuid="7da996d8-8df3-43dc-b208-47b1d7b5fda4"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cardId}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="67" y="716" width="100" height="20" uuid="ebe54b75-c7cf-4ee0-bb72-c0f245f0ad50"/>
+				<textElement>
+					<font fontName="宋体" size="16"/>
+				</textElement>
+				<text><![CDATA[移交人：]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

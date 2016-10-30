@@ -23,8 +23,8 @@
 			<div class="add" style="display:${menu eq 'add'? '':'none'}">
 				<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-help',plain:true" onclick="Warrant.edit(0)">详情</a>
 				<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="Warrant.add()">新增</a>
-				<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-print',plain:true" onclick="">打印申请表</a>
-				<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-print',plain:true" onclick="">打印入库单</a>
+				<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-print',plain:true" onclick="Warrant.printApply()">打印申请表</a>
+				<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-print',plain:true" onclick="Warrant.printInOrder()">打印入库单</a>
 			</div>
 			<div class="update" style="display:${menu eq 'update'? '':'none'}">
 				<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="Warrant.edit(1)">修改</a>

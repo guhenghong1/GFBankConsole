@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="test" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b7e04f44-3386-4e14-8601-89c187a09118">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="398"/>
+	<parameter name="fileId" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select t2.deptName,date_format(t1.createDate, '%Y-%m-%d') as time,t1.fileNo,t1.fileTitle from tb_send_file t1
+left join tb_dept t2 on t1.deptId=t2.deptId where fileId=$P{fileId}]]>
+	</queryString>
+	<field name="deptName" class="java.lang.String">
+		<fieldDescription><![CDATA[部门名称]]></fieldDescription>
+	</field>
+	<field name="time" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fileNo" class="java.lang.String">
+		<fieldDescription><![CDATA[发文字号]]></fieldDescription>
+	</field>
+	<field name="fileTitle" class="java.lang.String">
+		<fieldDescription><![CDATA[发文标题]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="62" splitType="Stretch">
+			<staticText>
+				<reportElement x="131" y="20" width="292" height="42" uuid="e8ee423d-3e56-4b6c-a909-218af7590cb3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[广丰广信村镇银行文件处理单]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="740" splitType="Stretch">
+			<staticText>
+				<reportElement x="38" y="253" width="95" height="113" uuid="7a1e4454-ab11-4f16-a1e7-1cad8169f971"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="16"/>
+				</textElement>
+				<text><![CDATA[拟    办
+
+人
+
+意    见]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="38" y="60" width="95" height="39" uuid="e0defb26-e918-4ef4-bf4e-bc612ea894d6"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="16"/>
+				</textElement>
+				<text><![CDATA[收到日期]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="38" y="20" width="95" height="39" uuid="6bf59f20-60a8-4707-8c21-c011151c9c83"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="16"/>
+				</textElement>
+				<text><![CDATA[来文机关]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="38" y="140" width="95" height="113" uuid="8cb32ef3-2932-4411-9f35-18ab4d6552a8"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="16"/>
+				</textElement>
+				<text><![CDATA[内    容
+
+摘    要]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="133" y="479" width="375" height="113" uuid="d64d3c91-a630-4322-80dc-e18cf6287f4f"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="16"/>
+				</textElement>
+				<text><![CDATA[                              签名  	              月    日 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="38" y="366" width="95" height="113" uuid="febbc74d-fa57-4e5b-b97b-5509307b1720"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="16"/>
+				</textElement>
+				<text><![CDATA[领    导
+
+人
+
+意    见]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="38" y="592" width="95" height="113" uuid="73ae6a35-510e-4bb8-b814-a3e0a41c6dba"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="16"/>
+				</textElement>
+				<text><![CDATA[办    理
+
+结    果]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="133" y="140" width="375" height="113" uuid="8f8c3545-367f-4681-bb54-3b5b5455620e"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fileTitle}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="133" y="20" width="375" height="40" uuid="8cf18661-499f-4a63-808a-2cb683a02235"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{deptName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="38" y="479" width="95" height="113" uuid="f7cc18b7-690b-4032-a546-dbebec97d320"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="16"/>
+				</textElement>
+				<text><![CDATA[传    阅
+
+人
+
+签    字]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="38" y="100" width="95" height="39" uuid="15ecb7c7-449c-47c6-aedc-d380cb7a4280"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="16"/>
+				</textElement>
+				<text><![CDATA[发文字号]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="133" y="60" width="375" height="39" uuid="77edb4a9-d4c2-44a8-b44f-1bfa0c06f660"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{time}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="133" y="100" width="375" height="39" uuid="ef921ad5-0f28-4b76-8b42-1550ee83b367"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fileNo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="133" y="253" width="375" height="113" uuid="387004f5-8fc3-420e-ae24-2b5a38a97b59"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="16"/>
+				</textElement>
+				<text><![CDATA[                              签名  	               月    日 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="133" y="366" width="375" height="113" uuid="f699a95d-78d7-4559-9138-e8fd0ee25516"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="16"/>
+				</textElement>
+				<text><![CDATA[                              签名  	               月    日 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="133" y="592" width="375" height="113" uuid="9de9de5a-ea0b-479b-a1e9-e4746cde9fac"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="16"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

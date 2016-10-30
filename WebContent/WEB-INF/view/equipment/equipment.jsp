@@ -15,18 +15,16 @@
         <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="Equipment.add()">新增</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="Equipment.deleteEquipment()">删除</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="Equipment.sendRepair()">送修</a>
-        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-export',plain:true" onclick="exportEq()">导出</a>
     </div> 
   	<div class="query" style="padding-top: 5px"> 
   		<div style="padding-bottom: 5px"> 
-			<label>设备编号：</label><input type="text" id = "qid" name="qid" style="width:150px"/>  
 			<label>设备名称：</label><input type="text" id = "qname" name="qname" style="width:150px"/> 
+			<label>所在地：</label><input type="text" id = "qlocation" name="qlocation" style="width:150px"/> 
 			<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="queryEquipment()">查询</a> 
 		</div> 
     </div> 
     <table id="tb_equipments" rownumbers="true"></table> 
-    <div id="eqw" class="easyui-window" title="设备详情" data-options="modal:true,closed:true,iconCls:'icon-save'" style="width:500px;height:500px;padding:10px;">
-        <form id="eqForm">
+    <div id="w" class="easyui-window" title="设备详情" data-options="modal:true,closed:true,iconCls:'icon-save'" style="width:500px;height:500px;padding:10px;">
         <table>
         	<tr>
         		<td width="80px"><label>设备编号：</label></td>
@@ -82,7 +80,6 @@
 				</td>
         	</tr>
         </table>
-        </form>
         <div style="margin:20px 0;">
         <a href="javascript:void(0)" class="easyui-linkbutton" id="update" onclick="Equipment.update()">修改</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" id="add" onclick="Equipment.addEquipment()">保存</a>

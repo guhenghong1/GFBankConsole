@@ -94,8 +94,8 @@
 	 	SELECT  t.*,date_format(t.buy_time, '%Y-%m-%d') as buy_time_str FROM tb_equipment t
 	    <where>
 	    	status = 1
-	    	<if test="id != null and id != ''">
-				and id like '%${id}%'
+	    	<if test="location != null and location != ''">
+				and location like '%${location}%'
 			</if>
 			<if test="name != null and name != ''">
 				and name like '%${name}%'

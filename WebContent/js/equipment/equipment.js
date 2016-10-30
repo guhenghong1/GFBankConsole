@@ -1,6 +1,6 @@
 var Equipment = {
 	params : {
-		id:"",
+		location:"",
 		name:""
 	},
    init: function() {
@@ -125,7 +125,7 @@ var Equipment = {
 			$("#deptId").combotree("setValue", equipment.deptId);
 		}
 	});
-   	$("#eqw").window("open");
+   	$("#w").window("open");
    },
    
    //修改用户
@@ -175,7 +175,7 @@ var Equipment = {
 					_this.showMsg("修改失败");
 				}
 				
-				$("#eqw").window("close");
+				$("#w").window("close");
 				$("#tb_equipments").datagrid("reload");
 			}
 		}); 	
@@ -184,11 +184,10 @@ var Equipment = {
    //新增用户弹窗
    add: function() {
    		var _this = this;
-   		$('#eqForm').form('clear');
    		$("#tb_equipments").datagrid("unselectAll");
    		$("#add").css("display", "");
    		$("#update").css("display", "none");
-   		$("#eqw").window("open");
+   		$("#w").window("open");
    },
    
    //新增用户
@@ -211,6 +210,26 @@ var Equipment = {
 		}
 		if(name == "" || name == null){
 			alert("设备名称不能为空");
+			return false;
+		}
+		if(type == "" || type == null){
+			alert("设备型号不能为空");
+			return false;
+		}
+		if(location == "" || location == null){
+			alert("所在地不能为空");
+			return false;
+		}
+		if(buyTimeStr == "" || buyTimeStr == null){
+			alert("购入时间不能为空");
+			return false;
+		}
+		if(price == "" || price == null){
+			alert("购入价格不能为空");
+			return false;
+		}
+		if(deptId == "" || deptId == null){
+			alert("管理部门不能为空");
 			return false;
 		}
 		
@@ -238,7 +257,7 @@ var Equipment = {
 					_this.showMsg("添加失败");
 				}
 				
-				$("#eqw").window("close");
+				$("#w").window("close");
 				$("#tb_equipments").datagrid("reload");
 			}
 		}); 	
@@ -249,7 +268,7 @@ var Equipment = {
    		var _this = this;
    		var row = $("#tb_equipments").datagrid("getSelected");
    		var id = row.id;
-   		$("#eqw").window("close");
+   		$("#w").window("close");
    		var role = row.role;
    		if(role == 2) {
    			_this.showMsg('权限不够');
@@ -282,7 +301,7 @@ var Equipment = {
   		}
 
   		var id = row.id;
-  		$("#eqw").window("close");
+  		$("#w").window("close");
    		var role = row.role;
    		if(role == 2) {
    			_this.showMsg('权限不够');
@@ -303,7 +322,7 @@ var Equipment = {
 							_this.showMsg("送修失败");
 						}
 						
-						$("#eqw").window("close");
+						$("#w").window("close");
 						$("#tb_equipments").datagrid("reload");
 					}
 				});
@@ -315,26 +334,9 @@ var Equipment = {
 //查询
 var queryEquipment = function() {
         $('#tb_equipments').datagrid('load', {  
-        	id: $("#qid").val(),  
+        	location: $("#qlocation").val(),  
         	name: $("#qname").val()
         });  
-} 
-
-//查询
-var exportEq = function() {
-	var params = {
-			id: $("#qid").val(),  
-        	name: $("#qname").val()
-	}
-	$.ajax({
-		url:"../equipment/createCSV.do",
-		data:params,
-		success:function(data) {
-			var filePath = data;
-			var url = "../file/exportFile.do?filePath="+filePath;
-			window.open(url);
-		}
-	});
 } 
 
 $(function() {

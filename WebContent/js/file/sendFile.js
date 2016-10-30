@@ -146,7 +146,8 @@ var SendFile = {
 			return false;
 		}
 		var fileId = row.fileId;
-		$.ajax({
+		window.open("../common/view.jsp?id="+fileId+"&type=file_handling");
+		/*$.ajax({
 			url : "../sendFile/findFile.do",
 			data : {
 				"fileId" : fileId
@@ -157,7 +158,7 @@ var SendFile = {
 				var url = "../file/download.do?filePath="+filePath;
 				window.open(url);
 			}
-		});
+		});*/
 	}
 }
 
