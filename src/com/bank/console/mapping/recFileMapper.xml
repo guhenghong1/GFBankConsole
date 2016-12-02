@@ -58,6 +58,9 @@
 				 <if test="attachment != null and attachment != ''">
 				 	attachment = #{attachment, jdbcType=VARCHAR},
 				 </if>
+				 <if test="createDateStr != null and createDateStr != ''">
+				 	createDate = str_to_date(#{createDateStr, jdbcType=VARCHAR}, '%Y-%m-%d %H:%i:%s'),
+				 </if>
 				 updateDate = now()
 			</set> 
 				where fileId = #{fileId, jdbcType=VARCHAR}
@@ -73,38 +76,40 @@
 	    SELECT
 	      COUNT(1) AS sum
 	    FROM
-	      tb_recevice_file r, tb_dept d
+	      tb_recevice_file r LEFT JOIN tb_dept d on r.deptId = d.deptId
 	    <where>
-	    	r.deptId = d.deptId
 	    	<if test="keyWords != null and keyWords != ''">
-				and keyWords like '%${keyWords}%'
+				and r.keyWords like '%${keyWords}%'
 			</if>
 			<if test="fileTitle != null and fileTitle != ''">
-				and fileTitle = #{fileTitle, jdbcType=VARCHAR}
+				and r.fileTitle = #{fileTitle, jdbcType=VARCHAR}
 			</if>
 			<if test="fileNo != null and fileNo != ''">
-				and fileNo = #{fileNo, jdbcType=VARCHAR}
+				and r.fileNo = #{fileNo, jdbcType=VARCHAR}
 			</if>
 			<if test="secretLevel != null and secretLevel != ''">
-				and secretLevel = #{secretLevel, jdbcType=VARCHAR}
+				and r.secretLevel = #{secretLevel, jdbcType=VARCHAR}
 			</if>
 			<if test="emgLevel != null and emgLevel != ''">
-				and emgLevel = #{emgLevel, jdbcType=VARCHAR}
+				and r.emgLevel = #{emgLevel, jdbcType=VARCHAR}
 			</if>
 			<if test="status != null and status != ''">
-				and status = #{status, jdbcType=VARCHAR}
+				and r.status = #{status, jdbcType=VARCHAR}
 			</if>
 			<if test="fileId != null and fileId != ''">
-				and fileId = #{fileId, jdbcType=VARCHAR}
+				and r.fileId = #{fileId, jdbcType=VARCHAR}
+			</if>
+			<if test="deptId != null and deptId != ''">
+				and r.deptId = #{deptId, jdbcType=VARCHAR}
 			</if>
 			<if test="startDate != null and startDate !=''">
 					<![CDATA[
-						and createDate >= DATE_FORMAT(#{startDate, jdbcType=VARCHAR}, '%Y-%m-%d')
+						and r.createDate >= DATE_FORMAT(#{startDate, jdbcType=VARCHAR}, '%Y-%m-%d')
 					]]>
 				</if>
 				<if test="endDate != null and endDate !=''">
 					<![CDATA[
-						and createDate < DATE_FORMAT(#{endDate, jdbcType=VARCHAR}, '%Y-%m-%d')
+						and r.createDate <= DATE_FORMAT(#{endDate, jdbcType=VARCHAR}, '%Y-%m-%d %H:%i:%s')
 					]]>
 				</if>
 	    </where>
@@ -130,42 +135,44 @@
 		 		d.deptName,   
 		    	<include refid="columns"/>
 		    FROM
-		      tb_recevice_file r, tb_dept d
+		      tb_recevice_file r LEFT JOIN tb_dept d on r.deptId = d.deptId
 		    <where>
-		    	r.deptId = d.deptId
 		    	<if test="keyWords != null and keyWords != ''">
-					 and keyWords like '%${keyWords}%'
+					 and r.keyWords like '%${keyWords}%'
 				</if>
 				<if test="fileTitle != null and fileTitle != ''">
-					and fileTitle = #{fileTitle, jdbcType=VARCHAR}
+					and r.fileTitle = #{fileTitle, jdbcType=VARCHAR}
 				</if>
 				<if test="fileNo != null and fileNo != ''">
-					and fileNo = #{fileNo, jdbcType=VARCHAR}
+					and r.fileNo = #{fileNo, jdbcType=VARCHAR}
 				</if>
 				<if test="secretLevel != null and secretLevel != ''">
-					and secretLevel = #{secretLevel, jdbcType=VARCHAR}
+					and r.secretLevel = #{secretLevel, jdbcType=VARCHAR}
 				</if>
 				<if test="emgLevel != null and emgLevel != ''">
-					and emgLevel = #{emgLevel, jdbcType=VARCHAR}
+					and r.emgLevel = #{emgLevel, jdbcType=VARCHAR}
 				</if>
 				<if test="status != null and status != ''">
-					and status = #{status, jdbcType=VARCHAR}
+					and r.status = #{status, jdbcType=VARCHAR}
 				</if>
 				<if test="fileId != null and fileId != ''">
-					and fileId = #{fileId, jdbcType=VARCHAR}
+					and r.fileId = #{fileId, jdbcType=VARCHAR}
+				</if>
+				<if test="deptId != null and deptId != ''">
+					and r.deptId = #{deptId, jdbcType=VARCHAR}
 				</if>
 				<if test="startDate != null and startDate !=''">
 					<![CDATA[
-						and createDate >= DATE_FORMAT(#{startDate, jdbcType=VARCHAR}, '%Y-%m-%d')
+						and r.createDate >= DATE_FORMAT(#{startDate, jdbcType=VARCHAR}, '%Y-%m-%d')
 					]]>
 				</if>
 				<if test="endDate != null and endDate !=''">
 					<![CDATA[
-						and createDate <= DATE_FORMAT(#{endDate, jdbcType=VARCHAR}, '%Y-%m-%d')
+						and r.createDate <= DATE_FORMAT(#{endDate, jdbcType=VARCHAR}, '%Y-%m-%d %H:%i:%s')
 					]]>
 				</if>
 		    </where>
-		    order by fileId
+		    order by fileId desc
 			limit #{startRow}, #{endRow}
 	</select>
 	

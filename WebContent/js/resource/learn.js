@@ -2,7 +2,9 @@ var Learn = {
 	_this : this,
 	params : {
 		id:"",
-		title:""
+		title:"",
+		startDate:"",
+		endDate:""
 	},
 	init : function() {
 		this.initDg();
@@ -29,7 +31,7 @@ var Learn = {
 	               {field: 'title', title: '标题', align:'center', width: 100},
 	               {field: 'viewCount', title: '浏览数', align:'center', width: 200},
 	               {field: 'remark', title: '备注', align:'center', width: 100},
-	               {field: 'updateDateStr', title: '修改时间', align:'center', width: 120}	
+	               {field: 'createDateStr', title: '创建时间', align:'center', width: 120}	
 //	               {field: 'attachment', title: '操作', align:'center', width: 300},
 	            ]],
 	         onClickRow: function(index, rowData) {
@@ -61,13 +63,13 @@ var Learn = {
 				"id" : id
 			},
 			success : function(data) {
-				var data = JSON.parse(data);
+				var data = eval('('+data+')');
 				if(!!data.obj) {
 					var learn = data.obj;
-					$("#mid").val(learn.id);
-					$("#mtitle").val(learn.title);
-					$("#mviewCount").val(learn.viewCount);
-					$("#mremark").val(learn.remark);
+					$("#mlw .mid").val(learn.id);
+					$("#mlw .mtitle").val(learn.title);
+					$("#mlw .mviewCount").val(learn.viewCount);
+					$("#mlw .mremark").val(learn.remark);
 				}
 			}
 		});
@@ -90,7 +92,7 @@ var Learn = {
 			},
 			success : function(data) {
 				console.log(data)
-				var data = JSON.parse(data);
+				var data = eval('('+data+')');
 				if(data.code == 1) {
 					Common.showMsg("删除成功");
 					$("#learn").datagrid("reload");
@@ -115,7 +117,7 @@ var Learn = {
 				"id" : id
 			},
 			success : function(data) {
-				var data = JSON.parse(data)
+				var data = eval('('+data+')');
 				var learn = data.obj;
 				console.log("data="+learn)
 				
@@ -140,7 +142,7 @@ var addLearn = function() {
     $('#learnForm').form('submit',{
     	   success:function(data){
     		   console.log(data);
-    		    data = JSON.parse(data);
+    		    data = eval('('+data+')');
     		    if(data.code == 1) {
     		    	Common.showMsg("添加成功");
     		    	$("#lw").window("close");
@@ -156,7 +158,7 @@ var addLearn = function() {
 var updateLearn = function() {
 	$('#mLearnForm').form('submit',{
 		success:function(data){
-			data = JSON.parse(data);
+			data = eval('('+data+')');
 			if(data.code == 1) {
 				Common.showMsg("修改成功");
 				$("#mlw").window("close");
@@ -190,19 +192,29 @@ var updateViewCount = function(id) {
 //查询
 var queryLearn = function() {
         $('#learn').datagrid('load', {  
-        	id: $("#qId").val(),
-        	title: $("#qTitle").val()
+        	id: $(".queryLearn .qId").val(),
+        	title: $(".queryLearn .qTitle").val(),
+            startDate: $(".queryLearn .qstartDate").datetimebox('getValue'),  
+            endDate: $(".queryLearn .qendDate").datetimebox('getValue')
         });  
 }  
+
+//重置
+var clearQuery = function() {
+	$(".queryLearn .qId").val("");
+	$(".queryLearn .qTitle").val("");
+	$(".queryLearn .qstartDate").datetimebox('clear');
+	$(".queryLearn .qendDate").datetimebox('clear');
+}
 
 //取消按钮
 var clearForm = function(d) {
 	if(d == 1) {
 		$('#mLearnForm').form('clear');
-//		$("#mrfw").window("close");
+		$("#mLearnForm").window("close");
 	} else {
 		$('#learnForm').form('clear');
-//		$("#rfw").window("close");
+		$("#learnForm").window("close");
 	}
 }
 

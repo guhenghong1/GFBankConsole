@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bank.console.common.DBIndex.CommonService;
 import com.bank.console.dept.form.DeptForm;
 import com.bank.console.dept.vo.DeptVO;
 import com.bank.console.mapper.DeptMapper;
@@ -16,11 +17,18 @@ import net.sf.json.JSONObject;
 public class DeptService {
 	@Autowired
 	private DeptMapper deptMapper;
+	@Autowired
+	private CommonService commonService;
+//	@Autowired
+//	private TableIdService tableIdService;
+	
+	private static final String TABLE_NAME = "tb_dept";
 	
 	private static final String ROOTID = "0001";	//总行ID
 	
 	public int addDept(DeptForm form) {
-		form.setDeptId(this.createDeptId());
+		long nextId = commonService.getNextId(TABLE_NAME);
+		form.setDeptId(nextId + "");
 		return deptMapper.addDept(form);
 	}
 	

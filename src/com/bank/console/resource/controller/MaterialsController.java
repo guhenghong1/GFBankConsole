@@ -98,11 +98,13 @@ public class MaterialsController {
 	@Permission
 	@RequestMapping("/getMaterialsList")
 	@ResponseBody
-	public String getMaterialsList(@RequestParam(value="companyId") String companyId, 
+	public String getMaterialsList(@RequestParam(value="companyId") String companyId,
+			@RequestParam(value="company") String company, 
 			@RequestParam(value="pageNum", defaultValue="1") String pageNum, 
 			@RequestParam(value="pageSize", defaultValue="10") String pageSize) {
 		MaterialsForm form = new MaterialsForm();
 		form.setCompanyId(companyId);
+		form.setCompany(company);
 		
 		int total = materialsService.getMaterialsSum(form);
 		

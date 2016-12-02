@@ -24,9 +24,19 @@
      margin:20px auto;
      cursor: pointer;
    }
+
+   .select{
+   		  width:181px;
+   }
+
 </style>
 </head>
 <body>
+<style type="text/css">
+   .select{
+   		  width:160px;
+   }
+</style>
 <link rel="stylesheet" type="text/css" href="../jquery-easyui-1.3.2/themes/default/easyui.css">
 <%-- <script type="text/javascript" src="${basePath}/jquery-easyui-1.3.2/jquery-1.8.0.min.js"></script>
 <script type="text/javascript" src="${basePath}/jquery-easyui-1.3.2/locale/easyui-lang-zh_CN.js"></script>
@@ -38,63 +48,63 @@
 <div class="qz-user">
     <div id="tb" style="height:auto">
     	<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-help',plain:true" onclick="User.edit(0)">详情</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="User.edit(1)">编辑</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="User.add()">新增</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="User.edit(1)">修改</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="User.deleteUser()">删除</a>
         <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-set',plain:true" onclick="User.setMenu()">功能菜单权限设置</a>
         <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-export',plain:true" onclick="exportUser()">导出</a>
     </div> 
-  	<div class="query" style="padding-top: 5px"> 
+  	<div class="queryUser" style="padding-top: 5px"> 
   		<!-- <div style="padding-bottom: 5px">  -->
   		<table>
   			<tr>
-			<td><label>用户工号：</label></td><td><input type="text" id = "quserId" name="quserId" style="width:150px"/></td>  
-			<td><label>真实姓名：</label></td><td><input type="text" id = "qrealName" name="qrealName" style="width:150px"/></td> 
-			<td><label>电话：</label></td><td><input type="text" id = "qphone" name="qphone" style="width:150px"/></td>  
+			<td><label>用户工号：</label></td><td><input type="text" class = "quserId" name="quserId" style="width:150px"/></td>  
+			<td><label>真实姓名：</label></td><td><input type="text" class = "qrealName" name="qrealName" style="width:150px"/></td> 
+			<td><label>电话：</label></td><td><input type="text" class = "qphone" name="qphone" style="width:150px"/></td>  
 			</tr>
 <!-- 		</div>
 		<div style="padding-bottom: 5px"> -->
 		<tr>
-			<td><label>手机号：</label></td><td><input type="text" id = "qmobile" name="qmobile" style="width:150px"/></td>  
-			<td><label>部门：</label></td><td><input id="qdeptId" name="deptId" class="easyui-combotree" data-options="url:'../dept/getDeptTree.do',method:'get',label:'Select Nodes:',labelPosition:'top',multiple:false" style="width:150px"></td>  
+			<td><label>手机号：</label></td><td><input type="text" class = "qmobile" name="qmobile" style="width:150px"/></td>  
+			<td><label>部门：</label></td><td><input name="deptId" class="easyui-combotree qdeptId" data-options="url:'../dept/getDeptTree.do',method:'get',label:'Select Nodes:',labelPosition:'top',multiple:false" style="width:150px"></td>  
 			<td><a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="queryUser()">查询</a></td>
 		</tr>
 		</table>
-		<<!-- /div>   -->
+		<!-- /div>   -->
     </div> 
     
     <table id="tb_users" rownumbers="true"></table> 
-    <div id="w" class="easyui-window" title="用户详情" data-options="modal:true,closed:true,cache:false,iconCls:'icon-save'" style="width:850px;height:600px;padding:10px;">
+    <div id="w" class="easyui-window" title="用户详情" data-options="modal:true,closed:true,cache:false,iconCls:'icon-save'" style="width:850px;height:550px;padding:10px;">
         <form id="userForm" method="post" action="${basePath}/user/addUser.do" enctype="multipart/form-data">
         <h2>一、个人基本信息</h2>
         <table class="userInfo">
         	<tr>
         		<td><label>用户工号：</label></td>
         		<td>
-        			<input id="userId" name="userId" type="text" value=""></input>
+        			<input class="userId" name="userId" type="text" value=""></input>
         		</td>
         		<td><label>姓名：</label></td>
-        		<td><input id="realName" name="realName" type="text" value=""></input></td>
+        		<td><input class="realName" name="realName" type="text" value=""></input></td>
         	</tr>
         	<tr>
         		<td><label>部门：</label></td>
         		<td>
-        			<input id="deptId" name="deptId" class="easyui-combotree" data-options="url:'../dept/getDeptTree.do',method:'get',label:'Select Nodes:',labelPosition:'top',multiple:false" style="width:181px">
+        			<input name="deptId" class="easyui-combotree deptId" data-options="url:'../dept/getDeptTree.do',method:'get',label:'Select Nodes:',labelPosition:'top',multiple:false" style="width:160px">
         		</td>
         		 <td><label>生日：</label></td>
-        			<td><input id="birthday" name="birthdayStr" class="easyui-datebox" label="Customized Format:" labelPosition="top" data-options="formatter:myformatter,parser:myparser" style="width:100%;"></td> 
+        			<td><input name="birthdayStr" class="easyui-datebox birthday" label="Customized Format:" labelPosition="top" data-options="formatter:myformatter,parser:myparser" style="width:160px"></td> 
         	</tr>
         	<tr>
         		<td><label>性别：</label></td>
         		<td>
-        			<select id="sex" name="sex">
+        			<select name="sex" class="sex select">
 					  <option value ="0">女</option>
 					  <option value ="1">男</option>
 					</select>
 				</td>
         		<td><label>角色：</label></td>
         		<td>
-        			<select id="roleId" name="roleId">
+        			<select  name="roleId" class="roleId select">
 					  <option value ="1">普通用户</option>
 					  <option value ="2">管理员</option>
 					</select>
@@ -103,7 +113,7 @@
         	<tr>
         		<td><label>职务：</label></td>
         		<td>
-        			<select id="position" name="position">
+        			<select name="position" class="position select">
 					  <option value ="0">实习生</option>
 					  <option value ="1">客户经理</option>
 					  <option value ="2">部门经理</option>
@@ -111,7 +121,7 @@
 				</td>
         		<td><label>当前状态：</label></td>
         		<td>
-        			<select id="status" name="status">
+        			<select name="status" class="status select">
 					  <option value ="0">试用</option>
 					  <option value ="1">转正</option>
 					</select>
@@ -119,39 +129,39 @@
         	</tr>
 				<td><label>入行时间：</label></td>
         		<td>
-        			<input id="entryDate" name="entryDateStr" class="easyui-datebox" label="Customized Format:" labelPosition="top" data-options="formatter:myformatter,parser:myparser" style="width:100%;">
+        			<input name="entryDateStr" class="easyui-datebox entryDate" label="Customized Format:" labelPosition="top" data-options="formatter:myformatter,parser:myparser" style="width:160px">
 				</td>
         	<tr>
         	</tr>
         	<tr>
         		<td><label>籍贯：</label></td>
-        		<td><input id="nativePlace" name="nativePlace" type="text" value=""></input></td>
+        		<td><input class="nativePlace" name="nativePlace" type="text" value=""></input></td>
         		<td><label>民族：</label></td>
-        		<td><input id="nation" name="nation" type="text" value=""></input></td>
+        		<td><input class="nation" name="nation" type="text" value=""></input></td>
         	</tr>
         	<tr>
         		<td><label>政治面貌：</label></td>
         		<td>
-        			<select id="politicsStatus" name="politicsStatus">
+        			<select name="politicsStatus" class="politicsStatus select">
 					  <option value ="0">群众</option>
 					  <option value ="1">团员</option>
 					  <option value ="2">党员</option>
 					</select>
         		</td>
         		<td><label>身份证号：</label></td>
-        		<td><input id="certId" name="certId" type="text" value=""></input></td>
+        		<td><input class="certId" name="certId" type="text" value=""></input></td>
         	</tr>
         	<tr>
         		<td><label>电话：</label></td>
-        		<td><input id="phone" name="phone" type="text" value=""></input></td>
+        		<td><input class="phone" name="phone" type="text" value=""></input></td>
         		<td><label>手机号：</label></td>
-        		<td><input id="mobile" name="mobile" type="text" value=""></input></td>
+        		<td><input class="mobile" name="mobile" type="text" value=""></input></td>
         	</tr>
         	<tr>
         		<td><label>学校：</label></td>
-        		<td><input id="school" name="school" type="text" value=""></input></td>
+        		<td><input class="school" name="school" type="text" value=""></input></td>
         		<td><label>学历：</label></td>
-        		<td><select id="eduLevel" name="eduLevel">
+        		<td><select name="eduLevel" class="eduLevel select">
 					  <option value ="0">大专</option>
 					  <option value ="1">本科</option>
 					  <option value ="2">研究生</option>
@@ -161,40 +171,40 @@
         	</tr>
         	<tr>
         		<td><label>专业：</label></td>
-        		<td><input id="major" name="major" type="text" value=""></input></td>
+        		<td><input class="major" name="major" type="text" value=""></input></td>
         		<td><label>邮箱：</label></td>
-        		<td><input id="email" name = "email" type="text" value=""></input></td>
+        		<td><input class="email" name = "email" type="text" value=""></input></td>
         	</tr>
         	<tr>
         		<td><label>家庭住址：</label></td>
-        		<td colspan="3"><input id="homeAddress" name="homeAddress" type="text" value="" style="width: 400px; "></input></td>
+        		<td colspan="3"><input class="homeAddress" name="homeAddress" type="text" value="" style="width: 400px; "></input></td>
         	</tr>
         	<tr>
         		<td><label>爱好特长：</label></td>
-        		<td colspan="3"><textarea id="interest" name="interest" style="width: 400px; height: 80px;"></textarea></td>
+        		<td colspan="3"><textarea class="interest" name="interest" style="width: 400px; height: 80px;"></textarea></td>
         	</tr>
-        	<tr>
+<!--         	<tr>
 				<td><label>头像：</label></td>
 				<td>
 					<img id="imgHeadPhoto" src=""></img>
-					<input id="headPhoto" type="file" name="headPhoto">
+					<input id="headPhoto" type="file" name="headPhotoAttach">
 				</td>
-			</tr>  
+			</tr>  --> 
          	<tr>
 				<td><label>身份证正面：</label></td>
 				<td>
-					<img id="imgFront" src=""></img>
-					<input id="certFront" type="file" name="certFrontAttach">
+					<img class="imgFront" src=""></img>
+					<input class="certFront" type="file" name="certFrontAttach">
 				</td>  
 				<td><label>身份证反面：</label></td>
 				<td>
-					<img id="imgBack" src=""></img>
-					<input id="certBack" type="file" name="certBackAttach">
+					<img class="imgBack" src=""></img>
+					<input class="certBack" type="file" name="certBackAttach">
 				</td>  
 			</tr> 
         	<tr>
         		<td><label>其他备注：</label></td>
-        		<td colspan="3"><textarea id="remark" name="remark" style="width: 400px; height: 80px;"></textarea></td>
+        		<td colspan="3"><textarea class="remark" name="remark" style="width: 400px; height: 80px;"></textarea></td>
         	</tr>
         </table>
         <h2>二、个人简历</h2>
@@ -249,37 +259,37 @@
         <a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#w').window('close')">取消</a>
     	</div>
     </div>
-    <div id="mw" class="easyui-window" title="用户详情" data-options="modal:true,closed:true,cache:false,iconCls:'icon-save'" style="width:850px;height:600px;padding:10px;">
+    <div id="mw" class="easyui-window" title="用户详情" data-options="modal:true,closed:true,cache:false,iconCls:'icon-save'" style="width:850px;height:550px;padding:10px;">
         <form id="muserForm" method="post" action="${basePath}/user/updateUser.do" enctype="multipart/form-data">
         <h2>一、个人基本信息</h2>
         <table class="userInfo">
         	<tr>
         		<td><label>用户工号：</label></td>
         		<td>
-        			<input id="muserId" name="userId" type="text" value=""></input>
+        			<input class="muserId" name="userId" type="text" value="" readonly="readonly"></input>
         		</td>
         		<td><label>姓名：</label></td>
-        		<td><input id="mrealName" name="realName" type="text" value=""></input></td>
+        		<td><input class="mrealName" name="realName" type="text" value=""></input></td>
         	</tr>
         	<tr>
         		<td><label>部门：</label></td>
         		<td>
-        			<input id="mdeptId" name="deptId" class="easyui-combotree" data-options="url:'../dept/getDeptTree.do',method:'get',label:'Select Nodes:',labelPosition:'top',multiple:false" style="width:181px">
+        			<input name="deptId" class="easyui-combotree mdeptId" data-options="url:'../dept/getDeptTree.do',method:'get',label:'Select Nodes:',labelPosition:'top',multiple:false" style="width:160px">
         		</td>
         		 <td><label>生日：</label></td>
-        			<td><input id="mbirthday" name="birthdayStr" class="easyui-datebox" label="Customized Format:" labelPosition="top" data-options="formatter:myformatter,parser:myparser" style="width:100%;"></td> 
+        			<td><input name="birthdayStr" class="easyui-datebox mbirthday" label="Customized Format:" labelPosition="top" data-options="formatter:myformatter,parser:myparser" style="width:160px"></td> 
         	</tr>
         	<tr>
         		<td><label>性别：</label></td>
         		<td>
-        			<select id="msex" name="sex">
+        			<select name="sex" class="msex select">
 					  <option value ="0">女</option>
 					  <option value ="1">男</option>
 					</select>
 				</td>
         		<td><label>角色：</label></td>
         		<td>
-        			<select id="mroleId" name="roleId">
+        			<select name="roleId" class="mroleId select">
 					  <option value ="1">普通用户</option>
 					  <option value ="2">管理员</option>
 					</select>
@@ -288,7 +298,7 @@
         	<tr>
         		<td><label>职务：</label></td>
         		<td>
-        			<select id="mposition" name="position">
+        			<select name="position" class="mposition select">
 					  <option value ="0">实习生</option>
 					  <option value ="1">客户经理</option>
 					  <option value ="2">部门经理</option>
@@ -296,7 +306,7 @@
 				</td>
         		<td><label>当前状态：</label></td>
         		<td>
-        			<select id="mstatus" name="status">
+        			<select name="status" class="mstatus select">
 					  <option value ="0">试用</option>
 					  <option value ="1">转正</option>
 					</select>
@@ -304,39 +314,39 @@
         	</tr>
 				<td><label>入行时间：</label></td>
         		<td>
-        			<input id="mentryDate" name="entryDateStr" class="easyui-datebox" label="Customized Format:" labelPosition="top" data-options="formatter:myformatter,parser:myparser" style="width:100%;">
+        			<input name="entryDateStr" class="easyui-datebox mentryDate" label="Customized Format:" labelPosition="top" data-options="formatter:myformatter,parser:myparser" style="width:160px">
 				</td>
         	<tr>
         	</tr>
         	<tr>
         		<td><label>籍贯：</label></td>
-        		<td><input id="mnativePlace" name="nativePlace" type="text" value=""></input></td>
+        		<td><input class="mnativePlace" name="nativePlace" type="text" value=""></input></td>
         		<td><label>民族：</label></td>
-        		<td><input id="mnation" name="nation" type="text" value=""></input></td>
+        		<td><input class="mnation" name="nation" type="text" value=""></input></td>
         	</tr>
         	<tr>
         		<td><label>政治面貌：</label></td>
         		<td>
-        			<select id="mpoliticsStatus" name="politicsStatus">
+        			<select name="politicsStatus" class="mpoliticsStatus select">
 					  <option value ="0">群众</option>
 					  <option value ="1">团员</option>
 					  <option value ="2">党员</option>
 					</select>
         		</td>
         		<td><label>身份证号：</label></td>
-        		<td><input id="mcertId" name="certId" type="text" value=""></input></td>
+        		<td><input class="mcertId" name="certId" type="text" value=""></input></td>
         	</tr>
         	<tr>
         		<td><label>电话：</label></td>
-        		<td><input id="mphone" name="phone" type="text" value=""></input></td>
+        		<td><input class="mphone" name="phone" type="text" value=""></input></td>
         		<td><label>手机号：</label></td>
-        		<td><input id="mmobile" name="mobile" type="text" value=""></input></td>
+        		<td><input class="mmobile" name="mobile" type="text" value=""></input></td>
         	</tr>
         	<tr>
         		<td><label>学校：</label></td>
-        		<td><input id="mschool" name="school" type="text" value=""></input></td>
+        		<td><input class="mschool" name="school" type="text" value=""></input></td>
         		<td><label>学历：</label></td>
-        		<td><select id="meduLevel" name="eduLevel">
+        		<td><select name="eduLevel" class="meduLevel select">
 					  <option value ="0">大专</option>
 					  <option value ="1">本科</option>
 					  <option value ="2">研究生</option>
@@ -346,33 +356,33 @@
         	</tr>
         	<tr>
         		<td><label>专业：</label></td>
-        		<td><input id="mmajor" name="major" type="text" value=""></input></td>
+        		<td><input class="mmajor" name="major" type="text" value=""></input></td>
         		<td><label>邮箱：</label></td>
-        		<td><input id="memail" name = "email" type="text" value=""></input></td>
+        		<td><input class="memail" name = "email" type="text" value=""></input></td>
         	</tr>
         	<tr>
         		<td><label>家庭住址：</label></td>
-        		<td colspan="3"><input id="mhomeAddress" name="homeAddress" type="text" value="" style="width: 400px; "></input></td>
+        		<td colspan="3"><input class="mhomeAddress" name="homeAddress" type="text" value="" style="width: 400px; "></input></td>
         	</tr>
         	<tr>
         		<td><label>爱好特长：</label></td>
-        		<td colspan="3"><textarea id="minterest" name="interest" style="width: 400px; height: 80px;"></textarea></td>
+        		<td colspan="3"><textarea class="minterest" name="interest" style="width: 400px; height: 80px;"></textarea></td>
         	</tr>
          	<tr>
 				<td><label>身份证正面：</label></td>
 				<td>
-					<img id="mimgFront" src=""></img>
-					<input id="mcertFront" type="file" name="certFrontAttach">
+					<img class="mimgFront" src=""></img>
+					<input class="mcertFront" type="file" name="certFrontAttach">
 				</td>  
 				<td><label>身份证反面：</label></td>
 				<td>
-					<img id="mimgBack" src=""></img>
-					<input id="mcertBack" type="file" name="certBackAttach">
+					<img class="mimgBack" src=""></img>
+					<input class="mcertBack" type="file" name="certBackAttach">
 				</td>  
 			</tr> 
         	<tr>
         		<td><label>其他备注：</label></td>
-        		<td colspan="3"><textarea id="mremark" name="remark" style="width: 400px; height: 80px;"></textarea></td>
+        		<td colspan="3"><textarea class="mremark" name="remark" style="width: 400px; height: 80px;"></textarea></td>
         	</tr>
         </table>
         <h2>二、个人简历</h2>
@@ -411,24 +421,24 @@
         	</tr>
         </table>
         </form>
-        <div id="userMenuw" class="easyui-window" title="用户详情" data-options="modal:true,closed:true,cache:false,iconCls:'icon-save'" style="width:400px;height:300px;padding:10px;">
+        <div id="userMenuw" class="easyui-window" title="设置菜单" data-options="modal:true,closed:true,cache:false,iconCls:'icon-save'" style="width:400px;height:300px;padding:10px;">
         <form id="userMenuForm" method="post" action="${basePath}/user/addUserMenu.do" enctype="multipart/form-data">
         <table class="userInfo">
         	<tr>
         		<td><label>用户工号：</label></td>
         		<td>
-        			<input id="menuUserId" name="userId" type="text" value=""></input>
+        			<input class="menuUserId" name="userId" type="text" value="" readonly="readonly"></input>
         		</td>
         	</tr>
         	<tr>
         		<td><label>姓名：</label></td>
-        		<td><input id="menuRealName" name="realName" type="text" value=""></input></td>
+        		<td><input class="menuRealName" name="realName" type="text" value=""></input></td>
         	</tr>
         	<tr>
         		<td><label>菜单：</label></td>
         		<td>
-        			<!-- <input id="amenuIds" name="menuIds" class="easyui-combotree" data-options="url:'../menu/getMenuTree.do',method:'get',label:'Select Nodes:',labelPosition:'top',multiple:true" style="width:181px"> -->
-        			<input id="amenuIds" name="menuIds" class="easyui-tree" data-options="url:'../menu/getMenuTree.do',method:'get',label:'Select Nodes:',labelPosition:'top',multiple:true" style="width:181px">
+        			 <input name="menuIds" class="easyui-combotree amenuIds" data-options="url:'../menu/getMenuTree.do',method:'get',label:'Select Nodes:',labelPosition:'top',multiple:true" style="width:200px"> 
+        			<!-- <input id="amenuIds" name="menuIds" class="easyui-tree" data-options="url:'../menu/getMenuTree.do',method:'get',label:'Select Nodes:',labelPosition:'top',multiple:true" style="width:160px"> -->
         		</td>
         	</tr>
         	</table>
@@ -439,7 +449,7 @@
         <div style="margin:20px 0;">
          <a href="javascript:void(0)" class="easyui-linkbutton update" id="update" onclick="User.updateUser()">保存</a> 
         <!-- <a href="javascript:void(0)" class="easyui-linkbutton" id="add" onclick="User.addUser()">保存</a> -->
-        <a href="javascript:void(0)" class="easyui-linkbutton cancle" onclick="$('#w').window('close')">取消</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton cancle" onclick="$('#mw').window('close')">取消</a>
     	</div>
     </div>
 </div>

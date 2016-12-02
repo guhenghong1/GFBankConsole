@@ -74,6 +74,7 @@
 	<update id="updateUser" parameterType="UserForm">
 		update tb_user 
 			<set>
+				sex = #{sex, jdbcType=INTEGER},
 				<if test="realName != null and realName != ''">
 				 	realName = #{realName, jdbcType=VARCHAR},
 				 </if>
@@ -98,9 +99,7 @@
 				 <if test="birthday != null and birthday != ''">
 				 	birthday = #{birthday, jdbcType=DATE},
 				 </if>
-				 <if test="sex != null and sex != ''">
-				 	sex = #{sex, jdbcType=VARCHAR},
-				 </if>
+				 
 				 <if test="position != null and position != ''">
 				 	position = #{position, jdbcType=VARCHAR},
 				 </if>
@@ -176,9 +175,9 @@
 	    SELECT   
 		    	count(1) as sum
 		    FROM
-		      tb_user u, tb_dept d, tb_role r
+		      tb_user u left join tb_dept d on  u.deptId = d.deptId 
+		      left join tb_role r on u.roleId = r.roleId
 		    <where>
-		    	u.deptId = d.deptId and u.roleId = r.roleId
 		    	<if test="realName != null and realName != ''">
 					and u.realName like '%${realName}%'
 				</if>
@@ -242,9 +241,9 @@
 		 	  	 r.roleName,
 		    	<include refid="columns"/>
 		    FROM
-		      tb_user u, tb_dept d, tb_role r
+		      tb_user u left join tb_dept d on  u.deptId = d.deptId 
+		      left join tb_role r on u.roleId = r.roleId
 		    <where>
-		    	u.deptId = d.deptId and u.roleId = r.roleId
 		    	<if test="realName != null and realName != ''">
 					and u.realName like '%${realName}%'
 				</if>
@@ -287,10 +286,12 @@
 	<!--查询用户信息 -->
  	<select id="getUserInfo" resultType="UserVO">
 	    SELECT
+	      d.deptName,
 	      <include refid="columns"/>
 	    FROM
-	      tb_user u
-	    where u.userId = #{userId, jdbcType=VARCHAR}
+	      tb_user u, tb_dept d
+	    where u.deptId = d.deptId
+	    and u.userId = #{userId, jdbcType=VARCHAR}
 	</select>
 	
 </mapper>

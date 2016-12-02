@@ -1,21 +1,17 @@
 package com.bank.console.customer.service;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bank.console.common.util.CSVUtil;
+import com.bank.console.common.DBIndex.CommonService;
 import com.bank.console.customer.model.Customer;
 import com.bank.console.customer.vo.CustomerVo;
 import com.bank.console.mapper.CustomerMapper;
-import com.bank.console.system.form.UserForm;
-import com.bank.console.system.vo.UserVO;
 
 /**
  * 
@@ -25,9 +21,12 @@ import com.bank.console.system.vo.UserVO;
  */
 @Service
 public class CustomerService {
-	
 	@Resource
 	private CustomerMapper customerMapper;
+	@Autowired
+	private CommonService commonService;
+	
+	private static final String TABLE_NAME = "tb_customer";
 	
 	/**
 	 * 增加客户
@@ -35,6 +34,8 @@ public class CustomerService {
 	 * @return
 	 */
 	public int addCustomer(Customer customer){
+		long nextId = commonService.getNextId(TABLE_NAME);
+		customer.setId(nextId + "");
 		return customerMapper.addCustomer(customer);
 	}
 	

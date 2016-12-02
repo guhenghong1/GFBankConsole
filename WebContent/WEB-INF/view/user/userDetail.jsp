@@ -44,8 +44,9 @@ $(function() {
 		success:function(data) {
 			var data = JSON.parse(data);
 			var userInfo = data.obj;
-			console.log(data);
+			//console.log(data);
 			var user = userInfo.user;
+			//console.log(JSON.stringify(user));
 			var colleagueList = userInfo.colleagueList;
 			var customerList = userInfo.customerList;
 			

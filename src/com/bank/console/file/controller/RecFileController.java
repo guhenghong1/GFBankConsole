@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -56,10 +57,12 @@ public class RecFileController {
 		ResultUtil result = new ResultUtil();
 		int res = 0;
 		try {
-			Date createDate = DateUtil.defaultStrToDate(form.getCreateDateStr());
-			if(createDate != null) {
-				form.setCreateDate(createDate);
+			String createDateStr = form.getCreateDateStr();
+			Date createDate = new Date();
+			if(!StringUtils.isEmpty(createDateStr)) {
+				createDate = DateUtil.defaultStrToDate(createDateStr);
 			}
+			form.setCreateDate(createDate);
 			res = recFileService.addFile(form);
 			int code = res >=1? Constant.SUCCESS_CODE: Constant.ERROR_CODE;
 			result.setCode(code);
@@ -85,13 +88,15 @@ public class RecFileController {
 		//MultipartFile 
 		ResultUtil result = new ResultUtil();
 		try {
-		if (req.getCharacterEncoding() == null) {
-			req.setCharacterEncoding("UTF-8");//你的编码格式
-			}
-		
-		int res = 0;
-			Date createDate = DateUtil.defaultStrToDate(form.getCreateDateStr());
-			if(createDate != null) {
+			if (req.getCharacterEncoding() == null) {
+				req.setCharacterEncoding("UTF-8");//你的编码格式
+				}
+			
+			int res = 0;
+			String createDateStr = form.getCreateDateStr();
+			Date createDate = new Date();
+			if(!StringUtils.isEmpty(createDateStr)) {
+				createDate = DateUtil.defaultStrToDate(createDateStr);
 				form.setCreateDate(createDate);
 			}
 			
@@ -117,14 +122,24 @@ public class RecFileController {
 	@RequestMapping("/getFileList")
 	@ResponseBody
 	public String getFileList(@RequestParam(value="fileId") String fileId, 
+			@RequestParam(value="fileTitle") String fileTitle, 
 			@RequestParam(value="keyWords") String keyWords, 
 			@RequestParam(value="deptId") String deptId, 
+			@RequestParam(value="status") String status, 
+			@RequestParam(value="startDate") String startDate, 
+			@RequestParam(value="endDate") String endDate, 
 			@RequestParam(value="pageNum", defaultValue="1") String pageNum, 
 			@RequestParam(value="pageSize", defaultValue="10") String pageSize) {
 		RecFileForm form = new RecFileForm();
 		form.setFileId(fileId);
-//		form.setKeyWords(keyWords);
-//		form.setDeptId(deptId);
+		form.setFileTitle(fileTitle);
+		form.setKeyWords(keyWords);
+		form.setDeptId(deptId);
+		form.setStatus(status);
+		form.setStartDate(startDate);
+		if(!StringUtils.isEmpty(endDate)) {
+			form.setEndDate(endDate+" 23:59:59");
+		}
 		
 		int total = recFileService.getFileSum(form);
 		

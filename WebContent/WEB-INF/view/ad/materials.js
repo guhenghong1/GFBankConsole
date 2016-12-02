@@ -1,14 +1,4 @@
-/*
- * Copyright (c) 2014. 广州互动生活网络科技有限公司.All Rights Reserved.
- */
 
-/**
- * Created by ylh on 14-6-4.
- */
-Do.add("constant", {
-    path: "/proxy/www/js/global/constant.js",
-    type: "js"
-});
 var material_img = new Image();
 var defaultImage = "/images/image200.jpg";
 var materials = {

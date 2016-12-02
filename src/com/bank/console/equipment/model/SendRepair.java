@@ -10,7 +10,7 @@ import java.util.Date;
  */
 public class SendRepair {
 	
-	private Integer id;			//编号
+	private long id;			//编号
 	private String equipmentId;	//设备编号
 	private Date createTime;	//创建时间
 	private Date updateTime;	//修改时间
@@ -19,13 +19,15 @@ public class SendRepair {
 		
 	}
 
-	public Integer getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(long id) {
 		this.id = id;
 	}
+
+
 
 	public String getEquipmentId() {
 		return equipmentId;

@@ -17,7 +17,7 @@ import org.apache.log4j.Logger;
 public class CSVUtil {
 	private static Logger log = Logger.getLogger(CSVUtil.class);
 	
-	public static File createCSVFile(List dataList, Map map, String outPutPath, String fileName) {
+	public static File createCSVFile(List dataList, LinkedHashMap map, String outPutPath, String fileName) {
 		File csvFile = null;
 		BufferedWriter out = null;
 		File file = new File(outPutPath+fileName+".csv");
@@ -45,9 +45,12 @@ public class CSVUtil {
 			//数据
 			for(Iterator d = dataList.iterator(); d.hasNext();) {
 				Map row = (Map) d.next();
+				
 				for(Iterator m = map.keySet().iterator(); m.hasNext();) {
 					String key = (String)m.next();
 					String dataValue = row.get(key) == null?"":row.get(key).toString();
+					dataValue = dataValue.trim()+"";
+					dataValue = dataValue.replace("\r\n", "").replace("\n", "").replace("\n", "");
 					out.write(dataValue);
 					if(m.hasNext()) {
 						out.write(",");

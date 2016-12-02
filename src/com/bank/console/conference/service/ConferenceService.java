@@ -9,6 +9,7 @@ import com.bank.console.common.DBIndex.CommonService;
 import com.bank.console.conference.form.ConferenceForm;
 import com.bank.console.conference.vo.ConferenceVO;
 import com.bank.console.mapper.ConferenceMapper;
+import com.bank.console.system.service.TableIdService;
 
 @Service
 public class ConferenceService {
@@ -17,7 +18,10 @@ public class ConferenceService {
 	@Autowired
 	private CommonService commonService;
 	
-	private static final String TABLENAME = "tb_conference";
+	@Autowired
+	private TableIdService tableIdService;
+	
+	private static final String TABLE_NAME = "tb_warrant";
 	
 	/**
 	 * 新增文件
@@ -26,7 +30,7 @@ public class ConferenceService {
 	 * @throws Exception 
 	 */
 	public int addConference(ConferenceForm form) throws Exception {
-		String nextId = commonService.getNextId(TABLENAME);
+		String nextId = commonService.getNextId(TABLE_NAME) + "";
 		form.setId(nextId);
 		return conferenceMapper.addConference(form);
 	}

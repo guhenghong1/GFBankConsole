@@ -13,6 +13,8 @@ public class DateUtil {
 	
 	public static final String str2DayFormate = "yyyyMMdd";
 	
+	public static final String str2DateFormate = "yyyyMMddHHmmss";
+	
 	/**
 	 * 默认转str
 	 * @param date

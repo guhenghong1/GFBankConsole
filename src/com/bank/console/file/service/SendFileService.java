@@ -14,6 +14,7 @@ import com.bank.console.common.util.FileUtil;
 import com.bank.console.file.form.SendFileForm;
 import com.bank.console.file.vo.SendFileVO;
 import com.bank.console.mapper.SendFileMapper;
+import com.bank.console.system.service.TableIdService;
 
 @Service
 public class SendFileService {
@@ -21,8 +22,11 @@ public class SendFileService {
 	private SendFileMapper sendFileMapper;
 	@Autowired
 	private CommonService commonService;
+//	@Autowired
+//	private TableIdService tableIdService;
 	
-	private static final String TABLENAME = "tb_send_file";
+	private static final String TABLE_NAME = "tb_send_file";
+	private static final String ID = "fileId";
 	
 	/**
 	 * 新增文件
@@ -36,7 +40,7 @@ public class SendFileService {
 		String attachment = FileUtil.saveFile(fileItem, path);
 		form.setAttachment(attachment);
 		
-		String nextId = commonService.getNextId(TABLENAME);
+		String nextId = commonService.getNextId(TABLE_NAME, ID) + "";
 		
 		form.setFileId(nextId);
 		
@@ -48,7 +52,11 @@ public class SendFileService {
 	 * @param file
 	 * @return
 	 */
-	public int updateFile(SendFileForm file) {
+	public int updateFile(SendFileForm file) throws Exception{
+		String path = ConfigProperty.UPLOAD_FILE_PATH + File.separator + FilePath.SEND_FILE + File.separator;
+		MultipartFile fileItem = file.getFileItem();
+		String attachment = FileUtil.saveFile(fileItem, path);
+		file.setAttachment(attachment);
 		return sendFileMapper.updateFile(file);
 	}
 	

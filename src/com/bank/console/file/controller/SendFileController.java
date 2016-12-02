@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,6 +20,7 @@ import com.bank.console.common.Pager;
 import com.bank.console.common.interceptor.Permission;
 import com.bank.console.common.util.DateUtil;
 import com.bank.console.common.util.ResultUtil;
+import com.bank.console.file.form.RecFileForm;
 import com.bank.console.file.form.SendFileForm;
 import com.bank.console.file.service.SendFileService;
 import com.bank.console.file.vo.SendFileVO;
@@ -57,9 +59,10 @@ public class SendFileController {
 		ResultUtil result = new ResultUtil();
 		int res = 0;
 		try {
-			Date createDate = DateUtil.defaultStrToDate(form.getCreateDateStr());
-			if(createDate != null) {
-				form.setCreateDate(createDate);
+			String createDateStr = form.getCreateDateStr();
+			Date createDate = new Date();
+			if(!StringUtils.isEmpty(createDateStr)) {
+				createDate = DateUtil.defaultStrToDate(createDateStr);
 			}
 			
 			res = sendFileService.addFile(form);
@@ -116,14 +119,21 @@ public class SendFileController {
 	@Permission
 	@RequestMapping("/getFileList")
 	@ResponseBody
-	public String getFileList(@RequestParam(value = "fileId") String fileId,
-			@RequestParam(value = "keyWords") String keyWords, @RequestParam(value = "deptId") String deptId,
-			@RequestParam(value = "pageNum", defaultValue = "1") String pageNum,
-			@RequestParam(value = "pageSize", defaultValue = "10") String pageSize) {
+	public String getFileList(@RequestParam(value="fileId") String fileId, 
+			@RequestParam(value="fileTitle") String fileTitle, 
+			@RequestParam(value="keyWords") String keyWords, 
+			@RequestParam(value="startDate") String startDate, 
+			@RequestParam(value="endDate") String endDate, 
+			@RequestParam(value="pageNum", defaultValue="1") String pageNum, 
+			@RequestParam(value="pageSize", defaultValue="10") String pageSize) {
 		SendFileForm form = new SendFileForm();
 		form.setFileId(fileId);
+		form.setFileTitle(fileTitle);
 		form.setKeyWords(keyWords);
-		form.setDeptId(deptId);
+		form.setStartDate(startDate);
+		if(!StringUtils.isEmpty(endDate)) {
+			form.setEndDate(endDate+" 23:59:59");
+		}
 
 		int total = sendFileService.getFileSum(form);
 

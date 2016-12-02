@@ -39,7 +39,7 @@
     JasperReport jasperReport = (JasperReport) JRLoader.loadObject(reportFile);  
     
     Class.forName("com.mysql.jdbc.Driver");
-    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/water", "root", "zzx");
+    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/water", "root", "123456");
     JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, conn);
     JRHtmlExporter exporter = new JRHtmlExporter();
     //request.getSession().setAttribute(ImageServlet.DEFAULT_JASPER_PRINT_SESSION_ATTRIBUTE,exporter);

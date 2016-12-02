@@ -9,9 +9,9 @@
 	   		borrower,
 	   		normLimit,
 	   		propertyOwner,
-	   		cardId,
-	   		deptId,
-	   		remark,
+	   		cardName,
+	   		deptName,
+	   		remarkName,
 	   		status,
 	   		createDate,
 	   		updateDate
@@ -21,9 +21,9 @@
 	   	 	#{borrower, jdbcType=DATE},
 	   	 	#{normLimit, jdbcType=INTEGER},
 	   	 	#{propertyOwner, jdbcType=VARCHAR},
-	   	 	#{cardId, jdbcType=VARCHAR},
-	   	 	#{deptId, jdbcType=VARCHAR},
-	   	 	#{remark, jdbcType=VARCHAR},
+	   	 	#{cardName, jdbcType=VARCHAR},
+	   	 	#{deptName, jdbcType=VARCHAR},
+	   	 	#{remarkName, jdbcType=VARCHAR},
 	   	 	0,
 	   	 	now(),
 	   	 	now()
@@ -46,14 +46,14 @@
 				 <if test="propertyOwner != null and propertyOwner != ''">
 				 	propertyOwner = #{propertyOwner, jdbcType=DATE},
 				 </if>
-				 <if test="cardId != null and cardId != ''">
-				 	cardId = #{cardId, jdbcType=VARCHAR},
+				 <if test="cardName != null and cardName != ''">
+				 	cardName = #{cardName, jdbcType=VARCHAR},
 				 </if>
-				 <if test="deptId != null and deptId != ''">
-				 	deptId = #{deptId, jdbcType=VARCHAR},
+				 <if test="deptName != null and deptName != ''">
+				 	deptName = #{deptName, jdbcType=VARCHAR},
 				 </if>
-				 <if test="remark != null and remark != ''">
-				 	remark = #{remark, jdbcType=VARCHAR},
+				 <if test="remarkName != null and remarkName != ''">
+				 	remarkName = #{remarkName, jdbcType=VARCHAR},
 				 </if>
 				 <if test="status != null and status != ''">
 				 	status = #{status, jdbcType=INTEGER},
@@ -73,69 +73,70 @@
 	    SELECT
 	      COUNT(1) AS sum
 	    FROM
-	      tb_warrant
+		      tb_warrant w 
 	     <where>
 		    	<if test=" borrower != null and borrower != ''">
-					 borrower like '%${borrower}%'
+					w.borrower like '%${borrower}%'
 				</if>
 				<if test="id != null and id != ''">
-					and id = #{id, jdbcType=VARCHAR}
+					and w.id = #{id, jdbcType=VARCHAR}
 				</if>
 				<if test="status != -1">
-					and status = #{status, jdbcType=INTEGER}
+					and w.status = #{status, jdbcType=INTEGER}
 				</if>
 				<if test="startDate != null and startDate !=''">
 					<![CDATA[
-						and createDate >= DATE_FORMAT(#{startDate, jdbType=VARCHAR}, '%Y-%m-%d')
+						and w.createDate >= DATE_FORMAT(#{startDate, jdbType=VARCHAR}, '%Y-%m-%d')
 					]]>
 				</if>
 				<if test="endDate != null and endDate !=''">
 					<![CDATA[
-						and createDate <= DATE_FORMAT(#{endDate, jdbType=VARCHAR}, '%Y-%m-%d')
+						and w.createDate <= DATE_FORMAT(#{endDate, jdbType=VARCHAR}, '%Y-%m-%d %H:%i:%s')
 					]]>
 				</if>
 		    </where>
 	</select>
 	
 	<sql id="columns">
-	   		id,
-	   		type,
-	   		borrower,
-	   		normLimit,
-	   		propertyOwner,
-	   		cardId,
-	   		deptId,
-	   		remark,
-	   		createDate,
-	   		updateDate,
-		    DATE_FORMAT(createDate,'%Y-%m-%d %H:%i:%s')   AS createDateStr,
-		    DATE_FORMAT(updateDate,'%Y-%m-%d %H:%i:%s')   AS updateDateStr
+	   		w.id,
+	   		w.type,
+	   		w.status,
+	   		w.borrower,
+	   		w.normLimit,
+	   		w.propertyOwner,
+	   		w.cardName,
+	   		w.deptName,
+	   		w.remarkName,
+	   		w.createDate,
+	   		w.updateDate,
+		    DATE_FORMAT(w.createDate,'%Y-%m-%d %H:%i:%s')   AS createDateStr,
+		    DATE_FORMAT(w.updateDate,'%Y-%m-%d %H:%i:%s')   AS updateDateStr
 	</sql>
 	
 	<!-- 查询 -->
  	<select id="getWarrantList" resultType="WarrantVO">
-		 	SELECT   
+		 	SELECT
 		    	<include refid="columns"/>
 		    FROM
-		      tb_warrant
+		      tb_warrant w 
 		      <where>
 		    	<if test=" borrower != null and borrower != ''">
-					 borrower like '%${borrower}%'
+					w.borrower like '%${borrower}%'
 				</if>
 				<if test="id != null and id != ''">
-					and id = #{id, jdbcType=VARCHAR}
+					and w.id = #{id, jdbcType=VARCHAR}
 				</if>
 				<if test="status != -1">
-					and status = #{status, jdbcType=INTEGER}
+					and w.status = #{status, jdbcType=INTEGER}
 				</if>
 				<if test="startDate != null and startDate !=''">
 					<![CDATA[
-						and createDate >= DATE_FORMAT(#{startDate, jdbType=VARCHAR}, '%Y-%m-%d')
+						and w.createDate >= DATE_FORMAT(#{startDate, jdbType=VARCHAR}, '%Y-%m-%d')
 					]]>
 				</if>
 				<if test="endDate != null and endDate !=''">
 					<![CDATA[
-						and createDate <= DATE_FORMAT(#{endDate, jdbType=VARCHAR}, '%Y-%m-%d')
+						and w.createDate <= DATE_FORMAT(#{endDate, jdbType=VARCHAR}, '%Y-%m-%d %H:%i:%s')
 					]]>
 				</if>
 		    </where>
@@ -148,8 +149,8 @@
 	    SELECT
 	       <include refid="columns"/>
 	    from
-	      tb_warrant
-	    where id = #{id, jdbcType=VARCHAR}
+	      tb_warrant w
+	    where w.id = #{id, jdbcType=VARCHAR}
 	</select>
 	
 	<!-- 查询最大 -->

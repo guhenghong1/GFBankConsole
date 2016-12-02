@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -25,8 +26,8 @@ import com.bank.console.common.Pager;
 import com.bank.console.common.interceptor.Permission;
 import com.bank.console.common.util.CalendarUtil;
 import com.bank.console.common.util.DateUtil;
-import com.bank.console.common.util.MD5Util;
 import com.bank.console.common.util.ResultUtil;
+import com.bank.console.common.util.encrypt.MD5Util;
 import com.bank.console.customer.service.CustomerService;
 import com.bank.console.customer.vo.CustomerVo;
 import com.bank.console.system.form.UserForm;
@@ -119,7 +120,7 @@ public class UserController {
 	@RequestMapping("/updateUser")
 	@ResponseBody
 	public String updateUser(@ModelAttribute("userForm") UserForm form) {
-		Date birthday = DateUtil.strToDate(form.getEntryDateStr(), DateUtil.str2CalenderFormate);
+		Date birthday = DateUtil.strToDate(form.getBirthdayStr(), DateUtil.str2CalenderFormate);
 		if(birthday != null) {
 			form.setBirthday(birthday);
 		}
@@ -164,7 +165,18 @@ public class UserController {
 			form.setEntryDate(entryDate);
 		}
 		
-		int res = userService.addUser(form);
+		String userId = form.getUserId();
+		UserVO user = userService.getUserInfo(userId);
+		int res = 0;
+		if(user != null) {
+			int code =  Constant.USER_ID_IS_EXISTED;
+			ResultUtil result = new ResultUtil();
+			result.setCode(code);
+			result.setMsg(Constant.USER_ID_IS_EXISTED_MSG);
+			return JSONObject.fromObject(result).toString();
+		} 
+		
+		res = userService.addUser(form);
 		
 		int code = res >=1? Constant.SUCCESS_CODE: Constant.ERROR_CODE;
 		ResultUtil result = new ResultUtil();
@@ -254,12 +266,12 @@ public class UserController {
 		form.setRealName(realName);
 		form.setPhone(phone);
 		form.setMobile(mobile);
-		form.setStartRow(1);
+		form.setStartRow(0);
 		form.setEndRow(1000);
 		
 		String path = ConfigProperty.EXPORT_FILE_PATH + File.separator + FilePath.EXPORT_USER + File.separator 
 				+ DateUtil.formateDateToStr(new Date(), DateUtil.str2DayFormate)+File.separator;
-		String fileName = "user-"+DateUtil.formateDateToStr(new Date(), DateUtil.str2DayFormate);
+		String fileName = "user-"+DateUtil.formateDateToStr(new Date(), DateUtil.str2DateFormate);
 		path = path.replace("\\", "/");
 		File file = userService.createCSVData(form, path, fileName);
 		

@@ -99,6 +99,8 @@ public class FileController {
 			HttpServletResponse response) {
 		InputStream in = null;
 		try {
+			filePath = new String(filePath.getBytes("ISO-8859-1"), "UTF-8");
+			filePath = filePath.replace("\\","/");
 			String fileName = filePath.substring(filePath.lastIndexOf("/") + 1, filePath.length());
 			response.setContentType("application/csv;charset=UTF-8");
 			response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(fileName, "UTF-8"));

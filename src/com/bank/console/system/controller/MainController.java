@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bank.console.common.Constant;
 import com.bank.console.common.interceptor.Permission;
-import com.bank.console.common.util.MD5Util;
 import com.bank.console.common.util.ResultUtil;
+import com.bank.console.common.util.encrypt.MD5Util;
 import com.bank.console.system.form.UserForm;
 import com.bank.console.system.model.User;
 import com.bank.console.system.service.UserService;

@@ -1,6 +1,7 @@
 package com.bank.console.file.service;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -8,15 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.bank.console.common.BusinessConstant;
 import com.bank.console.common.ConfigProperty;
 import com.bank.console.common.FilePath;
 import com.bank.console.common.DBIndex.CommonService;
 import com.bank.console.common.util.DateUtil;
 import com.bank.console.common.util.FileUtil;
 import com.bank.console.file.form.RecFileForm;
-import com.bank.console.file.model.RecFile;
 import com.bank.console.file.vo.RecFileVO;
-import com.bank.console.mapper.CommonMapper;
 import com.bank.console.mapper.RecFileMapper;
 
 @Service
@@ -25,8 +25,13 @@ public class RecFileService {
 	private RecFileMapper recFileMapper;
 	@Autowired
 	private CommonService commonService;
+//	@Autowired
+//	private TableIdService tableIdService;
 	
-	private static final String TABLENAME = "tb_recevice_file";
+	private static final String TABLE_NAME = "tb_recevice_file";
+	private static final String ID = "fileId";
+	
+	
 	
 	/**
 	 * 新增文件
@@ -42,7 +47,7 @@ public class RecFileService {
 		String attachment = FileUtil.saveFile(fileItem, path);
 		form.setAttachment(attachment);
 		
-		String nextId = commonService.getNextId(TABLENAME);
+		String nextId = commonService.getNextId(TABLE_NAME, ID) + "";
 		form.setFileId(nextId);
 		return recFileMapper.addFile(form);
 	}
@@ -77,8 +82,14 @@ public class RecFileService {
 	 * @param file
 	 * @return
 	 */
-	public List<RecFileVO> getFileList(RecFileForm file) {
-		return recFileMapper.getFileList(file);
+	public List<RecFileVO> getFileList(RecFileForm form) {
+		List<RecFileVO> fileList = new ArrayList<RecFileVO>();
+		List<RecFileVO> list = recFileMapper.getFileList(form);
+		for(RecFileVO file : list) {
+			file.setStatus(BusinessConstant.FILE_STATUS.get(file.getStatus()));
+			fileList.add(file);
+		}
+		return fileList;
 	}
 	
 	/**

@@ -25,8 +25,14 @@ public class UserMenuService {
 	private UserMenuMapper userMenuMapper;
 	@Autowired
 	private MenuService menuService;
+	
+	@Autowired
+	private TableIdService tableIdService;
+	
+	private static final String TABLE_NAME = "tb_menu";
 
 	private static final String ROOTID = "0001"; // 根节点
+	private static final String MENU_OPERATE = "oper-"; // 具体功能取消菜单（增删改查）
 
 	/**
 	 * 设置用户的菜单项
@@ -40,26 +46,58 @@ public class UserMenuService {
 		List<String> menuIds = StringUtil.str2List(menuIdStr, ",");
 
 		int res = 1;
+		String gnMenuId = "";
 		for (String menuId : menuIds) {
-			UserMenu userMenu = new UserMenu();
-			userMenu.setUserId(form.getUserId());
-			userMenu.setMenuId(menuId);
-			res = userMenuMapper.addUserMenu(userMenu);
-			
-			MenuVO menu = menuService.getMenuInfo(menuId);
-			String supMId = menu.getSuperMenuId();
-			if(!ROOTID.equals(supMId)) {
-				UserMenuVO userMenuVO = userMenuMapper.getUserMenu(form.getUserId(), supMId);
-				if(userMenuVO == null) {
-					UserMenu userSupMenu = new UserMenu();
-					userSupMenu.setUserId(form.getUserId());
-					userSupMenu.setMenuId(supMId);
-					res = userMenuMapper.addUserMenu(userSupMenu);
-				}
-			}
+				UserMenu userMenu = new UserMenu();
+				userMenu.setUserId(form.getUserId());
+				userMenu.setMenuId(menuId);
+				res = userMenuMapper.addUserMenu(userMenu);
+				
 		}
 		return res;
 	}
+//	/**
+//	 * 设置用户的菜单项
+//	 * 
+//	 * @param form
+//	 * @return
+//	 */
+//	public int addUserMenu(UserMenuForm form) {
+//		
+//		String menuIdStr = form.getMenuIds();
+//		List<String> menuIds = StringUtil.str2List(menuIdStr, ",");
+//		
+//		int res = 1;
+//		String gnMenuId = "";
+//		for (int i = 0; i<menuIds.size(); i++) {
+//			String menuId = menuIds.get(i);
+//			if(menuId.contains(MENU_OPERATE)) {//配置   增删改查
+//				int t = i-1;
+//				gnMenuId = menuIds.get(t);
+//				if(!gnMenuId.contains(MENU_OPERATE)) {
+//					
+//				}
+//			} else {
+//				UserMenu userMenu = new UserMenu();
+//				userMenu.setUserId(form.getUserId());
+//				userMenu.setMenuId(menuId);
+//				res = userMenuMapper.addUserMenu(userMenu);
+//				
+//				MenuVO menu = menuService.getMenuInfo(menuId);
+//				String supMId = menu.getSuperMenuId();
+//				if(!ROOTID.equals(supMId)) {
+//					UserMenuVO userMenuVO = userMenuMapper.getUserMenu(form.getUserId(), supMId);
+//					if(userMenuVO == null) {
+//						UserMenu userSupMenu = new UserMenu();
+//						userSupMenu.setUserId(form.getUserId());
+//						userSupMenu.setMenuId(supMId);
+//						res = userMenuMapper.addUserMenu(userSupMenu);
+//					}
+//				}
+//			}
+//		}
+//		return res;
+//	}
 
 	/**
 	 * 删除用户的菜单项

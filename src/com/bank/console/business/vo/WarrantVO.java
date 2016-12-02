@@ -11,11 +11,15 @@ public class WarrantVO {
 	private int normLimit;	//额度
 	private String propertyOwner;		//产权所有人
 	private String cardId;	//权证证号
+	private String cardName;	//权证证号
 	private String deptId;	//登记部门
+	private String deptName;	//登记部门
 	private String remark;		//备注
+	private String remarkName;		//备注
 	private String createDateStr;	//创建时间
 	private Date createDate;
 	private int status;		//状态 0待入库  1已入库  2出库
+	private String statusStr;		//状态 0待入库  1已入库  2出库
 	public String getId() {
 		return id;
 	}
@@ -94,4 +98,29 @@ public class WarrantVO {
 	public void setStatus(int status) {
 		this.status = status;
 	}
+	public String getCardName() {
+		return cardName;
+	}
+	public void setCardName(String cardName) {
+		this.cardName = cardName;
+	}
+	public String getDeptName() {
+		return deptName;
+	}
+	public void setDeptName(String deptName) {
+		this.deptName = deptName;
+	}
+	public String getRemarkName() {
+		return remarkName;
+	}
+	public void setRemarkName(String remarkName) {
+		this.remarkName = remarkName;
+	}
+	public String getStatusStr() {
+		return statusStr;
+	}
+	public void setStatusStr(String statusStr) {
+		this.statusStr = statusStr;
+	}
+	
 }

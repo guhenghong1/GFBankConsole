@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bank.console.mapper.TableIdMapper">
+	<select id="addTableId">
+		 	insert into tb_table_id(
+		 		tableName,
+		 		maxId
+		 	) values(
+			 	#{tableName, jdbcType=VARCHAR},
+			 	#{maxId, jdbcType=INTEGER}
+		 	)
+	</select>
+	
+	<select id="getTableId" resultType="com.bank.console.system.model.TableId" >
+		 	SELECT maxId  FROM tb_table_id where tableName = #{tableName, jdbcType=VARCHAR}
+	</select>
+	
+	<update id="updateTableId" >
+		 	update tb_table_id set id=#{maxId, jdbcType=INTEGER} where tableName = #{tableName, jdbcType=VARCHAR}
+	</update>
+	
+</mapper>

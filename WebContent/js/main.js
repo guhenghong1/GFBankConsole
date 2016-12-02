@@ -73,7 +73,35 @@ function openTab(title, url) {
 		});
 	}
 }
+
+function destroyTabs() {
+	$('#w_tabs').tabs({
+		onBeforeClose: function(title, index) {
+			var _this = this;
+			var _options = $(_this).tabs('options');
+			
+			var _title = _options.title;
+			console.log("title== "+title);
+			var _panel = $(_this).tabs('getSelected');
+			var panelObj = $(_panel).panel('panel');
+			$(_panel).panel('destroy');
+        }
+	});
+}
 $(function() {
 //   Main.init();
 	openTab("用户基本信息","../user/detail.do");
+	
+//	destroyTabs();
+	$.fn.panel.defaults.onBeforeDestroy = function() {/* 回收内存 */  
+        var frame = $('iframe', this);  
+        if (frame.length > 0) {  
+            frame[0].contentWindow.document.write('');  
+            frame[0].contentWindow.close();  
+            frame.remove();  
+            if ($.browser.msie) {  
+                CollectGarbage();  
+            }  
+        }  
+    }; 
 });

@@ -66,12 +66,12 @@
 				</if>
 				<if test="startDate != null and startDate !=''">
 					<![CDATA[
-						and time >= DATE_FORMAT(#{startDate, jdbType=VARCHAR}, '%Y-%m-%d')
+						and createDate >= DATE_FORMAT(#{startDate, jdbcType=VARCHAR}, '%Y-%m-%d')
 					]]>
 				</if>
 				<if test="endDate != null and endDate !=''">
 					<![CDATA[
-						and time < DATE_FORMAT(#{endDate, jdbType=VARCHAR}, '%Y-%m-%d')
+						and createDate <= DATE_FORMAT(#{endDate, jdbcType=VARCHAR}, '%Y-%m-%d %H:%i:%s')
 					]]>
 				</if>
 		    </where>
@@ -109,7 +109,7 @@
 				</if>
 				<if test="endDate != null and endDate !=''">
 					<![CDATA[
-						and createDate <= DATE_FORMAT(#{endDate, jdbcType=VARCHAR}, '%Y-%m-%d')
+						and createDate <= DATE_FORMAT(#{endDate, jdbcType=VARCHAR}, '%Y-%m-%d %H:%i:%s')
 					]]>
 				</if>
 		    </where>

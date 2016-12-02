@@ -10,9 +10,10 @@
 	String userId = (String)session.getAttribute("sessionUserId");
 	pageContext.setAttribute("userId", userId);
 %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-      <title>BankConsole平台</title>
+      <title>银行综合办公系统</title>
       <head>
          <style type="text/css">
             body {
@@ -37,6 +38,7 @@
                margin-top: 10%;
                width: 600px;
                height: 220px;
+               /* background-color: #fff; */
             }
 
             .title {
@@ -73,8 +75,8 @@
 
             .login.bg {
                background: white;
-               opacity: 0.8;
-               filter: alpha(opacity=80);
+               opacity: 1;
+               filter: alpha(opacity=100);
                height: 100%;
             }
 
@@ -142,11 +144,32 @@
                text-shadow: 1px 1px 3px #ddd;
             }
          </style>
+         <style type="text/css">
+         	.logo {
+         		margin:0 auto;
+         		margin-top: 60px;
+         		/* padding:10px; */
+         		text-align:center;
+         		width:467px;
+         	}
+         	
+         	.login .bg{
+         	    background-color: #fff;
+			    margin: 0 auto;
+			    margin-bottom: 0px;
+         	    /* width: 480px; */
+         	}
+         	
+         	.body {
+         		background-color: #F16727;
+         	}
+         </style>
          <link href="jquery-easyui-1.3.2/themes/icon.css" rel="stylesheet" type="text/css"/>
          <link href="jquery-easyui-1.3.2/themes/default/easyui.css" rel="stylesheet" type="text/css"/>
          <script type="text/javascript" src="jquery-easyui-1.3.2/jquery-1.8.0.min.js"></script>
          <script src="jquery-easyui-1.3.2/jquery.easyui.min.js" type="text/javascript"></script>
-         <script src="jquery-easyui-1.3.2/locale/easyui-lang-zh_CN.js" type="text/javascript"></script>
+         <script src="jquery-easyui-1.3.2/locale/easyui-lan\g-zh_CN.js" type="text/javascript"></script>
+         <script type="text/javascript" src="js/json2.js"></script>
          <script type="text/javascript">
          	$(function() {
          		$.ajax({
@@ -172,11 +195,16 @@
                   }
                });
                $("#login").click(function() {
-                  if ($("#name").val() == "") {
+            	  var name = $("#name").val();
+            	  var pass = $("#password").val();
+                  if (name== "" || name == "请输入登录账号") {
                      $("#msg").text("帐号不能为空");
-                  } else if ($("#password").val() == "") {
-                     $("#msg").text("密码不能为空")
-                  } else {
+                     return false;
+                  } 
+                  if (pass == "" || pass == "请输入登录账号") {
+                     $("#msg").text("密码不能为空");
+                     return false;
+                  } 
                      $.ajax({
                         type: "post",
                         url: "${basePath}/main/login.do",
@@ -185,35 +213,84 @@
                            pass: $("#password").val()
                         },
                         success: function(json) {
-                           json = JSON.parse(json);
-                           console.log(json.code);
+                           //json = JSON.parse(json);
+                           json = eval('('+json+')');
+                           console.log(JSON.stringify(json));
                            if (json.code == 1) {
                               window.location.href = "${basePath}/main/index.do";
                            } else {
-                        	   $(".err_msg").html(json.msg)
+                        	   $("#msg").html(json.msg)
                            }
                         }
                      })
-                  }
+                  
                });
             })
          </script>
+         <script type="text/javascript">
+            $(function() {
+            	$("#name").focus(function() {
+            		var _this = this;
+            		var val = $(_this).val();
+            		if(val == "请输入登录账号") {
+	            		$("#name").val("");
+            		}
+            	});
+            	$("#password").focus(function() {
+            		$("#password").val("");
+            	});
+            	$("#name").blur(function() {
+            		var _this = this;
+            		var val = $(_this).val();
+            		if(!val) {
+ 		           		$("#name").val("请输入登录账号");
+            		}
+            	});
+            	$(".pass").blur(function() {
+            		var _this = this;
+            		if($(_this).attr('id')=='password1') {
+	            		$(_this).hide(); 
+	            		$('#password').show();
+	            		$('#password').focus(); 
+            		} else if($(_this).attr('id')=='password') {
+          /*   			var val = $(_this).val();
+            			if(!val) {
+		            		$(_this).hide(); 
+		            		$('#password1').show();
+            			} */
+            		}
+            	});
+            	
+               	$(".pass").focus(function() {
+            		var _this = this;
+            		if($(_this).attr('id')=='password1') {
+	            		$(_this).hide(); 
+	            		$('#password').show();
+	            		//$('#password').focus(); 
+            		} else if($(_this).attr('id')=='password') {
+	            		//$(_this).hide(); 
+	            		//$('#password1').show();
+            		}
+            	});
+            });
+          </script>
       </head>
-      <body>
+      <body class="body">
          <div class="lgin fn-clear">
-            <div class="title">
-               <h2>BankConsole平台</h2>
-               <h1>BankConsole平台</h1>
+            <div class="logo">
+            	<img src="${basePath}/images/logo.jpg"/>
             </div>
             <div class="login bg" >
                <!--错误信息提示-->
-               <span ><font id="msg" color="red"></font></span>
+               <!-- <span ><font id="msg" color="red"></font></span> -->
                <form id="form" type="post">
                   <div class="input">
-                     <input type="text" id="name" placeholder="请输入登录账号"/>
-                     <input type="password" id="password" placeholder="请输入登录密码"/>
+                     <input type="text" id="name" value="请输入登录账号" placeholder="请输入登录账号"/>
+                     <input type="password" id="password" class="pass" placeholder="请输入登录密码" style="display:none"/>
+                     <input type="text" id="password1" class="pass" value="请输入登录密码"  placeholder="请输入登录密码"/>
                      <div class="btn">
-                     	<span class="err_msg" style="color:red"></span>
+                     	<!-- <span class="err_msg" style="color:red"></span> -->
+                     	<span ><font id="msg" color="red"></font></span>
                         <a class="btn_login" id="login" href="javascript:;">登录</a>
                      </div>
                   </div>

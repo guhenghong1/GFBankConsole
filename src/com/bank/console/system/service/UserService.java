@@ -3,11 +3,13 @@ package com.bank.console.system.service;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +19,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.bank.console.common.ConfigProperty;
 import com.bank.console.common.Constant;
 import com.bank.console.common.FilePath;
+import com.bank.console.common.UserConstant;
+import com.bank.console.common.DBIndex.CommonService;
 import com.bank.console.common.util.CSVUtil;
-import com.bank.console.common.util.DateUtil;
 import com.bank.console.common.util.FileUtil;
-import com.bank.console.common.util.MD5Util;
 import com.bank.console.common.util.TextpdfUtil;
+import com.bank.console.common.util.encrypt.MD5Util;
 import com.bank.console.mapper.UserHomeMapper;
 import com.bank.console.mapper.UserMapper;
 import com.bank.console.mapper.UserSchoolMapper;
@@ -41,9 +44,6 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-
 @Service
 public class UserService {
 	@Autowired
@@ -52,6 +52,16 @@ public class UserService {
 	private UserSchoolMapper userSchoolMapper;
 	@Autowired
 	private UserHomeMapper userHomeMapper;
+	
+	@Autowired
+	private CommonService commonService;
+	
+//	@Autowired
+//	private TableIdService tableIdService;
+	
+	private static final String TABLE_NAME = "tb_user";
+	
+	private static final String ID = "userId";
 	
 	public User findUser(String userId) {
 		return userMapper.findUser(userId);
@@ -75,6 +85,9 @@ public class UserService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+//		String nextId = commonService.getNextId(TABLE_NAME, ID) + "";
+//		user.setUserId(nextId);
 		int result = userMapper.addUser(user);
 		
 		//添加个人简历信息
@@ -266,7 +279,7 @@ public class UserService {
 		List<UserVO> userList = this.getUserList(form);
 		List<Map> exportData = this.buildData(userList);
 
-		Map titleMap = this.buildTitle();
+		LinkedHashMap titleMap = this.buildTitle();
 		File file = CSVUtil.createCSVFile(exportData, titleMap, path, fileName);
 		return file;
 	}
@@ -275,8 +288,8 @@ public class UserService {
 	 * 表头
 	 * @return
 	 */
-	private Map buildTitle() {
-		Map map = new HashMap();
+	private LinkedHashMap buildTitle() {
+		LinkedHashMap map = new LinkedHashMap();
 	    map.put("1", "编号");
 	    map.put("2", "姓名");
 	    map.put("3", "角色");
@@ -295,35 +308,37 @@ public class UserService {
 	    map.put("16", "专业");
 	    map.put("17", "职位");
 	    map.put("18", "入职时间");
-	    map.put("19", "爱好");
+	    map.put("19", "当前状态");
+	    map.put("20", "爱好");
 	    return map;
 	}
 	
 	private List<Map> buildData(List<UserVO> userList) {
 	    List exportData = new ArrayList<Map>();
-	    Map row = new HashMap<String, String>();
 	    
 	    for(int i = 0; i < userList.size(); i++) {
+	    	Map row = new LinkedHashMap<String, String>();
 	    	UserVO user = userList.get(i);
 	    	row.put("1", user.getUserId());
 	    	row.put("2", user.getRealName());
 	    	row.put("3", user.getRoleName());
 	    	row.put("4", user.getDeptName());
-	    	row.put("5", user.getSex());
+	    	row.put("5", UserConstant.SEX.get(user.getSex()+""));
 	    	row.put("6", user.getBirthdayStr());
 	    	row.put("7", user.getPhone());
 	    	row.put("8", user.getMobile());
 	    	row.put("9", user.getEmail());
 	    	row.put("10", user.getNativePlace());
-	    	row.put("11", user.getPoliticsStatus());
+	    	row.put("11", user.getPoliticsStatus()==null?"":UserConstant.politicsStatus.get(user.getPoliticsStatus()));
 	    	row.put("12", user.getCertId());
 	    	row.put("13", user.getHomeAddress());
 	    	row.put("14", user.getSchool());
-	    	row.put("15", user.getEduLevel());
+	    	row.put("15", UserConstant.eduLevel.get(user.getEduLevel()));
 	    	row.put("16", user.getMajor());
-	    	row.put("17", user.getPosition());
-	    	row.put("18", user.getEntryDate());
-	    	row.put("19", user.getInterest());
+	    	row.put("17", UserConstant.POSITION.get(user.getPosition()));
+	    	row.put("18", user.getEntryDateStr());
+	    	row.put("19", UserConstant.STATUS.get(user.getStatus()));
+	    	row.put("20", user.getInterest());
 	    	exportData.add(row);
 	    }
 	    

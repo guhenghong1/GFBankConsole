@@ -33,7 +33,7 @@
 		    FROM
 		      tb_warrant_dictionary
 		    <where>
-					type = #{type, jdbcType=INTEGER}
+					type = #{type, jdbcType=VARCHAR}
 				<if test="name != null and name != ''">
 					and name like '%${name}%'
 				</if>
@@ -47,9 +47,9 @@
 		    FROM
 		      tb_warrant_dictionary
 		    <where>
-					type = #{type, jdbcType=INTEGER}
+					type = #{type, jdbcType=VARCHAR}
 				<if test="name != null and name != ''">
-					and name like '%${name}%'
+					and name = #{name, jdbcType=VARCHAR}
 				</if>
 		    </where> 
 	</select>

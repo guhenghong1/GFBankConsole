@@ -43,6 +43,7 @@ var Common = {
     	var isNull = false;
     	$("#"+ele+" input.required").each(function(i, e) {
     		var _this = this;
+    		console.log($(_this).attr("class"));
     		if(!$(_this).val()) {
     			isNull = true;
     			var text = $(_this).parent().prev("td").find("label").text();
@@ -53,15 +54,24 @@ var Common = {
     	return isNull;
     },
     
-    verifyBlur : function() {
+    verifyBlur : function(ele) {
     	//公共的input框失去焦点提示
-    	$('td').on('blur','.required',function(){
+    	$("#"+ele).on('blur','.required',function(){
     		var _this = this;
     		if(!$(_this).val()) {
     			var text = $(_this).parent().prev("td").find("label").text();
     			text = text.replace("：*", "不能为空！");
     			$(_this).next("span").html("<font style='color:red'> "+text+"</font>");
+    		} else {
+    			$(_this).next("span").html("");
     		}
+    	});
+    },
+    
+    clearSpanMsg : function(ele) {
+    	$("#"+ele+" input.required").each(function(i, e) {
+    		var _this = this;
+    		$(_this).next("span").html("");
     	});
     }
 }

@@ -37,18 +37,18 @@ var Org = {
 				"deptId" : deptId
 			},
 			success : function(data) {
-				var data = JSON.parse(data);
+				var data = eval('('+data+')');
 				if(!!data.obj) {
 					var org = data.obj;
-					$("#mdeptId").val(org.deptId);
-					$("#mdeptName").val(org.deptName);
-					$("#mlevel").val(org.level);
-					$("#misSalesDept").val(org.isSalesDept);
-					$("#maddress").val(org.address);
-					$("#mremark").val(org.remark);
+					$("#morgw .mdeptId").val(org.deptId);
+					$("#morgw .mdeptName").val(org.deptName);
+					$("#morgw .mlevel").val(org.level);
+					$("#morgw .misSalesDept").val(org.isSalesDept);
+					$("#morgw .maddress").val(org.address);
+					$("#morgw .mremark").val(org.remark);
 //					$('#mcreateDate').datetimebox('setValue', org.createDateStr);
 					
-					$('#msuperDeptId').combotree('setValue', org.superDeptId);
+					$('#morgw .msuperDeptId').combotree('setValue', org.superDeptId);
 				}
 			}
 		});
@@ -56,7 +56,7 @@ var Org = {
 	},
 	
 	//删除
-	deleteOp : function() {
+	deleteOrg : function() {
 		var _this = this;
 		var row = $("#org").treegrid("getSelected");
 		if(!row) {
@@ -71,7 +71,7 @@ var Org = {
 			},
 			success : function(data) {
 				console.log(data)
-				var data = JSON.parse(data);
+				var data = eval('('+data+')');
 				if(data.code == 1) {
 					Common.showMsg("删除成功");
 					$("#org").treegrid("reload");
@@ -93,7 +93,7 @@ var addOrg = function() {
     $('#orgForm').form('submit',{
     	   success:function(data){
     		   console.log(data);
-    		    data = JSON.parse(data);
+    		    data = eval('('+data+')');
     		    if(data.code == 1) {
     		    	Common.showMsg("添加成功");
     		    	$("#orgw").window("close");
@@ -109,7 +109,7 @@ var addOrg = function() {
 var updateOrg = function() {
 	$('#morgForm').form('submit',{
 		success:function(data){
-			data = JSON.parse(data);
+			data = eval('('+data+')');
 			if(data.code == 1) {
 				Common.showMsg("修改成功");
 				$("#morgw").window("close");

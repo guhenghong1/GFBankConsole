@@ -7,22 +7,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bank.console.business.model.Dictionary;
+import com.bank.console.common.DBIndex.CommonService;
 import com.bank.console.mapper.DictionaryMapper;
+import com.bank.console.system.service.TableIdService;
 
 @Service
 public class DictionaryService {
 	@Autowired
 	private DictionaryMapper dictionaryMapper;
+	@Autowired
+	private TableIdService tableIdService;
+	@Autowired
+	private CommonService commonService;
+	
+	private static final String TABLE_NAME = "tb_warrant_dictionary";
 	
 	public int addDictionary(String name, int type) {
+		if(StringUtils.isEmpty(name)) {
+			return 1;
+		}
 		name = name.trim();
-		
 		Dictionary hisDic = this.getDictionaryInfo(name, type);
 		if(hisDic != null && name.equals(hisDic.getName())) {
 			return 1;
 		}
 		
-		String nextId = this.getNextId();
+		long nextId =commonService.getNextId(TABLE_NAME);
 		Dictionary dic = new Dictionary();
 		dic.setId(nextId);
 		dic.setName(name);

@@ -16,12 +16,15 @@ public class Equipment {
 	private String location;	//所在地
 	private Integer inUse;		//设备状态，1表示在用，0表示报废
 	private String companyId;	//供应商编号
+	private String company;	//供应商编号
 	private Date buyTime;		//购入时间
 	private String price;		//价格
 	private String remark;		//备注
 	private String deptId;		//部门编号
+	private String deptName;		//部门编号
 	private Integer status;		//状态，1表示正常，0表示删除
 	private Date createTime;	//创建时间
+	private String createTimeStr;	//创建时间
 	private Date updateTime;	//修改时间
 	
 	public Equipment(){
@@ -130,6 +133,22 @@ public class Equipment {
 
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public String getCompany() {
+		return company;
+	}
+
+	public void setCompany(String company) {
+		this.company = company;
+	}
+
+	public String getDeptName() {
+		return deptName;
+	}
+
+	public void setDeptName(String deptName) {
+		this.deptName = deptName;
 	}
 
 }

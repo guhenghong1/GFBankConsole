@@ -128,39 +128,39 @@ var User = {
    		_this.showMsg('权限不够');
    		return;
    	}
-   	console.log(row.userId);
+//   	console.log(row.userId);
 	$.ajax({
 		url:"../user/getUserInfo.do",
 		data:{"userId":userId},
 		success: function(data) {
-			var user = JSON.parse(data);
-			$("#muserId").val(user.userId);
-			$("#mrealName").val(user.realName);
-			$("#mroleId").val(user.roleId);
-			$("#mdeptId").combotree("setValue", user.deptId);
-			$("#mmobile").val(user.mobile);
-			$("#mphone").val(user.phone);
-			$("#memail").val(user.email);
-			$("#msex").val(user.sex);
-			$("#mnativePlace").val(user.nativePlace);
-			$("#mposition").val(user.position);
-			$("#mpositionSalary").val(user.positionSalary);
-			$("#mlevelSalary").val(user.levelSalary);
-			$("#mperformanceSalary").val(user.performanceSalary);
-			$("#mstatus").val(user.status);
-			$("#minterest").val(user.interest);
-			$("#mnation").val(user.nation);
-			$("#mnation").val(user.nation);
-			$("#mpoliticsStatus").val(user.politicsStatus);
-			$("#mcertId").val(user.certId);
-			$("#mschool").val(user.school);
-			$("#meduLevel").val(user.eduLevel);
-			$("#mhomeAddress").val(user.homeAddress);
-			$("#mmajor").val(user.major);
-			$("#mremark").val(user.remark);
+			var user = eval('('+data+')');
+			$("#mw .muserId").val(user.userId);
+			$("#mw .mrealName").val(user.realName);
+			$("#mw .mroleId").val(user.roleId);
+			$("#mw .mdeptId").combotree("setValue", user.deptId);
+			$("#mw .mmobile").val(user.mobile);
+			$("#mw .mphone").val(user.phone);
+			$("#mw .memail").val(user.email);
+			$("#mw .msex").val(user.sex);
+			$("#mw .nativePlace").val(user.nativePlace);
+			$("#mw .mposition").val(user.position);
+			$("#mw .mpositionSalary").val(user.positionSalary);
+			$("#mw .mlevelSalary").val(user.levelSalary);
+			$("#mw .mperformanceSalary").val(user.performanceSalary);
+			$("#mw .mstatus").val(user.status);
+			$("#mw .minterest").val(user.interest);
+			$("#mw .mnation").val(user.nation);
+			$("#mw .mnation").val(user.nation);
+			$("#mw .mpoliticsStatus").val(user.politicsStatus);
+			$("#mw .mcertId").val(user.certId);
+			$("#mw .mschool").val(user.school);
+			$("#mw .meduLevel").val(user.eduLevel);
+			$("#mw .mhomeAddress").val(user.homeAddress);
+			$("#mw .mmajor").val(user.major);
+			$("#mw .mremark").val(user.remark);
 			
-			$('#mbirthday').datebox('setValue', user.birthdayStr);
-			$('#mentryDate').datebox('setValue', user.entryDateStr);
+			$('#mw .mbirthday').datebox('setValue', user.birthdayStr);
+			$('#mw .mentryDate').datebox('setValue', user.entryDateStr);
 			
 			//个人简历
 			var mschoolsTr = $(".muserSchool .mschools");
@@ -189,9 +189,9 @@ var User = {
 			}
 			
 			$.each(schoolList, function(i, obj) {
-				console.log("obj=  "+JSON.stringify(obj));
+//				console.log("obj=  "+JSON.stringify(obj));
 				var time = obj.time;
-				console.log("time=  "+time);
+//				console.log("time=  "+time);
 				if(!time) {
 					time = "";
 				}
@@ -231,7 +231,7 @@ var User = {
 			var hTrDiv = "";
 			
 			if(homeList.length == 0) {
-				console.log("length=  "+homeList.length);
+//				console.log("length=  "+homeList.length);
 //				$("#mhomes").css("display", "block");
 				var divTemp = "";
 				divTemp = homeTemp.replace("{appellation}", "")
@@ -243,7 +243,7 @@ var User = {
 			}
 			
 			$.each(homeList, function(i, obj) {
-				console.log("home1=  "+obj.appellation);
+//				console.log("home1=  "+obj.appellation);
 				var appellation = obj.appellation;
 				if(!appellation) {
 					appellation = "";
@@ -269,7 +269,7 @@ var User = {
 				hTrDiv += divTemp;
 			});
 			
-			console.log("hTrDiv==  "+hTrDiv);
+//			console.log("hTrDiv==  "+hTrDiv);
 			$(".muserHome").append(hTrDiv);
 			
 		}
@@ -290,7 +290,7 @@ var User = {
 		  var inputs = $(e).find("td input");
 		  $(inputs).each(function(j, el){
 			  var classAttr = $(el).attr("class");
-			  console.log("class=  "+classAttr+"  val="+$(el).val());
+//			  console.log("class=  "+classAttr+"  val="+$(el).val());
 			  if($(el).val()) {
 				  if(classAttr == 'mtime') {
 					  school.time = $(el).val();
@@ -306,7 +306,7 @@ var User = {
 		  schoolList.push(school);
 	   });
 	   $("#mschoolList").val(JSON.stringify(schoolList));
-	   console.log("val=  "+JSON.stringify(schoolList))
+//	   console.log("val=  "+JSON.stringify(schoolList))
 	   
 	   var homeList = [];
 	   $(".muserHome .mhomes").each(function(i, e){
@@ -342,7 +342,7 @@ var User = {
 	   
 		$('#muserForm').form('submit',{
 			success:function(data){
-				data = JSON.parse(data);
+				data = eval('('+data+')');
 				if(data.code == 1) {
 					Common.showMsg("修改成功");
 					$("#mw").window("close");
@@ -436,11 +436,13 @@ var User = {
 	   
 	    $('#userForm').form('submit',{
 	    	   success:function(data){
-	    		    data = JSON.parse(data);
+	    		    data = eval('('+data+')');
 	    		    if(data.code == 1) {
 	    		    	Common.showMsg("添加成功");
 	    		    	$("#w").window("close");
 	    				$("#tb_users").datagrid("reload");
+	    		    } else if(data.code == 2) {
+	    		    	Common.showMsg("用户工号已存在");
 	    		    } else {
 	    		    	Common.showMsg("添加失败");
 	    		    }
@@ -464,7 +466,7 @@ var User = {
    			data:{"userId":userId},
    			type:"post",
    			success:function(data) {
-   				var result = JSON.parse(data);
+   				var result = eval('('+data+')');
 				if(result.code == 1) {
 					_this.showMsg("删除成功");
 				} else {
@@ -488,20 +490,20 @@ var User = {
 	   
 	   $("#userMenuw").window("open");
 	   
-	   $("#menuUserId").val(userId);
-	   $("#menuRealName").val(realName);
+	   $("#userMenuw .menuUserId").val(userId);
+	   $("#userMenuw .menuRealName").val(realName);
 	   
 		$.ajax({
 			url:"../user/getUserMenu.do",
 			data:{"userId":userId},
 			success: function(data) {
-				data = JSON.parse(data);
+				data = eval('('+data+')');
 				var menuIdArr = [];
 				var menuIdStr = data.obj.menuIds;
 				
 				var len = menuIdStr.split(",").length;
 				menuIdArr = menuIdStr.split(",");
-				$('#amenuIds').combotree('setValues', menuIdArr);
+				$('#userMenuw .amenuIds').combotree('setValues', menuIdArr);
 			}
 		});
    }
@@ -510,22 +512,22 @@ var User = {
 //查询
 var queryUser = function() {
         $('#tb_users').datagrid('load', {  
-        	userId: $("#quserId").val(),  
-        	realName: $("#qrealName").val(),  
-            deptId: $('#qdeptId').combotree('getValue'),
-            phone: $("#qphone").val(),  
-            mobile: $("#qmobile").val()  
+        	userId: $(".queryUser .quserId").val(),  
+        	realName: $(".queryUser .qrealName").val(),  
+            deptId: $('.queryUser .qdeptId').combotree('getValue'),
+            phone: $(".queryUser .qphone").val(),  
+            mobile: $(".queryUser .qmobile").val()  
         });  
 } 
 
-//查询
+//导出
 var exportUser = function() {
 	var params = {
-		userId: $("#quserId").val(),  
-		realName: $("#qrealName").val(),  
-		deptId: $('#qdeptId').combotree('getValue'),
-		phone: $("#qphone").val(),  
-		mobile: $("#qmobile").val()
+		userId: $(".queryUser .quserId").val(),  
+		realName: $(".queryUser .qrealName").val(),  
+		deptId: $('.queryUser .qdeptId').combotree('getValue'),
+		phone: $(".queryUser .qphone").val(),  
+		mobile: $(".queryUser .qmobile").val()
 	}
 	$.ajax({
 		url:"../user/createCSV.do",
@@ -542,7 +544,7 @@ var exportUser = function() {
 var addUserMenu = function() {
     $('#userMenuForm').form('submit',{
  	   success:function(data){
- 		    data = JSON.parse(data);
+ 		    data = eval('('+data+')');
  		    if(data.code == 1) {
  		    	Common.showMsg("添加成功");
  		    	$("#userMenuw").window("close");
@@ -635,7 +637,7 @@ $(function() {
 	User.init();
 	
 	$("#headPhoto").on('change', function() {
-		alert("1111");
+		//alert("1111");
 		var _this = this;
 		var val = $(_this).val();
 		console.log("val=="+val);
@@ -652,44 +654,71 @@ $(function() {
 		});
 	});
 	
-	$("#certFront").change(function() {
+	$("#w .certFront").change(function() {
 		var _this = this;
 		var val = $(_this).val();
-		$("#imgFront").attr("src", val);
+		$("#w .imgFront").attr("src", val);
 	});
 	
-	$("#certBack").change(function() {
+	$("#w .certBack").change(function() {
 		var _this = this;
 		var val = $(_this).val();
-		$("#imgBack").attr("src", val);
+		$("#w .imgBack").attr("src", val);
 	});
 	
-	$("#mcertFront").change(function() {
+	$("#mw .mcertFront").change(function() {
 		var _this = this;
 		var val = $(_this).val();
-		$("#mimgFront").attr("src", val);
+		$("#mw .mimgFront").attr("src", val);
 	});
 	
-	$("#mcertBack").change(function() {
+	$("#mw .mcertBack").change(function() {
 		var _this = this;
 		var val = $(_this).val();
-		$("#mimgBack").attr("src", val);
+		$("#mw .mimgBack").attr("src", val);
 	});
 	
 //	initFormatCombotree("menuIds");
-	
-	$('#amenuIds').combotree({
+	$('#userMenuw .amenuIds').combotree({cascadeCheck:false});
+	$('#userMenuw .amenuIds').combotree({
 //		onLoadSuccess:function(node, data){
 //			var  node1=$("#menuIds").tree('getParent',node.target);
 //		    $(tree).tree('check', node1.target);
 //		},
-		onCheck:function(node, checked){
+//		onSelect:function(node){
+			onCheck:function(node, checked){
+				if(checked){	
+				var menuIdArr = [];	
+			var parent = node;  
+            var tree = $('#userMenuw .amenuIds').combotree('tree');  
+            var path = new Array();
+            while(parent.id != '0001') {  
+            	menuIdArr.push(parent.id);
+            	path.unshift(parent.text);  
+//            	tree.tree('check',parent.target);
+                var parent = tree.tree('getParent', parent.target);
+                console.log(parent.text);
+                tree.tree('check',parent.target);
+            } ;  
+//            var pathStr = '';  
+//            for (var i = 0; i < path.length; i++) {  
+//                pathStr += path[i];  
+//                if (i < path.length - 1) {  
+//                    pathStr += ' - ';  
+//                }  
+//            }  
+//            console.log(pathStr);
+//            $('#amenuIds').text(pathStr); 
+//			$('#amenuIds').combotree('setValues', menuIdArr);
+			
 //			console.log("node== "+node);
 //			alert("target=="+node.target);
 //			alert("text=="+node.text);  
 //			if(checked){
+//				$('#amenuIds').combotree('tree').tree('check',node.target);
 //				checkNode($('#amenuIds').tree('getParent',node.target));
 //			}
+				}
 		}
 //	onClick: function(node){
 //		alert("target=="+n.target);
@@ -707,7 +736,7 @@ $(function() {
 //				checkNode($('#amenuIds').tree('getParent',node.target));
 //			}
 			console.log(" text="+node.text);
-//			$('#amenuIds').combotree('tree').tree('check',node.target);
+			$('#userMenuw .amenuIds').combotree('tree').tree('check',node.target);
 			
 		}
 	}

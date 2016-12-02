@@ -23,4 +23,5 @@ public class Constant {
 	public static final String SESSION_USER_PWD = "sessionUserPwd";	//用户密码
 	public static final String SESSION_USER = "sessionUser";	//用户信息
 	
+	
 }

@@ -46,79 +46,79 @@
             </tr>
         </thead>
     </table>
-    <div id="menuw" class="easyui-window" title="新增部门机构"
+    <div id="menuw" class="easyui-window" title="新增菜单"
 			data-options="modal:true,closed:true,iconCls:'icon-save'"
 			style="width: 500px; height: 400px; padding: 10px;">
 		<form id="menuForm" method="post" action="${basePath}/menu/addMenu.do" enctype="multipart/form-data">  
 			<table>
 				<tr>
 					<td><label>菜单名称：<font style="color: red">*</font></label></td>
-					<td><input id="menuName" class="required" name="menuName" type="text" value=""></input>
+					<td><input  class="menuName required" name="menuName" type="text" value=""></input>
 					<span class = "menuNamemsg" class="msg"></span>
 					</td>
 				</tr>
  				<tr>
 					<td><label>父节点：<font style="color: red">*</font></label></td>
 					<td> 
-						<input id="superMenuId" name="superMenuId" class="easyui-combotree" data-options="url:'../menu/getLevelMenuTree.do',method:'get',label:'Select Nodes:',labelPosition:'top',multiple:false,animate:true,lines:true" style="width:181px">
+						<input  name="superMenuId" class="easyui-combotree superMenuId" data-options="url:'../menu/getMenuTree.do',method:'get',label:'Select Nodes:',labelPosition:'top',multiple:false,animate:true,lines:true" style="width:160px">
 						<span class = "superMenuIdmsg" class="msg"></span>
 					</td>
 				</tr>
  				<tr>
 					<td><label>链接：</label></td>
 					<td>
-						<input id="linkUrl" class="" name="linkUrl" type="text" value=""></input>
+						<input  class="linkUrl" name="linkUrl" type="text" value=""></input>
 					</td>  
 				</tr>
 				<tr>
 	        		<td><label>备注：</label></td>
-	        		<td colspan=""><textarea id="remark" name="remark" style="width: 300px; height: 80px;"></textarea></td>
+	        		<td colspan=""><textarea class="remark" name="remark" style="width: 300px; height: 80px;"></textarea></td>
         		</tr>
 			</table>
 			<div style="margin: 20px 0;">
 				<a href="javascript:void(0)" class="easyui-linkbutton" id="add" onclick="addMenu()">保存</a>
-				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">取消</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#menuw').window('close')">取消</a>
 			</div>
 		</form>
 		</div>
-    <div id="mMenuw" class="easyui-window" title="修改部门机构"
+    <div id="mMenuw" class="easyui-window" title="菜单"
 			data-options="modal:true,closed:true,iconCls:'icon-save'"
 			style="width: 500px; height: 400px; padding: 10px;">
 		<form id="mMenuForm" method="post" action="${basePath}/menu/updateMenu.do" enctype="multipart/form-data">  
 			<table>
 				<tr>
-					<td><label>机构编号：<font style="color: red">*</font></label></td>
-					<td><input id="mmenuId" class="required" name="menuId" type="text" value=""></input>
+					<td><label>菜单编号：<font style="color: red">*</font></label></td>
+					<td><input class="mmenuId required" name="menuId" type="text" value="" readonly="readonly"></input>
 					<span class = "menuIdmsg" class="msg"></span>
 					</td>
 				</tr>
 				<tr>
-					<td><label>机构名称：<font style="color: red">*</font></label></td>
-					<td><input id="mmenuName" class="required" name="menuName" type="text" value=""></input>
+					<td><label>菜单名称：<font style="color: red">*</font></label></td>
+					<td><input class="mmenuName required" name="menuName" type="text" value=""></input>
 					<span class = "menuNamemsg" class="msg"></span>
 					</td>
 				</tr>
  				<tr>
 					<td><label>父节点：<font style="color: red">*</font></label></td>
 					<td> 
-						<input id="msuperMenuId" name="superMenuId" class="easyui-combotree" data-options="url:'../menu/getLevelMenuTree.do',method:'get',label:'Select Nodes:',labelPosition:'top',multiple:false,animate:true,lines:true" style="width:181px">
+						<input name="superMenuId" class="easyui-combotree msuperMenuId" data-options="url:'../menu/getLevelMenuTree.do',method:'get',label:'Select Nodes:',labelPosition:'top',multiple:false,animate:true,lines:true" style="width:160px">
 						<span class = "superMenuIdmsg" class="msg"></span>
 					</td>
 				</tr>
  				<tr>
 					<td><label>链接：</label></td>
 					<td>
-						<input id="mlinkUrl" class="" name="linkUrl" type="text" value=""></input>
+						<input class="mlinkUrl" name="linkUrl" type="text" value=""></input>
 					</td>  
 				</tr>
 				<tr>
 	        		<td><label>备注：</label></td>
-	        		<td colspan=""><textarea id="mremark" name="remark" style="width: 300px; height: 80px;"></textarea></td>
+	        		<td colspan=""><textarea class="mremark" name="remark" style="width: 300px; height: 80px;"></textarea></td>
         		</tr>
 			</table>
 			<div style="margin: 20px 0;">
 				<a href="javascript:void(0)" class="easyui-linkbutton update" id="add" onclick="updateMenu()">保存</a>
-				<a href="javascript:void(0)" class="easyui-linkbutton cancle" onclick="clearForm()">取消</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton cancle" onclick="$('#mMenuw').window('close')">取消</a>
 			</div>
 		</form>
 		</div>

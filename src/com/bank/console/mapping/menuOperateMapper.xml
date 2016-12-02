@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bank.console.mapper.MenuOperateMapper">
+	<!-- 新增用户 -->
+ 	<insert id="addMenuOperate"  parameterType="com.bank.console.system.model.MenuOperate">
+	   insert into tb_menu_operate(
+	   		menuId,
+	   		operId
+	   ) values(
+	   	 	#{menuId, jdbcType=VARCHAR},
+	   	 	#{operId, jdbcType=VARCHAR}
+	   )
+	</insert>
+	
+	<!-- 删除 -->
+	<delete id="deleteMenuOperate">
+		delete from tb_menu_operate where menuId = #{menuId, jdbcType=VARCHAR}
+	</delete>
+	
+	<!-- 查询 -->
+ 	<select id="getMenuOperate" resultType="com.bank.console.system.model.MenuOperate">
+		 	SELECT op.id as operId, op.name as operName, 
+		 		op.iconCls, mp.menuId 
+		 	FROM tb_operate op, tb_menu_operate mp
+			WHERE op.id = mp.operId
+			AND  menuId = #{menuId, jdbcType=VARCHAR}
+		    order by operId
+	</select>
+	
+</mapper>

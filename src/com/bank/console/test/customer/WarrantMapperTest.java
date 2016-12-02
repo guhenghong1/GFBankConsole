@@ -1,23 +1,17 @@
 package com.bank.console.test.customer;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import javax.annotation.Resource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bank.console.customer.model.Customer;
-import com.bank.console.customer.vo.CustomerVo;
+import com.bank.console.business.service.WarrantService;
 import com.bank.console.mapper.CommonMapper;
-import com.bank.console.mapper.CustomerMapper;
 
 /**
  * 测试类
@@ -30,20 +24,22 @@ import com.bank.console.mapper.CustomerMapper;
 @TransactionConfiguration(transactionManager="transactionManager",defaultRollback=false)
 @Transactional
 public class WarrantMapperTest {
+	@Autowired
+	private WarrantService warrantService;
 	
 	@Resource
 	private CommonMapper commonMapper;
 	
-	@Test
-	public void testGetMaxId(){
-		String maxId = commonMapper.getMaxId("tb_conference");
-		System.out.println("maxId：" + maxId);
-	}
+//	@Test
+//	public void testGetMaxId(){
+//		long maxId = commonMapper.getMaxId("tb_conference");
+//		System.out.println("maxId：" + maxId);
+//	}
 	
 	@Test
-	public void testGetMaxIdSate(){
-		String maxId = commonMapper.getMaxIdState("tb_dept", "deptId");
-		System.out.println("maxId：" + maxId);
+	public void testDelete(){
+		int i = warrantService.deleteWarrant("6");
+		System.out.println("i：" + i);
 	}
 
 }

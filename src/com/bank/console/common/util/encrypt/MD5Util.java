@@ -1,4 +1,4 @@
-package com.bank.console.common.util;
+package com.bank.console.common.util.encrypt;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -53,8 +53,37 @@ public class MD5Util {
         return resultString;
     }
 
+    /**
+     * md5加密
+     * @param str
+     * @return
+     */
+    public static String md5Encode(String str) {
+    	MessageDigest md5 = null;
+    	byte[] byteArray = null;
+    	StringBuffer hexValue = new StringBuffer();
+    	try {
+			md5 = MessageDigest.getInstance("MD5");
+			byteArray = str.getBytes("UTF-8");
+			byte[] md5Bytes = md5.digest(byteArray);
+			for(int i = 0; i < md5Bytes.length; i++) {
+				int val = (int)md5Bytes[i] & 0xff;
+				// 如果该正数小于16(长度为1个字符)，前面拼接0占位：确保最后生成的是32位字符串。
+				if(val < 16) {
+					hexValue.append("0");
+				}
+				hexValue.append(Integer.toHexString(val));
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+    	return hexValue.toString().toUpperCase();
+    }
+    
     public static void main(String[] args) {
     	MD5Util getMD5 = new MD5Util();
-        System.out.println(getMD5.getMD5Code("admin123"));
+//        System.out.println(getMD5.getMD5Code("admin123"));
+        String str = md5Encode("123");
+        System.out.println("str=  "+str);
     }
 }

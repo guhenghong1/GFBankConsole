@@ -119,7 +119,7 @@ var Customer = {
 		url:"../customer/getCustomerInfo.do",
 		data:{"id":id},
 		success: function(data) {
-			var customer = JSON.parse(data);
+			var customer = eval('('+data+')');
 			$("#id").val(customer.id);
 			$("#manager").val(customer.manager);
 			$("#name").val(customer.name);
@@ -182,7 +182,7 @@ var Customer = {
 			data: params,
 			type:"post",
 			success: function(data) {
-				var result = JSON.parse(data);
+				var result = eval('('+data+')');
 				if(result.code == 1) {
 					_this.showMsg("修改成功");
 				} else {
@@ -251,7 +251,7 @@ var Customer = {
 			data: params,
 			type:"post",
 			success: function(data) {
-				var result = JSON.parse(data);
+				result = eval('('+data+')');
 				if(result.code == 1) {
 					_this.showMsg("添加成功");
 				} else {
@@ -280,7 +280,7 @@ var Customer = {
    			data:{"id":id},
    			type:"post",
    			success:function(data) {
-   				var result = JSON.parse(data);
+   				result = eval('('+data+')');
 				if(result.code == 1) {
 					_this.showMsg("删除成功");
 				} else {

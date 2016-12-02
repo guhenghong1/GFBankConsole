@@ -66,7 +66,7 @@ var Conference = {
 				"id" : id
 			},
 			success : function(data) {
-				var data = JSON.parse(data);
+				var data = eval('('+data+')');
 				if(!!data.obj) {
 					var conference = data.obj;
 					$("#mid").val(conference.id);
@@ -99,7 +99,7 @@ var Conference = {
 			},
 			success : function(data) {
 				console.log(data)
-				var data = JSON.parse(data);
+				var data = eval('('+data+')');
 				if(data.code == 1) {
 					Common.showMsg("删除成功");
 					$("#conference").datagrid("reload");
@@ -121,7 +121,7 @@ var addConference = function() {
     $('#conferenceForm').form('submit',{
     	   success:function(data){
     		   console.log(data);
-    		    data = JSON.parse(data);
+    		    data = eval('('+data+')');
     		    if(data.code == 1) {
     		    	Common.showMsg("添加成功");
     		    	$("#meetw").window("close");
@@ -137,7 +137,7 @@ var addConference = function() {
 var updateConference = function() {
 	$('#mconferenceForm').form('submit',{
 		success:function(data){
-			data = JSON.parse(data);
+			data = eval('('+data+')');
 			if(data.code == 1) {
 				Common.showMsg("修改成功");
 				$("#umeetw").window("close");

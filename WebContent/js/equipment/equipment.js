@@ -1,7 +1,8 @@
 var Equipment = {
 	params : {
 		location:"",
-		name:""
+		name:"",
+		inUse:""
 	},
    init: function() {
       this.initDg();
@@ -33,6 +34,8 @@ var Equipment = {
                     		return "在用";
                     	}else if(value == '0'){
                     		return "报废";
+                    	} else if(value == '2'){
+                    		return "送修";
                     	}
                     }
                }
@@ -96,51 +99,66 @@ var Equipment = {
    },
    
    //编辑用户弹窗
-   edit:function() {
+   edit:function(m) {
+	$('#eqForm').form('clear');
+	$("#eqw .tr_id").css("display", "");
+
+	if(m == 0) {
+		$(".eq .add").css("display", "none");
+		$(".eq .update").css("display", "none");
+		$(".eq .repair").css("display", "none");
+	} else if(m == 2) {
+		$(".eq .add").css("display", "none");
+		$(".eq .update").css("display", "none");
+		$(".eq .repair").css("display", "");
+	} else {
+		$(".eq .add").css("display", "none");
+		$(".eq .repair").css("display", "none");
+		$(".eq .update").css("display", "");
+	}
    	var _this = this;
    	$("#add").css("display", "none");
    	$("#update").css("display", "");
    	var row = $("#tb_equipments").datagrid("getSelected");
+	if(!row) {
+		Common.showMsg("请选择一条记录！");
+		return false;
+	}
    	var id = row.id;
-   	var role = row.role;
-   	if(role == 2) {
-   		_this.showMsg('权限不够');
-   		return;
-   	}
-   	console.log(row.id);
+   	//console.log(JSON.stringify(row));
 	$.ajax({
 		url:"../equipment/getEquipmentInfo.do",
 		data:{"id":id},
 		success: function(data) {
-			var equipment = JSON.parse(data);
-			$("#id").val(equipment.id);
-			$("#name").val(equipment.name);
-			$("#type").val(equipment.type);
-			$("#location").val(equipment.location);
-			$("#inUse").val(equipment.inUse);
-			$("#companyId").combobox("setValue", equipment.companyId);
-			$("#buyTimeStr").datebox("setValue", equipment.buyTimeStr);
-			$("#price").val(equipment.price);
-			$("#remark").val(equipment.remark);
-			$("#deptId").combotree("setValue", equipment.deptId);
+			var equipment = eval('('+data+')');
+			$("#eqw .id").val(equipment.id);
+			$("#eqw .name").val(equipment.name);
+			$("#eqw .type").val(equipment.type);
+			$("#eqw .location").val(equipment.location);
+			$("#eqw .inUse").val(equipment.inUse);
+			$("#eqw .companyId").combobox("setValue", equipment.companyId);
+			$("#eqw .buyTimeStr").datebox("setValue", equipment.buyTimeStr);
+			$("#eqw .price").val(equipment.price);
+			$("#eqw .remark").val(equipment.remark);
+			$("#eqw .deptId").combotree("setValue", equipment.deptId);
 		}
 	});
-   	$("#w").window("open");
+   	$("#eqw").window("open");
    },
    
    //修改用户
    update: function() {
    		var _this = this;
-		var id = $("#id").val();
-		var name = $("#name").val();
-		var type = $("#type").val();
-		var location = $("#location").val();
-		var inUse = $("#inUse").val();
-		var companyId = $("#companyId").combobox("getValue");
-		var buyTimeStr = $("#buyTimeStr").datebox("getValue");
-		var price = $("#price").val();
-		var remark = $("#remark").val();
-		var deptId = $("#deptId").combotree("getValue");
+		var id = $("#eqw .id").val();
+		var name = $("#eqw .name").val();
+		var type = $("#eqw .type").val();
+		var location = $("#eqw .location").val();
+		var inUse = $("#eqw .inUse").val();
+		var companyId = $("#eqw .companyId").combobox("getValue");
+		var buyTimeStr = $("#eqw .buyTimeStr").datebox("getValue");
+		var price = $("#eqw .price").val();
+		var remark = $("#eqw .remark").val();
+		var deptId = $("#eqw .deptId").combotree("getValue");
 		
 		if(id == "" || id == null){
 			alert("设备编号不能为空");
@@ -168,14 +186,14 @@ var Equipment = {
 			data: params,
 			type:"post",
 			success: function(data) {
-				var result = JSON.parse(data);
+				var result = eval('('+data+')');
 				if(result.code == 1) {
 					_this.showMsg("修改成功");
 				} else {
 					_this.showMsg("修改失败");
 				}
 				
-				$("#w").window("close");
+				$("#eqw").window("close");
 				$("#tb_equipments").datagrid("reload");
 			}
 		}); 	
@@ -185,29 +203,31 @@ var Equipment = {
    add: function() {
    		var _this = this;
    		$("#tb_equipments").datagrid("unselectAll");
-   		$("#add").css("display", "");
-   		$("#update").css("display", "none");
-   		$("#w").window("open");
+   		$(".eq .add").css("display", "");
+   		$(".eq .update").css("display", "none");
+   		$(".eqw .tr_id").css("display", "none");
+   		$('#eqForm').form('clear');
+   		$("#eqw").window("open");
    },
    
    //新增用户
    addEquipment: function() {
    		var _this = this;
-   		var id = $("#id").val();
-		var name = $("#name").val();
-		var type = $("#type").val();
-		var location = $("#location").val();
-		var inUse = $("#inUse").val();
-		var companyId = $("#companyId").combobox("getValue");
-		var buyTimeStr = $("#buyTimeStr").datebox("getValue");
-		var price = $("#price").val();
-		var remark = $("#remark").val();
-		var deptId = $("#deptId").combotree("getValue");
+   		var id = $("#eqw .id").val();
+		var name = $("#eqw .name").val();
+		var type = $("#eqw .type").val();
+		var location = $("#eqw .location").val();
+		var inUse = $("#eqw .inUse").val();
+		var companyId = $("#eqw .companyId").combobox("getValue");
+		var buyTimeStr = $("#eqw .buyTimeStr").datebox("getValue");
+		var price = $("#eqw .price").val();
+		var remark = $("#eqw .remark").val();
+		var deptId = $("#eqw .deptId").combotree("getValue");
 		
-		if(id == "" || id == null){
-			alert("设备编号不能为空");
-			return false;
-		}
+//		if(id == "" || id == null){
+//			alert("设备编号不能为空");
+//			return false;
+//		}
 		if(name == "" || name == null){
 			alert("设备名称不能为空");
 			return false;
@@ -250,14 +270,14 @@ var Equipment = {
 			data: params,
 			type:"post",
 			success: function(data) {
-				var result = JSON.parse(data);
+				var result = eval('('+data+')');
 				if(result.code == 1) {
 					_this.showMsg("添加成功");
 				} else {
 					_this.showMsg("添加失败");
 				}
 				
-				$("#w").window("close");
+				$("#eqw").window("close");
 				$("#tb_equipments").datagrid("reload");
 			}
 		}); 	
@@ -267,8 +287,12 @@ var Equipment = {
    deleteEquipment : function() {
    		var _this = this;
    		var row = $("#tb_equipments").datagrid("getSelected");
+		if(!row) {
+			Common.showMsg("请选择一条记录！");
+			return false;
+		}
    		var id = row.id;
-   		$("#w").window("close");
+   		$("#eqw").window("close");
    		var role = row.role;
    		if(role == 2) {
    			_this.showMsg('权限不够');
@@ -279,7 +303,7 @@ var Equipment = {
    			data:{"id":id},
    			type:"post",
    			success:function(data) {
-   				var result = JSON.parse(data);
+   				var result = eval('('+data+')');
 				if(result.code == 1) {
 					_this.showMsg("删除成功");
 				} else {
@@ -301,28 +325,23 @@ var Equipment = {
   		}
 
   		var id = row.id;
-  		$("#w").window("close");
-   		var role = row.role;
-   		if(role == 2) {
-   			_this.showMsg('权限不够');
-   			return;
-   		}
+  		$("#eqw").window("close");
   		
 		$.messager.confirm('提示', '是否送修？', function(r){
 			if(r){
 				$.ajax({
-					url: "../sendRepair/addSendRepair.do",
-					data:{"equipmentId":id},
+					url: "../equipment/updateEquipment.do",
+					data:{"equipmentId":id, "inUse":"2"},
 					type:"post",
 					success: function(data) {
-						var result = JSON.parse(data);
+						var result = eval('('+data+')');
 						if(result.code == 1) {
 							_this.showMsg("送修成功");
 						} else {
 							_this.showMsg("送修失败");
 						}
 						
-						$("#w").window("close");
+						$("#eqw").window("close");
 						$("#tb_equipments").datagrid("reload");
 					}
 				});
@@ -334,11 +353,29 @@ var Equipment = {
 //查询
 var queryEquipment = function() {
         $('#tb_equipments').datagrid('load', {  
-        	location: $("#qlocation").val(),  
-        	name: $("#qname").val()
+        	location: $(".queryEquip .qlocation").val(),  
+        	name: $(".queryEquip .qname").val(),
+        	inUse: $(".queryEquip .qinUse").val()
         });  
 } 
 
+//导出
+var exportEq = function() {
+	var params = {
+			location: $(".queryEquip .qlocation").val(),  
+        	name: $(".queryEquip .qname").val(),
+        	inUse: $(".queryEquip .qinUse").val()
+	}
+	$.ajax({
+		url:"../equipment/createCSV.do",
+		data:params,
+		success:function(data) {
+			var filePath = data;
+			var url = "../file/exportFile.do?filePath="+filePath;
+			window.open(url);
+		}
+	});
+} 
 $(function() {
 	Equipment.init();
 });

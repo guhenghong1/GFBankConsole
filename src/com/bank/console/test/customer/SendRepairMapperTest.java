@@ -30,7 +30,7 @@ public class SendRepairMapperTest {
 	@Test
 	public void testSave(){
 		SendRepair sendRepair = new SendRepair();
-		sendRepair.setEquipmentId("1");
+		sendRepair.setEquipmentId("4");
 		sendRepairMapper.addSendRepair(sendRepair);
 	}
 

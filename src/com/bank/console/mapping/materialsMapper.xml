@@ -40,7 +40,7 @@
 				 	company = #{company, jdbcType=VARCHAR},
 				 </if>
 				 <if test="type != null and type != ''">
-				 	type = #{MaterialsTitle, jdbcType=VARCHAR},
+				 	type = #{type, jdbcType=VARCHAR},
 				 </if>
 				 <if test="scope != null and scope != ''">
 				 	scope = #{scope, jdbcType=VARCHAR},
@@ -81,7 +81,7 @@
 	      tb_materials_company
 	     <where>
 		    	<if test="company != null and company != ''">
-					 company like '%${keyWords}%'
+					 company like '%${company}%'
 				</if>
 				<if test="companyId != null and companyId != ''">
 					and companyId = #{companyId, jdbcType=VARCHAR}
@@ -126,7 +126,7 @@
 		      tb_materials_company
 		    <where>
 		    	<if test="company != null and company != ''">
-					 company like '%${keyWords}%'
+					 company like '%${company}%'
 				</if>
 				<if test="companyId != null and companyId != ''">
 					and companyId = #{companyId, jdbcType=VARCHAR}

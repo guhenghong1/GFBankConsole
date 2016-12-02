@@ -3,8 +3,10 @@ package com.bank.console.resource.controller;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -38,8 +40,15 @@ public class LearningController {
 	 */
 	@Permission
 	@RequestMapping("/init")
-	public String init() {
-		return "resource/learn";
+	public String init(@RequestParam("menu")String menu, HttpServletRequest req) {
+		req.setAttribute("menu", menu);
+		String returnUrl = "";
+		if("m".equals(menu)) {
+			return "resource/learnM";
+		} else {
+			return "resource/learn";
+		}
+		
 	}
 	
 	/**
@@ -130,11 +139,17 @@ public class LearningController {
 	@ResponseBody
 	public String getLearningList(@RequestParam(value="id") String id, 
 			@RequestParam(value="title") String title, 
+			@RequestParam(value="startDate") String startDate, 
+			@RequestParam(value="endDate") String endDate, 
 			@RequestParam(value="pageNum", defaultValue="1") String pageNum, 
 			@RequestParam(value="pageSize", defaultValue="10") String pageSize) {
 		LearningForm form = new LearningForm();
 		form.setId(id);
 		form.setTitle(title);
+		form.setStartDate(startDate);
+		if(!StringUtils.isEmpty(endDate)) {
+			form.setEndDate(endDate+" 23:59:59");
+		}
 		
 		int total = learningService.getLearningSum(form);
 		

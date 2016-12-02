@@ -31,7 +31,7 @@
         </div> 
 		<table id="conference" rownumbers="true"></table>
 		
-		<div id="meetw" class="easyui-window" title="添加发文"
+		<div id="meetw" class="easyui-window" title="添加会议"
 			data-options="modal:true,closed:true,iconCls:'icon-save'"
 			style="width: 500px; height: 480px; padding: 10px;">
 		<form id="conferenceForm" method="post" action="${basePath}/conference/addConference.do" enctype="multipart/form-data">  
@@ -87,7 +87,7 @@
 		</form>
 		</div>
 		
-		<div id="umeetw" class="easyui-window" title="添加发文"
+		<div id="umeetw" class="easyui-window" title="会议"
 			data-options="modal:true,closed:true,iconCls:'icon-save'"
 			style="width: 500px; height: 450px; padding: 10px;">
 		<form id="mconferenceForm" method="post" action="${basePath}/conference/addConference.do" enctype="multipart/form-data">  

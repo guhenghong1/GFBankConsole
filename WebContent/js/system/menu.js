@@ -32,15 +32,17 @@ var Menu = {
 			},
 			type:"post",
 			success : function(data) {
-				var data = JSON.parse(data);
+				var data = eval('('+data+')');
 				if(!!data.obj) {
 					var menu = data.obj;
-					$("#mmenuId").val(menu.menuId);
-					$("#mmenuName").val(menu.menuName);
-					$("#mlinkUrl").val(menu.linkUrl);
-					$("#mremark").val(menu.remark);
+					$("#mMenuw .mmenuId").val(menu.menuId);
+					$("#mMenuw .mmenuName").val(menu.menuName);
+					$("#mMenuw .mlinkUrl").val(menu.linkUrl);
+					$("#mMenuw .mremark").val(menu.remark);
 					
-					$('#msuperMenuId').combotree('setValue', menu.superMenuId);
+					$('#mMenuw .msuperMenuId').combotree('setValue', menu.superMenuId);
+					
+					$('#menua').treegrid('reload');
 				}
 			}
 		});
@@ -63,10 +65,10 @@ var Menu = {
 			},
 			success : function(data) {
 				console.log(data)
-				var data = JSON.parse(data);
+				var data = eval('('+data+')');
 				if(data.code == 1) {
 					Common.showMsg("删除成功");
-					$("#menu").treegrid("reload");
+					$('#menua').treegrid('reload');
 				} else {
 					Common.showMsg("删除失败");
 				}
@@ -84,12 +86,13 @@ var addMenu = function() {
 //	}
     $('#menuForm').form('submit',{
     	   success:function(data){
-    		   console.log(data);
-    		    data = JSON.parse(data);
+    		   data = JSON.parse(data);
+    		    //data = eval('('+data+')');
+    		   //alert(data);
     		    if(data.code == 1) {
     		    	Common.showMsg("添加成功");
     		    	$("#menuw").window("close");
-    		    	$("#menu").treegrid("reload");
+    		    	$('#menua').treegrid('reload');
     		    } else {
     		    	Common.showMsg("添加失败");
     		    }
@@ -101,11 +104,11 @@ var addMenu = function() {
 var updateMenu = function() {
 	$('#mMenuForm').form('submit',{
 		success:function(data){
-			data = JSON.parse(data);
+			data = eval('('+data+')');
 			if(data.code == 1) {
 				Common.showMsg("修改成功");
 				$("#mMenuw").window("close");
-				$("#menu").treegrid("reload");
+				$('#menua').treegrid('reload');
 			} else {
 				Common.showMsg("修改失败");
 			}

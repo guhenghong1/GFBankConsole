@@ -36,13 +36,13 @@ public class CommonMapperTest {
 	
 	@Test
 	public void testGetMaxId(){
-		String maxId = commonMapper.getMaxId("tb_conference");
+		long maxId = commonMapper.getMaxId("tb_conference");
 		System.out.println("maxId：" + maxId);
 	}
 	
 	@Test
 	public void testGetMaxIdSate(){
-		String maxId = commonMapper.getMaxIdState("tb_dept", "deptId");
+		long maxId = commonMapper.getMaxIdState("tb_dept", "deptId");
 		System.out.println("maxId：" + maxId);
 	}
 

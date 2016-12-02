@@ -1,10 +1,13 @@
 package com.bank.console.equipment.controller;
 
+import java.io.File;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.context.annotation.Scope;
@@ -13,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bank.console.common.ConfigProperty;
 import com.bank.console.common.Constant;
+import com.bank.console.common.FilePath;
 import com.bank.console.common.PageCalc;
 import com.bank.console.common.Pager;
 import com.bank.console.common.interceptor.Permission;
@@ -22,6 +27,7 @@ import com.bank.console.common.util.ResultUtil;
 import com.bank.console.equipment.model.Equipment;
 import com.bank.console.equipment.service.EquipmentService;
 import com.bank.console.equipment.vo.EquipmentVo;
+import com.bank.console.system.form.UserForm;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -51,12 +57,14 @@ public class EquipmentController {
 	@ResponseBody
 	public String getEquipmentList(@RequestParam("location") String location,
 			@RequestParam("name") String name, 			
+			@RequestParam("inUse") String inUse, 			
 			@RequestParam(value="pageNum", defaultValue="1") String pageNum,
 			@RequestParam(value="pageSize", defaultValue="10") String pageSize) {
 		
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("location", location); 
 		param.put("name", name); 
+		param.put("inUse", inUse); 
 		
 		int total = equipmentService.getEquipmentSum(param);
 		
@@ -128,4 +136,29 @@ public class EquipmentController {
 		return JSONObject.fromObject(result).toString();
 	}
 
+	@Permission
+	@RequestMapping("/createCSV")
+	@ResponseBody
+	public String createCSV(@RequestParam("location") String location,
+			@RequestParam("name") String name, 			
+			@RequestParam("inUse") String inUse, 			
+			@RequestParam(value="pageNum", defaultValue="1") String pageNum,
+			@RequestParam(value="pageSize", defaultValue="10") String pageSize,
+			HttpServletResponse resp) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("location", location); 
+		param.put("name", name); 
+		param.put("inUse", inUse); 
+		
+		param.put("startRow", 0);
+		param.put("endRow", 10000);
+		
+		String path = ConfigProperty.EXPORT_FILE_PATH + File.separator + FilePath.EXPORT_EQUIPMENT + File.separator 
+				+ DateUtil.formateDateToStr(new Date(), DateUtil.str2DayFormate)+File.separator;
+		String fileName = "equipment-"+DateUtil.formateDateToStr(new Date(), DateUtil.str2DateFormate);
+		path = path.replace("\\", "/");
+		File file = equipmentService.createCSVData(param, path, fileName);
+		
+		return file.getPath();
+	}
 }

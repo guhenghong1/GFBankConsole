@@ -1,13 +1,14 @@
 package com.bank.console.business.model;
 
 public class Dictionary {
-	private String id;
+	private long id;
 	private String name;
 	private int type;
-	public String getId() {
+
+	public long getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	public String getName() {

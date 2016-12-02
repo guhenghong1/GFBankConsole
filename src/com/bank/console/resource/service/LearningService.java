@@ -16,6 +16,7 @@ import com.bank.console.common.util.FileUtil;
 import com.bank.console.mapper.LearningMapper;
 import com.bank.console.resource.form.LearningForm;
 import com.bank.console.resource.vo.LearningVO;
+import com.bank.console.system.service.TableIdService;
 
 @Service
 public class LearningService {
@@ -23,8 +24,10 @@ public class LearningService {
 	private LearningMapper learningMapper;
 	@Autowired
 	private CommonService commonService;
+//	@Autowired
+//	private TableIdService tableIdService;
 	
-	private static final String TABLENAME = "tb_learning_materials";
+	private static final String TABLE_NAME = "tb_learning_materials";
 	
 	/**
 	 * 新增
@@ -33,7 +36,7 @@ public class LearningService {
 	 * @throws Exception 
 	 */
 	public int addLearning(LearningForm form) throws Exception {
-		String nextId = commonService.getNextId(TABLENAME);
+		String nextId = commonService.getNextId(TABLE_NAME) + "";
 		form.setId(nextId);
 		
 		String path = ConfigProperty.UPLOAD_FILE_PATH + File.separator + FilePath.LEARN_FILE + File.separator 
